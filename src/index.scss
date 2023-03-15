@@ -1,3 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,800;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap');
+// import Swiper styles
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary: linear-gradient(251.06deg, #2B0D6A 19.23%, #000000 100%);
+  --secondary:
+    linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
+  --liNav1: -o-linear-gradient(235.79deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
+  --liNav2: linear-gradient(214.21deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
+  --searchNav: linear-gradient(267.61deg, rgba(254, 254, 254, 0.152) 11.86%, rgba(254, 254, 254, 0.092) 103.83%, rgba(254, 254, 254, 0.2) 103.83%);
+  --title: linear-gradient(180deg, #6A9CFF 0%, #4AFFE9 100%)
+}
+
+@layer {
+  html {
+    background-image: var(--primary);
+    height: 100vh;
+    background-attachment: fixed;
+  }
+
+  html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+  }
+
+  html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .15);
+  }
+
+  html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  body {
+    @apply font-body;
+  }
+}
+
+
+.navigation>li {
+  background: var(--liNav1);
+  background: var(--liNav2);
+  font-weight: 600;
+
+  .navigation>li,
+  .title {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  font-size: 22px;
+  font-style: normal;
+  display: inline-block;
+  margin-right: 32px;
+  user-select: none;
+  cursor: pointer;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.navigation>li>p {
+  display: flex;
+  align-items: center;
+
+  &>i {
+    margin-left: 8px;
+  }
+}
+
+.search-bar {
+
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 12px 22px 12px 12px;
+}
+
+.title {
+  background: var(--title);
+}
+
+.navigation>li,
+.title {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.discover {
+  border-radius: 7px;
+  border: 1px solid rgb(195, 195, 195, 0.5);
+}
+
+.search-bar,
+.discover {
+  background: var(--searchNav);
+  backdrop-filter: blur(2px);
+}
+
+.mySwiper {
+  height: calc(100vh - 75px);
+}
+
+.swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: white !important;
+}
