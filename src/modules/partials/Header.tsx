@@ -9,11 +9,9 @@ import SearchBar from "components/search/SearchBar";
 import { INavigationItem } from "utils/listProps";
 import { LIST_NAVIGATION } from "utils/arrayList";
 
-
-
 const Header = () => {
   return (
-    <div className="mx-36 mt-[27px] flex items-center justify-between">
+    <div className="mx-36 flex items-center justify-between">
       <div className="flex items-center">
         <div className="text-[32px] font-bold">
           <p className="text-[#BFBFBF]">
@@ -21,7 +19,43 @@ const Header = () => {
           </p>
         </div>
         <ul className="navigation ml-9">
-          {LIST_NAVIGATION.map((item: INavigationItem, index: number) => (
+          <li>
+            <p>
+              Style
+              <i>
+                <IconArrowDown />
+              </i>
+            </p>
+            <ul className="navigation-list_item">
+              <li>sdkfsdkfjdf</li>
+              <li>sdlfksdfjsdkfdsjf</li>
+            </ul>
+          </li>
+          <li>
+            <p>
+              Collection
+              <i>
+                <IconArrowDown />
+              </i>
+            </p>
+          </li>
+          <li>
+            <p>
+              Style
+              <i>
+                <IconArrowDown />
+              </i>
+            </p>
+          </li>
+          <li>
+            <p>
+              Style
+              <i>
+                <IconArrowDown />
+              </i>
+            </p>
+          </li>
+          {/* {LIST_NAVIGATION.map((item: INavigationItem, index: number) => (
             <li key={index}>
               <p>
                 {item.title}
@@ -29,8 +63,12 @@ const Header = () => {
                   <IconArrowDown />
                 </i>
               </p>
+              <ul>
+                <li>black and white</li>
+                <li>white and black</li>
+              </ul>
             </li>
-          ))}
+          ))} */}
         </ul>
       </div>
       <div className="flex items-center gap-8">

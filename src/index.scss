@@ -7,12 +7,13 @@
 
 :root {
   --primary: linear-gradient(251.06deg, #2B0D6A 19.23%, #000000 100%);
+  --cardImg: linear-gradient(to right bottom, #2B0D6A 19.23%, #000000 100%);
   --secondary:
     linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
   --liNav1: -o-linear-gradient(235.79deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
   --liNav2: linear-gradient(214.21deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
   --searchNav: linear-gradient(267.61deg, rgba(254, 254, 254, 0.152) 11.86%, rgba(254, 254, 254, 0.092) 103.83%, rgba(254, 254, 254, 0.2) 103.83%);
-  --title: linear-gradient(180deg, #6A9CFF 0%, #4AFFE9 100%)
+  --title: linear-gradient(180deg, #6A9CFF 0%, #4AFFE9 100%);
 }
 
 @layer {
@@ -47,6 +48,8 @@
   background: var(--liNav1);
   background: var(--liNav2);
   font-weight: 600;
+  line-height: 80px;
+  position: relative;
 
   .navigation>li,
   .title {
@@ -77,6 +80,11 @@
   }
 }
 
+.navigation>li>.navigation-list_item {
+  position: absolute;
+  color: white;
+}
+
 .search-bar {
 
   border-radius: 7px;
@@ -95,7 +103,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .discover {
@@ -110,7 +117,7 @@
 }
 
 .mySwiper {
-  height: calc(100vh - 75px);
+  height: calc(100vh - 115px);
 }
 
 .swiper-pagination-bullet {
@@ -119,4 +126,9 @@
 
 .swiper-pagination-bullet-active {
   background: white !important;
+}
+
+.card-img {
+  background-image: var(--cardImg);
+  border: 5px solid rgb(37, 30, 60, 0.3);
 }
