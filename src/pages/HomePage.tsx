@@ -1,17 +1,18 @@
 import { IconArrowRight, IconMouse } from "components/icon/Icon";
-import React from "react";
-// Import Swiper React components
+import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-
-// import required modules
-import { Mousewheel, Pagination } from "swiper";
+import { Mousewheel, Navigation, Pagination } from "swiper";
+import { useEffect } from "react";
 import CardImg from "components/card/CardImg";
-
+import { useTheme } from "components/context/ThemeProvider";
 const HomePage = () => {
+  const { setTheme } = useTheme();
+  useEffect(() => {
+    setTheme("primary");
+  }, [setTheme]);
+
   return (
-    <div className="mx-36 my-10">
+    <div className="home-page mx-36 mt-5">
       <Swiper
         direction={"vertical"}
         slidesPerView={1}
@@ -19,10 +20,10 @@ const HomePage = () => {
         pagination={{
           clickable: true,
         }}
-        modules={[Mousewheel, Pagination]}
+        modules={[Mousewheel, Pagination, Navigation]}
         className="mySwiper"
-      >
-        <SwiperSlide>
+        >
+          <SwiperSlide>
           <div className="banner relative h-full">
             <img
               srcSet="bg-banner.png 2x"

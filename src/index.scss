@@ -7,6 +7,7 @@
 
 :root {
   --primary: linear-gradient(251.06deg, #2B0D6A 19.23%, #000000 100%);
+  --secondary: linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
   --cardImg: linear-gradient(to right bottom, #2B0D6A 19.23%, #000000 100%);
   --secondary:
     linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
@@ -18,8 +19,6 @@
 
 @layer {
   html {
-    background-image: var(--primary);
-    height: 100vh;
     background-attachment: fixed;
   }
 
@@ -44,14 +43,13 @@
 }
 
 
-.navigation>li {
+.nav li {
   background: var(--liNav1);
   background: var(--liNav2);
   font-weight: 600;
-  line-height: 80px;
   position: relative;
 
-  .navigation>li,
+  .nav li,
   .title {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -71,7 +69,32 @@
   }
 }
 
-.navigation>li>p {
+.nav-item_list {
+  width: max-content;
+  padding: 10px;
+  position: absolute;
+  z-index: 10;
+  top: 140%;
+  background: white;
+  border-radius: 4px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s linear, opacity 0.3s linear;
+}
+
+.nav-item_list li {
+  display: block;
+  width: 100%;
+  margin-right: 0px;
+  line-height: 40px;
+}
+
+.nav li:hover .nav-item_list {
+  visibility: visible;
+  opacity: 1;
+}
+
+.nav li>p {
   display: flex;
   align-items: center;
 
@@ -80,13 +103,8 @@
   }
 }
 
-.navigation>li>.navigation-list_item {
-  position: absolute;
-  color: white;
-}
 
 .search-bar {
-
   border-radius: 7px;
   display: flex;
   align-items: center;
@@ -98,7 +116,7 @@
   background: var(--title);
 }
 
-.navigation>li,
+.nav li,
 .title {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

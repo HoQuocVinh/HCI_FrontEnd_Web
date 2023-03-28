@@ -3,11 +3,15 @@ import config from "configs";
 
 //* Pages
 const HomePage = lazy(() => import("pages/HomePage"));
+const StylePage = lazy(() => import("pages/StylePage"));
 
 //* Public routes
-const publicRoutes = [{ path: config.routes.home, component: HomePage }];
+const publicRoutes = [
+  { path: config.routes.home, component: HomePage },
+  { path: config.routes.style, component: StylePage },
+];
 
-//* Private routes
+//* Private routesconst
 const privateRoutes = [{}];
 
 export { publicRoutes, privateRoutes };

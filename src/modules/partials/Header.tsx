@@ -1,4 +1,3 @@
-import React from "react";
 import {
   IconArrowDown,
   IconCart,
@@ -6,69 +5,62 @@ import {
   IconUser,
 } from "components/icon/Icon";
 import SearchBar from "components/search/SearchBar";
-import { INavigationItem } from "utils/listProps";
-import { LIST_NAVIGATION } from "utils/arrayList";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className="mx-36 flex items-center justify-between">
+    <div className="mx-36 flex items-center justify-between py-5">
       <div className="flex items-center">
-        <div className="text-[32px] font-bold">
-          <p className="text-[#BFBFBF]">
-            Pal<span className="text-[#9997FF]">mo</span>
-          </p>
-        </div>
-        <ul className="navigation ml-9">
-          <li>
+        <Link to="/">
+          <div className="text-[32px] font-bold">
+            <p className="text-[#BFBFBF]">
+              Pal<span className="text-[#9997FF]">mo</span>
+            </p>
+          </div>
+        </Link>
+        <ul className="nav ml-9">
+          <li className="nav-item">
             <p>
               Style
               <i>
                 <IconArrowDown />
               </i>
             </p>
-            <ul className="navigation-list_item">
-              <li>sdkfsdkfjdf</li>
-              <li>sdlfksdfjsdkfdsjf</li>
+            <ul className="nav-item_list bg-white">
+              <li>
+                <Link to="style/black-and-white">Black and white</Link>
+              </li>
+              <li>Buffolo</li>
             </ul>
           </li>
-          <li>
+          <li className="nav-item">
             <p>
               Collection
               <i>
                 <IconArrowDown />
               </i>
             </p>
+            <ul className="nav-item_list bg-white">
+              <li>Chicken</li>
+              <li>Dog</li>
+            </ul>
           </li>
-          <li>
+          <li className="nav-item">
             <p>
-              Style
+              Gender
               <i>
                 <IconArrowDown />
               </i>
             </p>
           </li>
-          <li>
+          <li className="nav-item">
             <p>
-              Style
+              Age
               <i>
                 <IconArrowDown />
               </i>
             </p>
           </li>
-          {/* {LIST_NAVIGATION.map((item: INavigationItem, index: number) => (
-            <li key={index}>
-              <p>
-                {item.title}
-                <i>
-                  <IconArrowDown />
-                </i>
-              </p>
-              <ul>
-                <li>black and white</li>
-                <li>white and black</li>
-              </ul>
-            </li>
-          ))} */}
         </ul>
       </div>
       <div className="flex items-center gap-8">
