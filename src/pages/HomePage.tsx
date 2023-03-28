@@ -22,8 +22,8 @@ const HomePage = () => {
         }}
         modules={[Mousewheel, Pagination, Navigation]}
         className="mySwiper"
-        >
-          <SwiperSlide>
+      >
+        <SwiperSlide>
           <div className="banner relative h-full">
             <img
               srcSet="bg-banner.png 2x"
@@ -63,6 +63,7 @@ const HomePage = () => {
                   src="/img-card.png"
                   alt=""
                   borderRadius="rounded-xl"
+                  border
                 />
               ))}
           </div>

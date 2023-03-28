@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className="mx-36 flex items-center justify-between py-5">
+    <div className="mx-36 flex items-center justify-between pt-8 pb-5">
       <div className="flex items-center">
         <Link to="/">
           <div className="text-[32px] font-bold">

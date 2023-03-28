@@ -4,7 +4,7 @@ import { ListPropImg } from "utils/listProps";
 
 const CardImg = ({ src, alt, ...props }: ListPropImg) => {
   return (
-    <div className={classNames("card-img", { ...props })}>
+    <div className={classNames(props.border && "card-img", { ...props })}>
       <img
         src={src}
         alt={alt}
