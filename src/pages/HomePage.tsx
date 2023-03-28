@@ -1,29 +1,30 @@
 import { IconArrowRight, IconMouse } from "components/icon/Icon";
-import React from "react";
-// Import Swiper React components
+import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-
-// import required modules
-import { Mousewheel, Pagination } from "swiper";
-
+import { Mousewheel, Navigation, Pagination } from "swiper";
+import { useEffect } from "react";
+import CardImg from "components/card/CardImg";
+import { useTheme } from "components/context/ThemeProvider";
 const HomePage = () => {
+  const { setTheme } = useTheme();
+  useEffect(() => {
+    setTheme("primary");
+  }, [setTheme]);
+
   return (
-    <div className="mx-36">
+    <div className="home-page mx-36 mt-5">
       <Swiper
         direction={"vertical"}
         slidesPerView={1}
-        // spaceBetween={30}
         mousewheel={true}
         pagination={{
           clickable: true,
         }}
-        modules={[Mousewheel, Pagination]}
+        modules={[Mousewheel, Pagination, Navigation]}
         className="mySwiper"
       >
         <SwiperSlide>
-          <div className="banner r elative h-full">
+          <div className="banner relative h-full">
             <img
               srcSet="bg-banner.png 2x"
               alt=""
@@ -51,14 +52,63 @@ const HomePage = () => {
             </i>
           </div>
         </SwiperSlide>
-        <SwiperSlide className="bg-white">Slide 2</SwiperSlide>
-        <SwiperSlide className="bg-white">Slide 3</SwiperSlide>
-        <SwiperSlide className="bg-white">Slide 4</SwiperSlide>
-        <SwiperSlide className="bg-white">Slide 5</SwiperSlide>
-        <SwiperSlide className="bg-white">Slide 6</SwiperSlide>
-        <SwiperSlide className="bg-white">Slide 7</SwiperSlide>
-        <SwiperSlide className="bg-white">Slide 8</SwiperSlide>
-        <SwiperSlide className="bg-white">Slide 9</SwiperSlide>
+        <SwiperSlide className="bg-transparent">
+          <div className="grid grid-cols-4 gap-y-10">
+            {Array(8)
+              .fill(0)
+              .map((item: any, index: number) => (
+                <CardImg
+                  width="w-[230px]"
+                  height="h-[260px]"
+                  src="/img-card.png"
+                  alt=""
+                  borderRadius="rounded-xl"
+                  border
+                />
+              ))}
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className="bg-transpaent">
+          <div className="mr-[74px] grid grid-cols-3 gap-x-9">
+            <img
+              src="https://images.unsplash.com/photo-1678727467533-832025188145?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+              alt=""
+              className="h-full w-full object-cover"
+            />
+            <div className="grid grid-rows-2 gap-y-9">
+              <div className="h-[260px]">
+                <img
+                  src="https://images.unsplash.com/photo-1678727467533-832025188145?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                  className="h-full w-full object-cover"
+                  alt=""
+                />
+              </div>
+              <div className="h-[260px]">
+                <img
+                  src="https://images.unsplash.com/photo-1678727467533-832025188145?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                  className="h-full w-full object-cover"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div className="grid-row-3 grid gap-y-9">
+              <div className="row-span-1 h-[173px]">
+                <img
+                  src="https://images.unsplash.com/photo-1678727467533-832025188145?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                  alt=""
+                  className="object-over h-full w-full"
+                />
+              </div>
+              <div className="row-span-2 h-[347px]">
+                <img
+                  src="https://images.unsplash.com/photo-1678727467533-832025188145?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                  alt=""
+                  className="object-over h-full w-full"
+                />
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>
       </Swiper>
     </div>
   );

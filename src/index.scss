@@ -7,18 +7,19 @@
 
 :root {
   --primary: linear-gradient(251.06deg, #2B0D6A 19.23%, #000000 100%);
+  --secondary: linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
+  --cardImg: linear-gradient(to right bottom, #2B0D6A 19.23%, #000000 100%);
   --secondary:
     linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
   --liNav1: -o-linear-gradient(235.79deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
   --liNav2: linear-gradient(214.21deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
   --searchNav: linear-gradient(267.61deg, rgba(254, 254, 254, 0.152) 11.86%, rgba(254, 254, 254, 0.092) 103.83%, rgba(254, 254, 254, 0.2) 103.83%);
-  --title: linear-gradient(180deg, #6A9CFF 0%, #4AFFE9 100%)
+  --title: linear-gradient(180deg, #6A9CFF 0%, #4AFFE9 100%);
+  --titleStylePage: linear-gradient(150.91deg, #FFFFFF 40.46%, #FFF1F1 46.62%, #7A7A7A 46.62%, #000000 46.62%);
 }
 
 @layer {
   html {
-    background-image: var(--primary);
-    height: 100vh;
     background-attachment: fixed;
   }
 
@@ -43,12 +44,13 @@
 }
 
 
-.navigation>li {
+.nav li {
   background: var(--liNav1);
   background: var(--liNav2);
   font-weight: 600;
+  position: relative;
 
-  .navigation>li,
+  .nav li,
   .title {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -68,7 +70,32 @@
   }
 }
 
-.navigation>li>p {
+.nav-item_list {
+  width: max-content;
+  padding: 10px;
+  position: absolute;
+  z-index: 10;
+  top: 140%;
+  background: white;
+  border-radius: 4px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s linear, opacity 0.3s linear;
+}
+
+.nav-item_list li {
+  display: block;
+  width: 100%;
+  margin-right: 0px;
+  line-height: 40px;
+}
+
+.nav li:hover .nav-item_list {
+  visibility: visible;
+  opacity: 1;
+}
+
+.nav li>p {
   display: flex;
   align-items: center;
 
@@ -77,8 +104,8 @@
   }
 }
 
-.search-bar {
 
+.search-bar {
   border-radius: 7px;
   display: flex;
   align-items: center;
@@ -90,12 +117,16 @@
   background: var(--title);
 }
 
-.navigation>li,
-.title {
+.title-style-page {
+  background: var(--titleStylePage);
+}
+
+.nav li,
+.title,
+.title-style-page {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .discover {
@@ -110,7 +141,7 @@
 }
 
 .mySwiper {
-  height: calc(100vh - 75px);
+  height: calc(100vh - 115px);
 }
 
 .swiper-pagination-bullet {
@@ -119,4 +150,15 @@
 
 .swiper-pagination-bullet-active {
   background: white !important;
+}
+
+.card-img {
+  background-image: var(--cardImg);
+  border: 5px solid rgb(37, 30, 60, 0.3);
+}
+
+
+.card-product:hover>.choose-size {
+  transform: translateY(-100%);
+  transition: all 0.3s;
 }

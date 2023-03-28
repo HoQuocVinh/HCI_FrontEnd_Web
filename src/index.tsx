@@ -5,13 +5,16 @@ import "./index.scss";
 import App from "./App";
 import "swiper/css";
 import "swiper/css/pagination";
+import { ThemeProvider } from "components/context/ThemeProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  <Router>
-    <App />
-  </Router>
+  <ThemeProvider>
+    <Router>
+      <App />
+    </Router>
+  </ThemeProvider>
 );

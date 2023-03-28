@@ -7,7 +7,7 @@ const Footer = () => {
   const { register, handleSubmit } = useForm();
   const onSubmit = (values: any) => console.log(values);
   return (
-    <div className="mx-36">
+    <div className="mx-36 mt-10">
       <div className="flex items-center justify-between">
         {Array(5)
           .fill(0)

@@ -8,4 +8,5 @@ export interface ListPropImg {
   src: string;
   alt?: string;
   borderRadius?: string;
+  border?: boolean;
 }
