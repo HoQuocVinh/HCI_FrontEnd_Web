@@ -20,6 +20,7 @@
 @layer {
   html {
     background-attachment: fixed;
+    height: 100vh;
   }
 
   html *::-webkit-scrollbar {
@@ -82,6 +83,11 @@
   transition: visibility 0.3s linear, opacity 0.3s linear;
 }
 
+.thumb-end_time,
+.thumb-end_line {
+  transition: visibility 0.3s linear, opacity 0.3s linear;
+}
+
 .nav-item_list li {
   display: block;
   width: 100%;
@@ -124,7 +130,7 @@
 }
 
 .discover {
-  border-radius: 7px;
+  border-radius: 10px;
   border: 1px solid rgb(195, 195, 195, 0.5);
 }
 
@@ -134,19 +140,138 @@
   backdrop-filter: blur(2px);
 }
 
+//* Custom <Swiper></Swiper>
 .mySwiper {
-  height: calc(100vh - 115px);
+  height: 600px;
 }
 
+//* custom swiper-slide of <SwiperSide></SwiperSlide>
+.swiper-slide {
+  padding-bottom: 20px;
+
+  &:first-child,
+  &:first-child {
+    padding-bottom: 0;
+  }
+}
+
+//* Custom pagination of Swiper
 .swiper-pagination-bullet {
-  background: rgba(255, 255, 255, 0.5) !important;
+  background-color: rgba(255, 255, 255, 0.07);
 }
 
 .swiper-pagination-bullet-active {
-  background: white !important;
+  background: #D4C2FA !important;
 }
 
 .card-img {
   background-image: var(--cardImg);
   border: 5px solid rgb(37, 30, 60, 0.3);
 }
+
+#test {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-test);
+}
+
+// #progress-bar {
+//   /* Thay đổi màu của track */
+//   --range-track-color: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.67), rgba(255, 255, 255, 0));
+//   /* Thay đổi màu của thumb */
+//   --range-thumb-color: black;
+//   width: 100%;
+//   // height: 1px;
+
+//   &::-webkit-slider-thumb {
+//     background-color: var(--range-thumb-color);
+//   }
+
+//   &::-moz-range-thumb {
+//     background-color: var(--range-thumb-color);
+//   }
+
+//   &::-ms-thumb {
+//     background-color: var(--range-thumb-color);
+//   }
+
+//   &::-webkit-slider-runnable-track {
+//     background-color: var(--range-track-color);
+//   }
+
+//   &::-moz-range-track {
+//     background-color: var(--range-track-color);
+//   }
+
+//   &::-ms-track {
+//     background-color: var(--range-track-color);
+//   }
+// }
+
+#progress-bar {
+  --range-track-color: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.67), rgba(255, 255, 255, 0));
+
+  height: 1px;
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-progress-appearance: none;
+  appearance: none;
+  background: var(--range-track-color);
+  position: relative;
+  will-change: transform;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 999px;
+    box-shadow: 0 0 0 6px black, 0 0 0 8px white;
+    cursor: pointer;
+  }
+}
+
+.thumb {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider {
+  position: relative;
+  height: 5px;
+  background-color: #ddd;
+}
+
+.slider .thumb {
+  top: -8px;
+}
+
+
+// .slider {
+//   --range-track-color: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.67), rgba(255, 255, 255, 0));
+//   height: 100px;
+//   width: 100%;
+//   background: var(--range-track-color);
+//   position: relative;
+//   margin: 20px auto;
+//   cursor: pointer;
+// }
+
+// .thumb {
+//   user-select: none;
+//   width: 10px;
+//   height: 10px;
+//   background-color: white;
+//   border-radius: 999px;
+//   box-shadow: 0 0 0 6px black, 0 0 0 8px white;
+//   cursor: pointer;
+//   position: absolute;
+//   top: -5px;
+//   left: 0;
+// }

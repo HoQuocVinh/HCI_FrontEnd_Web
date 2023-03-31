@@ -3,9 +3,19 @@ export interface INavigationItem {
 }
 
 export interface ListPropImg {
-  width: string;
-  height: string;
-  src: string;
+  width?: string;
+  height?: string;
+  src?: string;
+  srcSet?: string;
+  full?: boolean;
   alt?: string;
   borderRadius?: string;
+}
+
+export interface LPButton {
+  children: React.ReactNode;
+  bg?: "purple" | "blueBlack";
+  variant?: "normal";
+  shadow?: "s1";
+  classNames?: string;
 }
