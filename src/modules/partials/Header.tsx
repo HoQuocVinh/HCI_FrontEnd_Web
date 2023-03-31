@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className="mx-36 flex items-center justify-between pt-8 pb-5">
+    <header className="mx-36 flex items-center justify-between py-5">
       <div className="flex items-center">
-        <Link to="/">
+        <Link to="/" tabIndex={-1}>
           <div className="text-[32px] font-bold">
             <p className="text-[#BFBFBF]">
               Pal<span className="text-[#9997FF]">mo</span>
@@ -75,7 +75,7 @@ const Header = () => {
           <IconCart />
         </i>
       </div>
-    </div>
+    </header>
   );
 };
 
