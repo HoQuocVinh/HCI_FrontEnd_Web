@@ -30,6 +30,9 @@ const HomePage = () => {
         className="mySwiper"
       >
         <SwiperSlide>
+          <Slide1 />
+        </SwiperSlide>
+        <SwiperSlide>
           <Slide2 />
         </SwiperSlide>
         <SwiperSlide>

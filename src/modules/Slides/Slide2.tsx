@@ -13,6 +13,7 @@ const Slide2 = () => {
             height="h-[260px]"
             src="/img-card.png"
             alt=""
+            border
             borderRadius="rounded-xl"
           />
         ))}
