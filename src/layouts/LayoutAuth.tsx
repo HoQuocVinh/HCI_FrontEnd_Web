@@ -1,9 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const LayoutAuth = () => {
   return (
     <div>
       <div className="fixed inset-0 flex">
+        <div className="absolute left-5 top-5">
+          <Link to="/">
+            <img srcSet="/palmo.png 2x" alt="" />
+          </Link>
+        </div>
         <div className="flex w-[60%] items-center justify-center">
           <Outlet />
         </div>
