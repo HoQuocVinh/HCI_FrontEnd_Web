@@ -65,9 +65,9 @@ const Header = () => {
       </div>
       <div className="flex items-center gap-8">
         <SearchBar />
-        <i>
+        <Link to="signin">
           <IconUser />
-        </i>
+        </Link>
         <i>
           <IconHeart />
         </i>

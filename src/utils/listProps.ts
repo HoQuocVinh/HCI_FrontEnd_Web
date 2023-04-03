@@ -20,3 +20,20 @@ export interface LPButton {
   shadow?: "s1";
   classNames?: string;
 }
+
+export interface LPAuthFormField {
+  signup?: boolean;
+  signin?: boolean;
+  forgot?: boolean;
+  btName: "Sign in" | "Sign up";
+  formPropmt?: string;
+}
+
+export interface LPAuthInput {
+  name: string;
+  control: any;
+  type: string;
+  placeholder: string;
+  id: string;
+  error?: any;
+}
