@@ -11,7 +11,7 @@ const StylePage = () => {
     setTheme("secondary");
   }, [setTheme]);
   const location = useLocation();
-  console.log(location);
+
   return (
     <div className="mx-36 pt-10">
       <div className="w-full">
