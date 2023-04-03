@@ -71,6 +71,11 @@ const AuthFormField = (props: LPAuthFormField) => {
               Sign up for free
             </Link>
           )}
+          {props.signin && (
+            <Link to="/signin" className="font-semibold">
+              Sign in
+            </Link>
+          )}
         </div>
       </div>
     </form>
