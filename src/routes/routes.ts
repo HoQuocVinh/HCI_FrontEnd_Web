@@ -5,6 +5,7 @@ import config from "configs";
 const HomePage = lazy(() => import("pages/HomePage"));
 const StylePage = lazy(() => import("pages/StylePage"));
 const SignInPage = lazy(() => import("pages/SignInPage"));
+const SignUpPage = lazy(() => import("pages/SignUpPage"));
 
 //* Public routes
 const publicRoutes = [
@@ -12,7 +13,10 @@ const publicRoutes = [
   { path: config.routes.style, component: StylePage },
 ];
 
-const authRoutes = [{ path: config.routes.signin, component: SignInPage }];
+const authRoutes = [
+  { path: config.routes.signin, component: SignInPage },
+  { path: config.routes.signup, component: SignUpPage },
+];
 
 //* Private routesconst
 const privateRoutes = [{}];
