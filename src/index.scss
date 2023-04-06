@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,800;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap');
+@import '../node_modules/tippy.js/dist/tippy.css';
 // import Swiper styles
 @tailwind base;
 @tailwind components;
@@ -12,9 +13,9 @@
   --cardImg: linear-gradient(to right bottom, #2B0D6A 19.23%, #000000 100%);
   --secondary:
     linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
-  --liNav1: -o-linear-gradient(235.79deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
-  --liNav2: linear-gradient(214.21deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
-  --searchNav: linear-gradient(267.61deg, rgba(254, 254, 254, 0.152) 11.86%, rgba(254, 254, 254, 0.092) 103.83%, rgba(254, 254, 254, 0.2) 103.83%);
+  --limenu1: -o-linear-gradient(235.79deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
+  --limenu2: linear-gradient(214.21deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
+  --searchmenu: linear-gradient(267.61deg, rgba(254, 254, 254, 0.152) 11.86%, rgba(254, 254, 254, 0.092) 103.83%, rgba(254, 254, 254, 0.2) 103.83%);
   --title: linear-gradient(180deg, #6A9CFF 0%, #4AFFE9 100%);
   --titleStylePage: linear-gradient(150.91deg, #FFFFFF 40.46%, #FFF1F1 46.62%, #7A7A7A 46.62%, #000000 46.62%);
 }
@@ -22,7 +23,8 @@
 @layer {
   html {
     background-attachment: fixed;
-    height: 100vh;
+    // height: 100vh;
+    // height: 100%;
   }
 
   html *::-webkit-scrollbar {
@@ -45,72 +47,91 @@
   }
 }
 
+.menu__item {
+  --primary-l: 70%;
+  color: hsl(216, 12%, var(--primary-l));
+  font-weight: 500;
+  font-size: 20px;
+  display: inline-block;
 
-.nav li {
-  background: var(--liNav1);
-  background: var(--liNav2);
-  font-weight: 600;
-  position: relative;
-
-  .nav li,
-  .title {
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  &>a {
+    padding: 10px 15px;
   }
 
-  font-size: 22px;
-  font-style: normal;
-  display: inline-block;
-  margin-right: 32px;
-  user-select: none;
-  cursor: pointer;
+  &:hover {
+    --primary-l: 100%;
 
-  &:last-child {
-    margin-right: 0;
+    .menu__child {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .menu__icon {
+      transform: rotate(180deg);
+    }
   }
 }
 
-.nav-item_list {
-  width: max-content;
+.menu__icon {
+  transition: transform .3s linear;
+}
+
+.menu__child {
+  z-index: 20;
+  top: 100%;
   padding: 10px;
-  position: absolute;
-  z-index: 10;
-  top: 140%;
-  background: white;
-  border-radius: 4px;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.3s linear, opacity 0.3s linear;
+  color: black;
+  background-color: white;
+  transition: transform .3s linear, visibility .3s linear, opacity .3s linear;
+  transform: translateY(20px);
 }
+
+.menu__child::before {
+  content: "";
+  top: 0;
+  height: 23px;
+  transform: translateY(-100%);
+  background-color: transparent;
+}
+
+.menu__child,
+.menu__child::before {
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+.menu__child-item {
+  width: 25%;
+  font-size: 18px;
+}
+
+.menu__child-item-heading {
+  font-weight: 600;
+  color: hsl(259, 78%, 50%);
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.menu__child-item-list>li {
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.15s linear;
+
+  &>a:hover {
+    color: hsl(259, 78%, 50%);
+  }
+}
+
+
 
 .thumb-end_time,
 .thumb-end_line {
   transition: visibility 0.3s linear, opacity 0.3s linear;
 }
-
-.nav-item_list li {
-  display: block;
-  width: 100%;
-  margin-right: 0px;
-  line-height: 40px;
-}
-
-.nav li:hover .nav-item_list {
-  visibility: visible;
-  opacity: 1;
-}
-
-.nav li>p {
-  display: flex;
-  align-items: center;
-
-  &>i {
-    margin-left: 8px;
-  }
-}
-
 
 .search-bar {
   border-radius: 7px;
@@ -128,7 +149,7 @@
   background: var(--titleStylePage);
 }
 
-.nav li,
+// .menu li,
 .title,
 .title-style-page {
   -webkit-background-clip: text;
@@ -143,13 +164,13 @@
 
 .search-bar,
 .discover {
-  background: var(--searchNav);
+  background: var(--searchmenu);
   backdrop-filter: blur(2px);
 }
 
 //* Custom <Swiper></Swiper>
 .mySwiper {
-  height: 600px;
+  height: 629px;
 }
 
 //* custom swiper-slide of <SwiperSide></SwiperSlide>
@@ -182,44 +203,6 @@
   transition: all 0.3s;
 }
 
-#test {
-  width: 100%;
-  height: 100%;
-  background: var(--bg-test);
-}
-
-// #progress-bar {
-//   /* Thay đổi màu của track */
-//   --range-track-color: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.67), rgba(255, 255, 255, 0));
-//   /* Thay đổi màu của thumb */
-//   --range-thumb-color: black;
-//   width: 100%;
-//   // height: 1px;
-
-//   &::-webkit-slider-thumb {
-//     background-color: var(--range-thumb-color);
-//   }
-
-//   &::-moz-range-thumb {
-//     background-color: var(--range-thumb-color);
-//   }
-
-//   &::-ms-thumb {
-//     background-color: var(--range-thumb-color);
-//   }
-
-//   &::-webkit-slider-runnable-track {
-//     background-color: var(--range-track-color);
-//   }
-
-//   &::-moz-range-track {
-//     background-color: var(--range-track-color);
-//   }
-
-//   &::-ms-track {
-//     background-color: var(--range-track-color);
-//   }
-// }
 
 #progress-bar {
   --range-track-color: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.67), rgba(255, 255, 255, 0));
@@ -264,27 +247,3 @@
 .slider .thumb {
   top: -8px;
 }
-
-
-// .slider {
-//   --range-track-color: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.67), rgba(255, 255, 255, 0));
-//   height: 100px;
-//   width: 100%;
-//   background: var(--range-track-color);
-//   position: relative;
-//   margin: 20px auto;
-//   cursor: pointer;
-// }
-
-// .thumb {
-//   user-select: none;
-//   width: 10px;
-//   height: 10px;
-//   background-color: white;
-//   border-radius: 999px;
-//   box-shadow: 0 0 0 6px black, 0 0 0 8px white;
-//   cursor: pointer;
-//   position: absolute;
-//   top: -5px;
-//   left: 0;
-// }

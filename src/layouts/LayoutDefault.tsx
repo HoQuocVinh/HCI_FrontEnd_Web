@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "modules/partials/Footer";
 import Header from "modules/partials/Header";
 import { useTheme } from "components/context/ThemeProvider";
@@ -9,12 +9,12 @@ const LayoutDefault = () => {
   useEffect(() => {
     document.documentElement.style.setProperty("background", `var(--${theme})`);
   }, [theme]);
-
+  const location = useLocation();
   return (
     <div>
       <Header />
       <Outlet />
-      {/* <Footer /> */}
+      {location.pathname !== "/" && <Footer />}
     </div>
   );
 };
