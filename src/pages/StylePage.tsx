@@ -13,7 +13,7 @@ const StylePage = () => {
   const location = useLocation();
 
   return (
-    <div className="mx-36 pt-10">
+    <div className="mx-36 mt-[90px] pt-10">
       <div className="w-full">
         <div>
           <strong className="block text-[180px] font-bold leading-none text-white">

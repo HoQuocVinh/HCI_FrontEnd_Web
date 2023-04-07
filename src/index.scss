@@ -47,6 +47,16 @@
   }
 }
 
+@layer header {
+  .cl-primary {
+    background: var(--primary);
+  }
+
+  .cl-secondary {
+    background: var(--secondary);
+  }
+}
+
 .menu__item {
   --primary-l: 70%;
   color: hsl(216, 12%, var(--primary-l));

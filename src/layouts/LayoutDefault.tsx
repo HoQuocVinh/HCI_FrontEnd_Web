@@ -12,7 +12,9 @@ const LayoutDefault = () => {
   const location = useLocation();
   return (
     <div>
-      <Header />
+      <div className="fixed z-20 w-full top-0">
+        <Header />
+      </div>
       <Outlet />
       {location.pathname !== "/" && <Footer />}
     </div>

@@ -1,6 +1,6 @@
 import { animated, useSpring } from "@react-spring/web";
 import Tippy from "@tippyjs/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Navigation from "common/Navigation";
 import {
@@ -12,12 +12,21 @@ import {
 } from "components/icon/Icon";
 import SearchBar from "components/search/SearchBar";
 import { useState } from "react";
+import classNames from "utils/classNames";
 
 const Header = () => {
   const [user, setUser] = useState<boolean>(true);
+  const { pathname } = useLocation();
+  console.log(pathname);
 
   return (
-    <header className="relative">
+    <div
+      className={classNames(
+        "relative",
+        pathname === "/" && "cl-primary",
+        pathname === "/style/black-and-white" && "cl-secondary"
+      )}
+    >
       <div className="mx-auto flex max-w-6xl items-center justify-between py-5">
         <div className="flex items-center">
           <Link to="/" className="mr-5">
@@ -46,7 +55,7 @@ const Header = () => {
           </Tippy>
         </div>
       </div>
-    </header>
+    </div>
   );
 };
 

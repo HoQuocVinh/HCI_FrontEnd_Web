@@ -16,7 +16,7 @@ const HomePage = () => {
   const handleValueChange = (value: number) => console.log(value);
 
   return (
-    <div className="wrapper-slide mx-32 px-5 pt-5">
+    <div className="wrapper-slide mx-32 mt-[90px] px-5 pt-5">
       <Swiper
         direction={"vertical"}
         slidesPerView={1}
