@@ -6,6 +6,7 @@ const HomePage = lazy(() => import("pages/HomePage"));
 const StylePage = lazy(() => import("pages/StylePage"));
 const SignInPage = lazy(() => import("pages/SignInPage"));
 const SignUpPage = lazy(() => import("pages/SignUpPage"));
+const ProfilePage = lazy(() => import("pages/ProfilePage"));
 
 //* Public routes
 const publicRoutes = [
@@ -13,6 +14,10 @@ const publicRoutes = [
   { path: config.routes.style, component: StylePage },
 ];
 
+//* Profile routes
+const profileRouters = [
+  { path: config.routes.profile, component: ProfilePage },
+];
 const authRoutes = [
   { path: config.routes.signin, component: SignInPage },
   { path: config.routes.signup, component: SignUpPage },
@@ -21,4 +26,4 @@ const authRoutes = [
 //* Private routesconst
 const privateRoutes = [{}];
 
-export { publicRoutes, authRoutes, privateRoutes };
+export { publicRoutes, authRoutes, privateRoutes, profileRouters };
