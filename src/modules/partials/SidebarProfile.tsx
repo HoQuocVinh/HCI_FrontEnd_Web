@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classNames from "utils/classNames";
 
 type SidebarProps = {
@@ -35,7 +34,7 @@ function SidebarProfile({ pathName }: SidebarProps) {
               // className="cursor-pointer pl-4 text-base hover:text-blue-600"
               className={classNames(
                 "cursor-pointer pl-4 text-base hover:text-blue-600",
-                pathName == item.link ? "font-semibold" : ""
+                pathName === item.link ? "font-semibold" : ""
               )}
               key={index}
             >
