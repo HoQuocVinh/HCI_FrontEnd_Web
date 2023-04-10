@@ -1,22 +1,27 @@
-import React from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import classNames from "utils/classNames";
 
-function SidebarProfile() {
+type SidebarProps = {
+  pathName: string;
+};
+
+function SidebarProfile({ pathName }: SidebarProps) {
   const sidebars = [
     { title: "Thông tin cá nhân", parent: true },
-    { title: "Hồ sơ", parent: false, link: "view" },
-    { title: "Phiếu giảm giá", parent: false, link: "view-profile" },
-    { title: "Lịch sử mua hàng", parent: false, link: "view-profile" },
-    { title: "Lịch sử đơn hàng", parent: false, link: "view-profile" },
+    { title: "Hồ sơ", parent: false, link: "detail" },
+    { title: "Phiếu giảm giá", parent: false, link: "coupon" },
+    { title: "Lịch sử mua hàng", parent: false, link: "purchase/history" },
+    { title: "Lịch sử đơn hàng", parent: false, link: "orders" },
     { title: "Cài đặt hồ sơ", parent: true },
-    { title: "Chỉnh sửa hồ sơ", parent: false, link: "view-profile" },
+    { title: "Chỉnh sửa hồ sơ", parent: false, link: "edit" },
     {
       title: "Thay đổi mật khẩu của tôi",
       parent: false,
-      link: "/view-profile",
+      link: "password/edit",
     },
   ];
-  const navigate = useNavigate();
+
   return (
     <div className="w-[300px] bg-white">
       <ul>
@@ -27,12 +32,14 @@ function SidebarProfile() {
             </li>
           ) : (
             <li
-              className="cursor-pointer pl-4 text-base hover:text-blue-600"
+              // className="cursor-pointer pl-4 text-base hover:text-blue-600"
+              className={classNames(
+                "cursor-pointer pl-4 text-base hover:text-blue-600",
+                pathName == item.link ? "font-semibold" : ""
+              )}
               key={index}
-              onClick={() => navigate(`${item.link}`)}
             >
-              {/* <NavLink to={item.link}>{item.title}</NavLink> */}
-              {item.title}
+              <Link to={item.link}>{item.title}</Link>
             </li>
           );
         })}
