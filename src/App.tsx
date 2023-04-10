@@ -24,7 +24,7 @@ function App() {
             return <Route key={index} path={route.path} element={<Page />} />;
           })}
         </Route>
-        <Route element={<LayoutProfile />}>
+        <Route path="/profile" element={<LayoutProfile />}>
           {profileRouters.map((route, index: number) => {
             const Page = route.component;
             return <Route key={index} path={route.path} element={<Page />} />;
