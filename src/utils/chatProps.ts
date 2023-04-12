@@ -6,4 +6,5 @@ export interface ChatUIProps {
 export interface MessageProps {
   message: string;
   isSender: boolean;
+  type: string;
 }

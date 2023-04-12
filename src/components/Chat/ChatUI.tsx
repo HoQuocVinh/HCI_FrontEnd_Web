@@ -1,49 +1,64 @@
-import { ChatUIProps } from 'utils/chatProps';
+import { ChatUIProps, MessageProps } from 'utils/chatProps';
 import Message from './Message';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const ChatUI = ({ isOpen, handleClose }: ChatUIProps) => {
-  const [files, setFiles] = useState<any>([]);
-  const [imageUrls, setImageUrls] = useState<any>([]);
+  const chatWindowRef = useRef<HTMLDivElement>(null);
+  const [messages, setMessages] = useState<any>([]);
+  const [newMessage, setNewMessage] = useState<string>('');
+  const [images, setImages] = useState<File[]>([]);
 
-  const imageChange = (e: any) => {
-    e.preventDefault();
-
-    const reader = new FileReader();
-    const file = e.target.files[0];
-
-    if (!file?.type?.startsWith('image/')) {
-      return;
+  useEffect(() => {
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTo({
+        top: chatWindowRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
     }
+  }, [messages]);
 
-    if (e.target.files && e.target.files.length > 0) {
-      setFiles([...files, e.target.files[0]]);
+  const handleSendMessage = () => {
+    if (newMessage && newMessage !== '') {
+      setMessages((prevMessages: any) => [...prevMessages, { message: newMessage, isSender: true, type: 'text' }]);
     }
-
-    reader.onloadend = () => {
-      setImageUrls([...imageUrls, reader.result]);
-    };
-    reader.readAsDataURL(file);
+    if (images.length > 0) {
+      images.forEach((image) => {
+        setMessages((prevMessages: any) => [...prevMessages, { message: image, isSender: true, type: 'image' }]);
+      });
+    }
+    setNewMessage('');
+    setImages([]);
   };
 
-  const handleImageRemove = (index: any) => {
-    const newFiles = [...files];
-    const newUrls = [...imageUrls];
-    newFiles.splice(index, 1);
-    newUrls.splice(index, 1);
-    setFiles(newFiles);
-    setImageUrls(newUrls);
-  };
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      handleSendMessage();
+    }
+  }
 
-  console.log(imageUrls);
+  function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const newImages = [...images];
+    const files = Array.from(event.target.files ?? []);
+
+    for (const file of files) {
+      if (file.type.startsWith('image/')) {
+        newImages.push(file);
+      }
+    }
+
+    setImages(newImages);
+  }
+
+  function handleImageRemove(index: number) {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImages(newImages);
+  }
 
   return (
-    <div className={`flex flex-col`}>
+    <div className={`flex flex-col ${isOpen ? `` : `hidden`}`}>
       {/* title */}
-      <div
-        className={`message-title flex h-[50px] flex-row items-center rounded-t-xl p-2 text-white ${
-          isOpen ? `hidden` : ``
-        }`}>
+      <div className={`message-title flex h-[50px] flex-row items-center rounded-t-xl p-2 text-white `}>
         {/* <div className='mx-2 flex h-[26px] w-[26px] items-center justify-center rounded-full bg-white'>
           <i className='fa-solid fa-robot text-[#2b0d6a]'></i>
         </div> */}
@@ -58,13 +73,13 @@ const ChatUI = ({ isOpen, handleClose }: ChatUIProps) => {
         </div>
       </div>
       {/* messages display area */}
-      <div
-        className={`z-10000 flex h-[450px] w-[400px] flex-col rounded-b-xl bg-white transition-all ${
-          isOpen ? `hidden` : ``
-        } `}>
+      <div className={`z-10000 flex h-[450px] w-[400px] flex-col rounded-b-xl bg-white transition-all  `}>
         {/* messages */}
-        <div className='flex grow flex-col gap-5 overflow-y-auto p-4'>
-          <Message message={'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'} isSender={true} />
+        <div className='flex grow flex-col gap-5 overflow-y-auto p-4' ref={chatWindowRef}>
+          {messages.map((item: MessageProps) => {
+            return <Message message={item.message} type={item.type} isSender={item.isSender}></Message>;
+          })}
+          {/* <Message message={'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'} isSender={true} />
           <Message
             message={
               "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\
@@ -72,7 +87,7 @@ const ChatUI = ({ isOpen, handleClose }: ChatUIProps) => {
         when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
             }
             isSender={false}
-          />
+          /> */}
         </div>
         {/* message preparation area */}
         <div className='mx-2 flex flex-row items-center'>
@@ -80,31 +95,50 @@ const ChatUI = ({ isOpen, handleClose }: ChatUIProps) => {
           <label
             htmlFor='add-chat-image'
             className='flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full transition-all  hover:bg-gray-200 active:scale-95'>
-            <input id='add-chat-image' accept='image/*' type='file' className='hidden' onChange={imageChange} />
+            <input
+              id='add-chat-image'
+              accept='image/*'
+              type='file'
+              className='hidden'
+              onChange={handleImageUpload}
+              multiple
+            />
             <i className='fa-regular fa-image text-[#491ca8]'></i>
           </label>
           {/* */}
-          <div className='m-2 flex grow flex-col gap-1 rounded-[20px] bg-[#f3f3f5] px-3 py-2'>
-            <div className='flex flex-row gap-3'>
-              {imageUrls?.length > 0 &&
-                imageUrls.map((imageUrl: any, i: number) => {
+          <div className='m-2 flex grow flex-col gap-1  rounded-[20px] bg-[#f3f3f5] px-3 py-2 transition-all'>
+            <div className={`images-area flex flex-row gap-3 overflow-x-auto ${images?.length > 0 ? `pb-2` : ``}`}>
+              {images?.length > 0 &&
+                images.map((image: any, i: number) => {
                   return (
                     <div key={i} className='relative'>
-                      <img src={imageUrl} alt='Preview' className='h-10'></img>
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt='Preview'
+                        className='h-10 w-10 rounded-lg object-cover'></img>
                       <div
                         onClick={() => handleImageRemove(i)}
-                        className='absolute right-0 top-0 h-[20px] w-[20px] -translate-y-3 translate-x-4 cursor-pointer '>
-                        <i className='fa-solid fa-xmark text-xs text-white'></i>
+                        className='absolute right-0 top-0  h-[20px] w-[20px] -translate-y-[9px] translate-x-[17px] cursor-pointer '>
+                        <i className='fa-solid fa-xmark text-xs text-gray-700'></i>
                       </div>
                     </div>
                   );
                 })}
             </div>
-            <input type='text' placeholder='Type your message here' className='w-full bg-transparent outline-none' />
+            <input
+              type='text'
+              placeholder='Type your message here'
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e)}
+              className='w-full bg-transparent outline-none'
+            />
           </div>
           {/* SendMessage */}
-          <div className='flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full transition-all hover:bg-gray-200 active:scale-95'>
-            <i className='fa-regular fa-paper-plane text-[#491ca8]'></i>
+          <div
+            onClick={() => handleSendMessage()}
+            className='flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full transition-all hover:bg-gray-200 active:scale-95'>
+            <i className='fa-regular fa-paper-plane text-[#491ca8]' />
           </div>
         </div>
       </div>
