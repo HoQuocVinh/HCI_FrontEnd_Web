@@ -8,16 +8,20 @@
 @tailwind utilities;
 
 :root {
-  --primary: linear-gradient(251.06deg, #2B0D6A 19.23%, #000000 100%);
+  --primary: linear-gradient(251.06deg, #2b0d6a 19.23%, #000000 100%);
   --secondary: linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
-  --cardImg: linear-gradient(to right bottom, #2B0D6A 19.23%, #000000 100%);
-  --secondary:
-    linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
-  --limenu1: -o-linear-gradient(235.79deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
-  --limenu2: linear-gradient(214.21deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
-  --searchmenu: linear-gradient(267.61deg, rgba(254, 254, 254, 0.152) 11.86%, rgba(254, 254, 254, 0.092) 103.83%, rgba(254, 254, 254, 0.2) 103.83%);
-  --title: linear-gradient(180deg, #6A9CFF 0%, #4AFFE9 100%);
-  --titleStylePage: linear-gradient(150.91deg, #FFFFFF 40.46%, #FFF1F1 46.62%, #7A7A7A 46.62%, #000000 46.62%);
+  --cardImg: linear-gradient(to right bottom, #2b0d6a 19.23%, #000000 100%);
+  --secondary: linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
+  --limenu1: -o-linear-gradient(235.79deg, #cccccc 0.52%, rgba(100, 100, 100, 0) 162.93%);
+  --limenu2: linear-gradient(214.21deg, #cccccc 0.52%, rgba(100, 100, 100, 0) 162.93%);
+  --searchmenu: linear-gradient(
+    267.61deg,
+    rgba(254, 254, 254, 0.152) 11.86%,
+    rgba(254, 254, 254, 0.092) 103.83%,
+    rgba(254, 254, 254, 0.2) 103.83%
+  );
+  --title: linear-gradient(180deg, #6a9cff 0%, #4affe9 100%);
+  --titleStylePage: linear-gradient(150.91deg, #ffffff 40.46%, #fff1f1 46.62%, #7a7a7a 46.62%, #000000 46.62%);
 }
 
 @layer {
@@ -34,7 +38,7 @@
 
   html *::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, .15);
+    background-color: rgba(0, 0, 0, 0.15);
   }
 
   html *::-webkit-scrollbar-track {
@@ -64,7 +68,7 @@
   font-size: 20px;
   display: inline-block;
 
-  &>a {
+  & > a {
     padding: 10px 15px;
   }
 
@@ -84,7 +88,7 @@
 }
 
 .menu__icon {
-  transition: transform .3s linear;
+  transition: transform 0.3s linear;
 }
 
 .menu__child {
@@ -95,12 +99,12 @@
   opacity: 0;
   color: black;
   background-color: white;
-  transition: transform .3s linear, visibility .3s linear, opacity .3s linear;
+  transition: transform 0.3s linear, visibility 0.3s linear, opacity 0.3s linear;
   transform: translateY(20px);
 }
 
 .menu__child::before {
-  content: "";
+  content: '';
   top: 0;
   height: 23px;
   transform: translateY(-100%);
@@ -126,17 +130,15 @@
   font-size: 22px;
 }
 
-.menu__child-item-list>li {
+.menu__child-item-list > li {
   cursor: pointer;
   padding: 4px 0;
   transition: color 0.15s linear;
 
-  &>a:hover {
+  & > a:hover {
     color: hsl(259, 78%, 50%);
   }
 }
-
-
 
 .thumb-end_time,
 .thumb-end_line {
@@ -199,7 +201,7 @@
 }
 
 .swiper-pagination-bullet-active {
-  background: #D4C2FA !important;
+  background: #d4c2fa !important;
 }
 
 .card-img {
@@ -207,12 +209,10 @@
   border: 5px solid rgb(37, 30, 60, 0.3);
 }
 
-
-.card-product:hover>.choose-size {
+.card-product:hover > .choose-size {
   transform: translateY(-100%);
   transition: all 0.3s;
 }
-
 
 #progress-bar {
   --range-track-color: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.67), rgba(255, 255, 255, 0));
@@ -243,7 +243,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -256,4 +256,19 @@
 
 .slider .thumb {
   top: -8px;
+}
+
+.message-title {
+  background: #4568dc; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4568dc, #b06ab3); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #4568dc,
+    #b06ab3
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* height */
+.images-area::-webkit-scrollbar:horizontal {
+  height: 10px !important;
 }
