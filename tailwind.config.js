@@ -6,11 +6,14 @@ module.exports = {
       colors: {
         purple: "#A274FF",
       },
-    },
-    fontFamily: {
-      body: "OpenSans, sans-serif",
-      footer: "Roboto, sans-serif",
-      inter: "Inter, sans-serif",
+      maxWidth: {
+        1172: "1172px",
+      },
+      fontFamily: {
+        body: "OpenSans, sans-serif",
+        footer: "Roboto, sans-serif",
+        inter: "Inter, sans-serif",
+      },
     },
   },
   plugins: [],
