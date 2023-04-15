@@ -10,6 +10,7 @@
 :root {
   --primary: linear-gradient(251.06deg, #2B0D6A 19.23%, #000000 100%);
   --secondary: linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
+  --teriary: #ffff;
   --cardImg: linear-gradient(to right bottom, #2B0D6A 19.23%, #000000 100%);
   --secondary:
     linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
@@ -23,8 +24,9 @@
 @layer {
   html {
     background-attachment: fixed;
-    // height: 100vh;
-    // height: 100%;
+    scroll-behavior: "smooth",
+      // height: 100vh;
+      // height: 100%;
   }
 
   html *::-webkit-scrollbar {

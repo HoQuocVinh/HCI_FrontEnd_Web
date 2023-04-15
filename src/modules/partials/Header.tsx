@@ -1,6 +1,6 @@
 import { animated, useSpring } from "@react-spring/web";
 import Tippy from "@tippyjs/react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useMatch } from "react-router-dom";
 
 import Navigation from "common/Navigation";
 import {
@@ -16,15 +16,17 @@ import classNames from "utils/classNames";
 
 const Header = () => {
   const [user, setUser] = useState<boolean>(true);
-  const { pathname } = useLocation();
-  console.log(pathname);
-
   return (
     <div
       className={classNames(
         "relative",
-        pathname === "/" && "cl-primary",
-        pathname === "/style/black-and-white" && "cl-secondary"
+        // pathname === "/" && "cl-primary",
+        // pathname === "/style/black-and-white" && "cl-secondary"
+        // style && "cl-secondary"
+        useMatch("/") !== null && "cl-primary",
+        useMatch("/gender/*") !== null && "cl-secondary",
+        useMatch("/style/*") !== null && "cl-secondary",
+        useMatch("/age/*") !== null && "cl-secondary"
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between py-5">

@@ -1,6 +1,5 @@
-import { lazy } from "react";
 import LayoutDefault from "layouts/LayoutDefault";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import { publicRoutes } from "routes";
 import { authRoutes } from "routes/routes";

@@ -6,11 +6,13 @@ const HomePage = lazy(() => import("pages/HomePage"));
 const StylePage = lazy(() => import("pages/StylePage"));
 const SignInPage = lazy(() => import("pages/SignInPage"));
 const SignUpPage = lazy(() => import("pages/SignUpPage"));
+const GenderPage = lazy(() => import("pages/GenderPage"));
 
 //* Public routes
 const publicRoutes = [
   { path: config.routes.home, component: HomePage },
   { path: config.routes.style, component: StylePage },
+  { path: config.routes.gender, component: GenderPage },
 ];
 
 const authRoutes = [

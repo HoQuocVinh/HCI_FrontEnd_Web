@@ -12,7 +12,7 @@ const LayoutDefault = () => {
   const location = useLocation();
   return (
     <div>
-      <div className="fixed z-20 w-full top-0">
+      <div className="fixed top-0 z-20 w-full">
         <Header />
       </div>
       <Outlet />

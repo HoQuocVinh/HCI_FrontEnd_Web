@@ -54,7 +54,7 @@ const Navigation = () => {
           <div className="menu__child">
             <div className="mx-auto flex max-w-[calc(1152px+20px)] px-[10px]">
               {MENU_CHILD_ITEM.map((menu: any, index: number) => (
-                <div className="menu__child-item">
+                <div className="menu__child-item">  
                   <h4 className="menu__child-item-heading">{menu.heading}</h4>
                   {menu.items.map((item: any, index: number) => (
                     <ul className="menu__child-item-list">

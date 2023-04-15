@@ -1,6 +1,8 @@
 const routes = {
   home: "/",
-  style: "style/*",
+  style: "style/:styleType",
+  gender: "gender/:genderType",
+  product: "gender/:genderType/:productName/:productId?",
   signin: "signin",
   signup: "signup",
 };
