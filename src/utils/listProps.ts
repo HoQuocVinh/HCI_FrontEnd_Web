@@ -37,3 +37,14 @@ export interface LPAuthInput {
   id: string;
   error?: any;
 }
+
+export interface LPCPDefault {
+  src: string;
+  alt?: string;
+  gender?: string;
+  size: string;
+  productName: string;
+  colorTip: Array<string>;
+  price: number;
+  productID: string;
+}

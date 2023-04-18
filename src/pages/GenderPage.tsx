@@ -109,7 +109,7 @@ export const Category = () => {
       </h1>
       <div className="grid auto-rows-auto grid-cols-4 gap-x-3 gap-y-5 py-4">
         {prodcut.map((item: any, index: number) => (
-          <figure className="cursor-pointer">
+          <figure className="cursor-pointer" key={index}>
             <img
               onClick={() => handleDirection(item.caption)}
               src={item.src}
