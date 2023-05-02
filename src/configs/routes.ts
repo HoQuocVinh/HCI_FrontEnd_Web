@@ -3,6 +3,7 @@ const routes = {
   style: "style/:styleType",
   gender: "gender/:genderType",
   product: "gender/:genderType/:productName/:productId?",
+  productDetail: "/product/:productId?",
   signin: "signin",
   signup: "signup",
 };

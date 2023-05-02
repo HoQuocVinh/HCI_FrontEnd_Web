@@ -29,6 +29,8 @@
       // height: 100%;
   }
 
+  //*Scrollbar css
+  //* Scrollbar css
   html *::-webkit-scrollbar {
     border-radius: 0;
     width: 8px;
@@ -36,13 +38,14 @@
 
   html *::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, .15);
   }
 
   html *::-webkit-scrollbar-track {
     border-radius: 0;
     background-color: rgba(0, 0, 0, 0);
   }
+
 
   body {
     @apply font-body;
@@ -66,7 +69,7 @@
   font-size: 20px;
   display: inline-block;
 
-  & > a {
+  &>a {
     padding: 10px 15px;
   }
 
@@ -128,12 +131,12 @@
   font-size: 22px;
 }
 
-.menu__child-item-list > li {
+.menu__child-item-list>li {
   cursor: pointer;
   padding: 4px 0;
   transition: color 0.15s linear;
 
-  & > a:hover {
+  &>a:hover {
     color: hsl(259, 78%, 50%);
   }
 }
@@ -207,7 +210,7 @@
   border: 5px solid rgb(37, 30, 60, 0.3);
 }
 
-.card-product:hover > .choose-size {
+.card-product:hover>.choose-size {
   transform: translateY(-100%);
   transition: all 0.3s;
 }
@@ -257,16 +260,97 @@
 }
 
 .message-title {
-  background: #4568dc; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #4568dc, #b06ab3); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #4568dc,
-    #b06ab3
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #4568dc;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4568dc, #b06ab3);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right,
+      #4568dc,
+      #b06ab3);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 /* height */
 .images-area::-webkit-scrollbar:horizontal {
   height: 10px !important;
 }
+
+
+@layer slider-view {
+  .image-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+
+  .image-container img {
+    width: 520px;
+    height: 520px;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .slide-from-right {
+    animation-name: slideToLeft;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  .slide-from-left {
+    animation-name: slideToRight;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes slideToLeft {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+      /* Đặt opacity thành 0 khi hình ảnh đi từ phải sang trái */
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+      /* Đặt opacity thành 1 khi hình ảnh đến vị trí hiện tại */
+    }
+  }
+
+  @keyframes slideToRight {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+      /* Đặt opacity thành 0 khi hình ảnh đi từ trái sang phải */
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+      /* Đặt opacity thành 1 khi hình ảnh đến vị trí hiện tại */
+    }
+  }
+
+
+  .prev-button,
+  .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Các thuộc tính khác cho nút previous và next button */
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .next-button {
+    right: 0;
+  }
+}
+
+// @layer choose-size {
+//   .wrapper__size:hover>div {
+//     background-color: white !important;
+//     color: black !important;
+//   }
+// }

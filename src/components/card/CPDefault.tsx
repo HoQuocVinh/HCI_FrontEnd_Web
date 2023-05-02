@@ -4,7 +4,12 @@ import { LPCPDefault } from "utils/listProps";
 
 const CPDefault = (props: LPCPDefault) => {
   return (
-    <Link to={`/product/${props.productID}`} className="flex flex-col">
+    <Link
+      to={`/product/${props.productID}?colorCode=${props.colorTip[0].substring(
+        1
+      )}&sizeCode=${props.size.split("-")[0]}`}
+      className="flex flex-col"
+    >
       <img
         style={{ width: "220px", height: "220px", objectFit: "cover" }}
         src={props.src}

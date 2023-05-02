@@ -24,7 +24,7 @@ const LIST_PRODUCT_MALE = [
   },
   {
     src: "https://cdn.media.amplience.net/i/primark/991058399504_01",
-    caption: "Shorts",
+    caption: "Short",
   },
   {
     src: "https://cdn.shopify.com/s/files/1/0209/5404/products/F22-MS001-F1460-200_0291-retouched_600x.jpg?v=1678896432",

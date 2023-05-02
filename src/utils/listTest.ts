@@ -455,3 +455,105 @@ export const EASY_SHORT = [
   },
 ];
 export const ALL_PYJAMA = [...EASY_PANTS, ...EASY_SHORT];
+
+//* product detail
+export const LIST_IMG = [
+  {
+    src: "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/459713/item/vngoods_12_459713.jpg?width=750",
+    alt: "",
+  },
+  {
+    src: "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/459713/sub/vngoods_459713_sub7.jpg?width=750",
+    alt: "",
+  },
+  {
+    src: "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/459713/sub/goods_459713_sub11.jpg?width=750",
+    alt: "",
+  },
+  {
+    src: "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/459713/sub/goods_459713_sub14.jpg?width=750",
+    alt: "",
+  },
+  {
+    src: "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/459713/sub/goods_459713_sub17.jpg?width=750 ",
+    alt: "",
+  },
+  {
+    src: "	https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/459713/sub/goods_459713_sub18.jpg?width=750",
+    alt: "",
+  },
+  {
+    src: "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/459713/sub/goods_459713_sub19.jpg?width=750",
+    alt: "",
+  },
+  {
+    src: "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/459713/sub/vngoods_459713_sub23.jpg?width=750",
+    alt: "",
+  },
+  {
+    src: "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/459713/sub/vngoods_459713_sub24.jpg?width=750",
+    alt: "",
+  },
+  {
+    src: "	https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/459713/sub/goods_459713_sub25.jpg?width=750",
+    alt: "",
+  },
+  {
+    src: "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/459713/sub/goods_459713_sub25.jpg?width=750",
+    alt: "",
+  },
+  {
+    src: "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/459713/sub/goods_459713_sub27.jpg?width=750",
+    alt: "",
+  },
+];
+
+export const LIST_COLOR = [
+  {
+    colorName: "white",
+    hexColor: "#F7F7F5",
+  },
+  {
+    colorName: "gray",
+    hexColor: "#CAC6C5",
+  },
+  {
+    colorName: "pink 1",
+    hexColor: "#FBDFE4",
+  },
+  {
+    colorName: "pink 2",
+    hexColor: "#FBDFE4",
+  },
+  {
+    colorName: "blue light",
+    hexColor: "#C7D4F2",
+  },
+];
+
+export const LIST_SIZE = [
+  {
+    size: "xs",
+    isInStoke: false,
+  },
+  {
+    size: "s",
+    isInStoke: true,
+  },
+  {
+    size: "m",
+    isInStoke: true,
+  },
+  {
+    size: "l",
+    isInStoke: true,
+  },
+  {
+    size: "xl",
+    isInStoke: true,
+  },
+  {
+    size: "xxl",
+    isInStoke: true,
+  },
+];

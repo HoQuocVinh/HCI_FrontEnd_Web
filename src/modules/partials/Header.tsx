@@ -23,10 +23,10 @@ const Header = () => {
         // pathname === "/" && "cl-primary",
         // pathname === "/style/black-and-white" && "cl-secondary"
         // style && "cl-secondary"
-        useMatch("/") !== null && "cl-primary",
-        useMatch("/gender/*") !== null && "cl-secondary",
-        useMatch("/style/*") !== null && "cl-secondary",
-        useMatch("/age/*") !== null && "cl-secondary"
+        useMatch("/") !== null ? "cl-primary" : "cl-secondary"
+        // useMatch("/gender/*") !== null && "cl-secondary",
+        // useMatch("/style/*") !== null && "cl-secondary",
+        // useMatch("/age/*") !== null && "cl-secondary"
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between py-5">

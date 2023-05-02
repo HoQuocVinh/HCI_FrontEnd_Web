@@ -1,3 +1,5 @@
+import { ReactNode, SetStateAction } from "react";
+
 export interface INavigationItem {
   title: string;
 }
@@ -47,4 +49,24 @@ export interface LPCPDefault {
   colorTip: Array<string>;
   price: number;
   productID: string;
+}
+
+export interface LPBDirection {
+  children: ReactNode;
+  className: string;
+  onClick: any;
+}
+
+export interface LPDropdown {
+  control: any;
+  name: string;
+  setValue?: any;
+  list: any;
+  setShow: any;
+  show: boolean;
+}
+
+export interface LPMAddToCard {
+  open: boolean;
+  onClick: () => void;
 }
