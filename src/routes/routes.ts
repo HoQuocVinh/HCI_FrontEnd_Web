@@ -9,6 +9,7 @@ const SignUpPage = lazy(() => import("pages/SignUpPage"));
 const GenderPage = lazy(() => import("pages/GenderPage"));
 const ProductPage = lazy(() => import("pages/ProductPage"));
 const ProductDetailPage = lazy(() => import("pages/ProductDetailPage"));
+const CartPage = lazy(() => import("pages/CartPage"));
 
 //* Public routes
 const publicRoutes = [
@@ -25,6 +26,6 @@ const authRoutes = [
 ];
 
 //* Private routesconst
-const privateRoutes = [{}];
+const privateRoutes = [{ path: config.routes.cart, component: CartPage }];
 
 export { publicRoutes, authRoutes, privateRoutes };

@@ -1,4 +1,4 @@
-import { ReactNode, SetStateAction } from "react";
+import { ReactNode } from "react";
 
 export interface INavigationItem {
   title: string;
@@ -69,4 +69,13 @@ export interface LPDropdown {
 export interface LPMAddToCard {
   open: boolean;
   onClick: () => void;
+}
+
+export interface LPWModal {
+  open: boolean;
+  heading: string;
+  onClick: () => void;
+  children?: ReactNode;
+  btnName1: string;
+  btnName2: string;
 }

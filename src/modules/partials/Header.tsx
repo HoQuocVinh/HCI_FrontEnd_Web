@@ -1,6 +1,6 @@
 import { animated, useSpring } from "@react-spring/web";
 import Tippy from "@tippyjs/react";
-import { Link, useLocation, useMatch } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 
 import Navigation from "common/Navigation";
 import {
@@ -16,6 +16,7 @@ import classNames from "utils/classNames";
 
 const Header = () => {
   const [user, setUser] = useState<boolean>(true);
+  const navigate = useNavigate();
   return (
     <div
       className={classNames(
@@ -51,7 +52,7 @@ const Header = () => {
             <IconHeart />
           </i>
           <Tippy content="Shopping">
-            <i>
+            <i className="cursor-pointer" onClick={() => navigate("/cart")}>
               <IconCart />
             </i>
           </Tippy>
@@ -79,7 +80,7 @@ const TPContextMenu = () => {
           <animated.div
             {...attrs}
             style={springProps}
-            className="w-[200px] rounded-md bg-white py-2 font-footer text-[#23262F] transition-all"
+            className="font-footer w-[200px] rounded-md bg-white py-2 text-[#23262F] transition-all"
             tabIndex={-1}
           >
             <Link to="">

@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,800;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap');
+
+
 @import '../node_modules/tippy.js/dist/tippy.css';
 // import Swiper styles
 @tailwind base;
@@ -12,8 +14,7 @@
   --secondary: linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
   --teriary: #ffff;
   --cardImg: linear-gradient(to right bottom, #2B0D6A 19.23%, #000000 100%);
-  --secondary:
-    linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
+  --secondary: linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
   --limenu1: -o-linear-gradient(235.79deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
   --limenu2: linear-gradient(214.21deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
   --searchmenu: linear-gradient(267.61deg, rgba(254, 254, 254, 0.152) 11.86%, rgba(254, 254, 254, 0.092) 103.83%, rgba(254, 254, 254, 0.2) 103.83%);
@@ -354,3 +355,96 @@
 //     color: black !important;
 //   }
 // }
+
+
+@layer heading {
+  .cart__heading {
+    position: relative;
+    text-align: center;
+    line-height: normal;
+    margin: 30px 0 40px 0 !important;
+    padding-bottom: 15px;
+    font-size: 36px !important;
+    font-weight: 700 !important;
+    color: white;
+  }
+
+  .cart__heading::after {
+    position: absolute;
+    content: "";
+    width: 60px;
+    height: 3px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ef4444;
+  }
+}
+
+@layer table {
+  .table__cart {
+    width: 100%;
+    color: black;
+  }
+
+  .table__cart>thead th {
+    padding: 20px 0;
+    background-color: #EEEFF7 !important;
+  }
+
+  .table__cart>thead th {
+    &:first-child {
+      text-align: center;
+    }
+  }
+
+  .table__cart>tbody>tr>td {
+    padding: 15px 8px;
+    background-color: #FCFCFD;
+  }
+
+  .table__cart>tbody>tr>td,
+  .table__cart>thead th {
+    width: 120px;
+    text-align: left;
+
+    &:nth-child(3) {
+      width: auto;
+    }
+
+    &:last-child {
+      width: 80px;
+      text-align: center;
+    }
+
+    &:first-child {
+      width: 100px;
+    }
+  }
+}
+
+@layer button {
+
+  .button__continue,
+  .button__submit {
+    padding: 8px 24px !important;
+    border-radius: 99999px !important;
+  }
+
+  .button__continue {
+    background-color: #ebebeb !important;
+
+    &:hover {
+      background-color: #d5d5d5 !important;
+    }
+  }
+
+  .button__submit {
+    background: linear-gradient(35deg, #ff596d 0%, #ff8a6c 100%) !important;
+    color: white !important;
+
+    &:hover {
+      background: #ff596d !important;
+    }
+  }
+}
