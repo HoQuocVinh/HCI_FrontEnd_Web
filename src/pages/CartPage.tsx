@@ -124,7 +124,11 @@ const TProduct = ({ onClick }: any) => {
         >
           Continue Shopping
         </button>
-        <button className="button__submit" type="button">
+        <button
+          className="button__submit"
+          type="button"
+          onClick={() => navigate("/checkout")}
+        >
           Payment
         </button>
       </div>
