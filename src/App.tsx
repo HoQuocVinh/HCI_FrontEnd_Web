@@ -1,8 +1,9 @@
 import LayoutDefault from "layouts/LayoutDefault";
+import LayoutProfile from "layouts/LayoutProfile";
 import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import { publicRoutes } from "routes";
-import { authRoutes, privateRoutes } from "routes/routes";
+import { authRoutes, privateRoutes, profileRouters } from "routes/routes";
 
 const LayoutAuth = lazy(() => import("layouts/LayoutAuth"));
 
@@ -23,7 +24,13 @@ function App() {
           })}
         </Route>
         <Route element={<LayoutDefault />}>
-          {privateRoutes.map((route: any, index: number) => {
+          {privateRoutes.map((route, index: number) => {
+            const Page = route.component;
+            return <Route key={index} path={route.path} element={<Page />} />;
+          })}
+        </Route>
+        <Route path="/profile" element={<LayoutProfile />}>
+          {profileRouters.map((route, index: number) => {
             const Page = route.component;
             return <Route key={index} path={route.path} element={<Page />} />;
           })}
