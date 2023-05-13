@@ -1,10 +1,9 @@
 import { useTheme } from "components/context/ThemeProvider";
-import { IconArrowDown } from "components/icon/Icon";
 import { IInfo } from "components/input/Input";
 import Wrapper from "components/wrapper/Wrapper";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const CheckoutPage = () => {
   const price = 2000000;
   const { handleSubmit, control, setValue } = useForm({
@@ -14,8 +13,11 @@ const CheckoutPage = () => {
     },
   });
   const { setTheme } = useTheme();
+  const navigate = useNavigate();
   useEffect(() => setTheme("terriary"), [setTheme]);
-  const onSubmit = (value: any) => console.log(value);
+  const onSubmit = (value: any) => {
+    navigate("complete");
+  };
   return (
     <Wrapper.WCheckout>
       <div className="grid h-full grid-cols-3">
@@ -171,6 +173,7 @@ const CheckoutPage = () => {
             </Link>
             <button
               type="submit"
+              form="form__checkout"
               className="w-full rounded-md bg-red-500 py-2 text-white transition-all hover:bg-red-600"
             >
               Order
