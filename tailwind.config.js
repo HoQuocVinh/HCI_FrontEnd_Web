@@ -11,7 +11,7 @@ module.exports = {
       },
       fontFamily: {
         body: "OpenSans, sans-serif",
-        footer: "Roboto, sans-serif",
+        roboto: "Roboto, sans-serif",
         inter: "Inter, sans-serif",
       },
     },

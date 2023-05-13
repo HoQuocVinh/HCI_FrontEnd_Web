@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,800;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap');
+
+
 @import '../node_modules/tippy.js/dist/tippy.css';
 // import Swiper styles
 @tailwind base;
@@ -12,8 +14,7 @@
   --secondary: linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
   --teriary: #ffff;
   --cardImg: linear-gradient(to right bottom, #2B0D6A 19.23%, #000000 100%);
-  --secondary:
-    linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
+  --secondary: linear-gradient(251.06deg, #303030 19.23%, #000000 100%);
   --limenu1: -o-linear-gradient(235.79deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
   --limenu2: linear-gradient(214.21deg, #CCCCCC 0.52%, rgba(100, 100, 100, 0) 162.93%);
   --searchmenu: linear-gradient(267.61deg, rgba(254, 254, 254, 0.152) 11.86%, rgba(254, 254, 254, 0.092) 103.83%, rgba(254, 254, 254, 0.2) 103.83%);
@@ -29,6 +30,8 @@
       // height: 100%;
   }
 
+  //*Scrollbar css
+  //* Scrollbar css
   html *::-webkit-scrollbar {
     border-radius: 0;
     width: 8px;
@@ -36,13 +39,14 @@
 
   html *::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, .15);
   }
 
   html *::-webkit-scrollbar-track {
     border-radius: 0;
     background-color: rgba(0, 0, 0, 0);
   }
+
 
   body {
     @apply font-body;
@@ -66,7 +70,7 @@
   font-size: 20px;
   display: inline-block;
 
-  & > a {
+  &>a {
     padding: 10px 15px;
   }
 
@@ -128,12 +132,12 @@
   font-size: 22px;
 }
 
-.menu__child-item-list > li {
+.menu__child-item-list>li {
   cursor: pointer;
   padding: 4px 0;
   transition: color 0.15s linear;
 
-  & > a:hover {
+  &>a:hover {
     color: hsl(259, 78%, 50%);
   }
 }
@@ -207,7 +211,7 @@
   border: 5px solid rgb(37, 30, 60, 0.3);
 }
 
-.card-product:hover > .choose-size {
+.card-product:hover>.choose-size {
   transform: translateY(-100%);
   transition: all 0.3s;
 }
@@ -257,16 +261,239 @@
 }
 
 .message-title {
-  background: #4568dc; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #4568dc, #b06ab3); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #4568dc,
-    #b06ab3
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #4568dc;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4568dc, #b06ab3);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right,
+      #4568dc,
+      #b06ab3);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 /* height */
 .images-area::-webkit-scrollbar:horizontal {
   height: 10px !important;
+}
+
+
+@layer slider-view {
+  .image-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+
+  .image-container img {
+    width: 520px;
+    height: 520px;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .slide-from-right {
+    animation-name: slideToLeft;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  .slide-from-left {
+    animation-name: slideToRight;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes slideToLeft {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+      /* Đặt opacity thành 0 khi hình ảnh đi từ phải sang trái */
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+      /* Đặt opacity thành 1 khi hình ảnh đến vị trí hiện tại */
+    }
+  }
+
+  @keyframes slideToRight {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+      /* Đặt opacity thành 0 khi hình ảnh đi từ trái sang phải */
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+      /* Đặt opacity thành 1 khi hình ảnh đến vị trí hiện tại */
+    }
+  }
+
+
+  .prev-button,
+  .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Các thuộc tính khác cho nút previous và next button */
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .next-button {
+    right: 0;
+  }
+}
+
+// @layer choose-size {
+//   .wrapper__size:hover>div {
+//     background-color: white !important;
+//     color: black !important;
+//   }
+// }
+
+
+@layer heading {
+  .cart__heading {
+    position: relative;
+    text-align: center;
+    line-height: normal;
+    margin: 30px 0 40px 0 !important;
+    padding-bottom: 15px;
+    font-size: 36px !important;
+    font-weight: 700 !important;
+    color: white;
+  }
+
+  .cart__heading::after {
+    position: absolute;
+    content: "";
+    width: 60px;
+    height: 3px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ef4444;
+  }
+}
+
+@layer table {
+  .table__cart {
+    width: 100%;
+    color: black;
+  }
+
+  .table__cart>thead th {
+    padding: 20px 0;
+    background-color: #EEEFF7 !important;
+  }
+
+  .table__cart>thead th {
+    &:first-child {
+      text-align: center;
+    }
+  }
+
+  .table__cart>tbody>tr>td {
+    padding: 15px 8px;
+    background-color: #FCFCFD;
+  }
+
+  .table__cart>tbody>tr>td,
+  .table__cart>thead th {
+    width: 120px;
+    text-align: left;
+
+    &:nth-child(3) {
+      width: auto;
+    }
+
+    &:last-child {
+      width: 80px;
+      text-align: center;
+    }
+
+    &:first-child {
+      width: 100px;
+    }
+  }
+}
+
+@layer button {
+
+  .button__continue,
+  .button__submit {
+    padding: 8px 24px !important;
+    border-radius: 99999px !important;
+  }
+
+  .button__continue {
+    background-color: #ebebeb !important;
+
+    &:hover {
+      background-color: #d5d5d5 !important;
+    }
+  }
+
+  .button__submit {
+    background: linear-gradient(35deg, #ff596d 0%, #ff8a6c 100%) !important;
+    color: white !important;
+
+    &:hover {
+      background: #ff596d !important;
+    }
+  }
+}
+
+@layer my-form {
+  .form__field {
+    position: relative;
+    z-index: 10;
+  }
+
+  .form__input {
+    width: 100%;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    color: black !important;
+    border: 1px solid #737373 !important;
+    outline: none;
+    transition: all;
+    font-size: 15px !important;
+  }
+
+  .form__input:focus {
+    border: 1px solid #3b82f6 !important;
+  }
+
+  .form__input:not(:focus)+.form__label {
+    color: #737373 !important;
+  }
+
+  .form__input:not(:placeholder-shown)+.form__label,
+  .form__input:focus+.form__label {
+    top: 0;
+    left: 8px;
+    padding: 0 5px;
+    display: inline-block;
+    background-color: white;
+    font-size: 12px;
+    color: #3b82f6;
+  }
+
+  .form__label {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #737373;
+    user-select: none;
+    pointer-events: none;
+    transition: 0.25s ease;
+    font-size: 14px;
+  }
 }

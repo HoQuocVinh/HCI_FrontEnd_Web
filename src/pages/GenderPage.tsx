@@ -24,7 +24,7 @@ const LIST_PRODUCT_MALE = [
   },
   {
     src: "https://cdn.media.amplience.net/i/primark/991058399504_01",
-    caption: "Shorts",
+    caption: "Short",
   },
   {
     src: "https://cdn.shopify.com/s/files/1/0209/5404/products/F22-MS001-F1460-200_0291-retouched_600x.jpg?v=1678896432",
@@ -109,7 +109,7 @@ export const Category = () => {
       </h1>
       <div className="grid auto-rows-auto grid-cols-4 gap-x-3 gap-y-5 py-4">
         {prodcut.map((item: any, index: number) => (
-          <figure className="cursor-pointer">
+          <figure className="cursor-pointer" key={index}>
             <img
               onClick={() => handleDirection(item.caption)}
               src={item.src}
