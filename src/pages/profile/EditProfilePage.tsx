@@ -1,3 +1,5 @@
+import Wrapper from "components/wrapper/Wrapper";
+
 function EditProfile() {
   return (
     <>

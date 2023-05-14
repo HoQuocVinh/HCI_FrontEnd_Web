@@ -6,12 +6,16 @@ import { Outlet, useLocation } from "react-router-dom";
 
 function LayoutProfile() {
   const { theme } = useTheme();
-  useEffect(() => {
-    document.documentElement.style.setProperty("background", `var(--${theme})`);
-  }, [theme]);
+  // useEffect(() => {
+  //   document.documentElement.style.setProperty("background", `var(--${theme})`);
+  // }, [theme]);
   const [pathName, setPathName] = useState("");
   const location = useLocation();
   useEffect(() => {
+    document.documentElement.style.setProperty(
+      "background",
+      "var(--secondary)"
+    );
     const pathNameWindow = location.pathname.replace("/profile/", "");
     setPathName(pathNameWindow);
   }, [location]);
@@ -31,7 +35,7 @@ function LayoutProfile() {
           </div>
           <div className="m-2 flex flex-row">
             <SidebarProfile pathName={pathName} />
-            <div className="m-2 w-[850px] border border-solid bg-white p-4">
+            <div className="m-2 h-screen w-[850px] border border-solid bg-white p-4">
               <Outlet />
             </div>
           </div>
