@@ -1,25 +1,31 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import { ThemeProvider } from "components/context/ThemeProvider";
+import { useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import "./index.scss";
-import App from "./App";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+import store from "sagas/configureStore";
 import "swiper/css";
 import "swiper/css/pagination";
-import { ThemeProvider } from "components/context/ThemeProvider";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import App from "./App";
+import "./index.scss";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  <ThemeProvider>
-    <Router>
-      <ScrollToTop />
-      <App />
-      <ToastContainer />
-    </Router>
-  </ThemeProvider>
+  <Provider store={store}>
+    <ThemeProvider>
+      <Router>
+        <ScrollToTop />
+        <App />
+        <ToastContainer />
+      </Router>
+    </ThemeProvider>
+  </Provider>
 );
 
 function ScrollToTop() {

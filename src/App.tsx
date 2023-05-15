@@ -1,13 +1,37 @@
-import LayoutDefault from "layouts/LayoutDefault";
-import LayoutProfile from "layouts/LayoutProfile";
-import { Suspense, lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Suspense, lazy, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { publicRoutes } from "routes";
 import { authRoutes, privateRoutes, profileRouters } from "routes/routes";
+import { authUpdateUser } from "sagas/auth/auth-slice";
+import { getToken } from "utils/auth";
+const { default: jwt_decode } = require("jwt-decode");
 
+const LayoutDefault = lazy(() => import("layouts/LayoutDefault"));
+const LayoutProfile = lazy(() => import("layouts/LayoutProfile"));
 const LayoutAuth = lazy(() => import("layouts/LayoutAuth"));
 
 function App() {
+  const { user } = useSelector((state: any) => state.auth);
+  const { access_token } = getToken();
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (access_token) {
+      const decode = jwt_decode(access_token);
+      dispatch(
+        authUpdateUser({
+          user: decode,
+          accessToken: access_token,
+        })
+      );
+    }
+  }, [access_token]);
+
+  console.log(user);
+
   return (
     <Suspense fallback={<></>}>
       <Routes>

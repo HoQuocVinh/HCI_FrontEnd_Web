@@ -7,7 +7,9 @@ import WrapperPage from "components/wrapper/WrapperPage";
 import useClickOutSide from "hooks/useClickOutSide";
 import { Fragment, SetStateAction, useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import classNames from "utils/classNames";
 import handleProductSelection from "utils/handler";
 import { LIST_COLOR, LIST_IMG, LIST_SIZE } from "utils/listTest";
@@ -19,9 +21,18 @@ interface TProductDetailSummary {
 }
 
 const ProductDetailPage = () => {
+  const { user } = useSelector((state: any) => state.auth);
   const [isShow, setIsShow] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   const handleToggleModal = () => {
+    if (!user) {
+      navigate("/signin");
+      toast.warning("Please loggin", { autoClose: 500 });
+      return;
+    }
+
     setIsShow(!isShow);
     if (!isShow) {
       document.body.style.overflow = "hidden";

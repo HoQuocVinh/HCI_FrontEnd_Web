@@ -1,6 +1,17 @@
-import { Link, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const LayoutAuth = () => {
+  const { user } = useSelector((state: any) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user && user.email) {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+  if (user && user.email) return null;
   return (
     <div>
       <div className="fixed inset-0 flex">
@@ -14,7 +25,7 @@ const LayoutAuth = () => {
         </div>
         <div className="relative h-full flex-1">
           <img
-            src="https://images.pexels.com/photos/1721558/pexels-photo-1721558.jpeg"
+            src="/bg-auth.jpg"
             alt=""
             className="h-full w-full object-cover"
             loading="lazy"

@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
 import AuthButton from "components/Button/AuthButton";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from "react-router-dom";
 
 import AuthInput from "components/input/AuthInput";
-import schame from "utils/validationSchame";
-import { LPAuthFormField } from "utils/listProps";
 import { useToastError } from "hooks/useToastError";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { authLogin, authRegister } from "sagas/auth/auth-slice";
+import { LPAuthFormField } from "utils/listProps";
+import schame from "utils/validationSchame";
 
 const AuthFormField = (props: LPAuthFormField) => {
   const {
@@ -19,16 +21,24 @@ const AuthFormField = (props: LPAuthFormField) => {
     resolver: yupResolver(schame),
     mode: "onSubmit",
   });
-
   useToastError(errors);
+  const dispatch = useDispatch();
+  const handelRegister = (values: object) => {
+    props.signin && dispatch(authRegister(values));
+    props.signup && dispatch(authLogin(values));
+  };
+
   useEffect(() => {
     setFocus("email");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onSubmit = (values: any) => console.log(values);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off" className="mt-8">
+    <form
+      onSubmit={handleSubmit(handelRegister)}
+      autoComplete="off"
+      className="mt-8"
+    >
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           <label htmlFor="email" className="cursor-pointer font-semibold">

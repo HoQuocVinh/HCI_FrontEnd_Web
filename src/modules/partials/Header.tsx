@@ -13,10 +13,14 @@ import {
 import SearchBar from "components/search/SearchBar";
 import { useState } from "react";
 import classNames from "utils/classNames";
+import { useDispatch, useSelector } from "react-redux";
+import { authLogOut } from "sagas/auth/auth-slice";
 
 const Header = () => {
-  const [user, setUser] = useState<boolean>(true);
   const navigate = useNavigate();
+
+  const { user } = useSelector((state: any) => state.auth);
+
   return (
     <div
       className={classNames(
@@ -64,6 +68,7 @@ const Header = () => {
 
 const TPContextMenu = () => {
   const [isShown, setIsShown] = useState(false);
+  const dispatch = useDispatch();
   const springProps = useSpring({
     opacity: isShown ? 1 : 0,
     from: { opacity: 0 },
@@ -93,16 +98,17 @@ const TPContextMenu = () => {
                 </div>
               </div>
             </Link>
-            <Link to="">
-              <div className="py-[10px] pl-4 pr-2 hover:bg-[rgba(22,_24,_35,_0.04)]">
-                <div className="flex cursor-pointer items-center">
-                  <i className="mr-5">
-                    <IconSignOut />
-                  </i>
-                  <span>Sign out</span>
-                </div>
+            <div
+              className="py-[10px] pl-4 pr-2 hover:bg-[rgba(22,_24,_35,_0.04)]"
+              onClick={() => dispatch(authLogOut())}
+            >
+              <div className="flex cursor-pointer items-center">
+                <i className="mr-5">
+                  <IconSignOut />
+                </i>
+                <span>Sign out</span>
               </div>
-            </Link>
+            </div>
           </animated.div>
         )}
         onShow={() => setIsShown(true)}
