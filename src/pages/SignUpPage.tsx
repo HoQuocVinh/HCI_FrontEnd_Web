@@ -1,7 +1,10 @@
 import AuthFormField from "components/form/AuthFormField";
-import React from "react";
+import React, { useEffect } from "react";
 
 const SignUpPage = () => {
+  useEffect(() => {
+    document.title = "Sign Up";
+  }, []);
   return (
     <div className="flex flex-col items-start font-inter">
       <h1 className="text-6xl font-semibold">Sign up now</h1>

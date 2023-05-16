@@ -12,26 +12,20 @@ import {
 } from "components/icon/Icon";
 import SearchBar from "components/search/SearchBar";
 import { useState } from "react";
-import classNames from "utils/classNames";
 import { useDispatch, useSelector } from "react-redux";
 import { authLogOut } from "sagas/auth/auth-slice";
+import classNames from "utils/classNames";
 
 const Header = () => {
   const navigate = useNavigate();
-
   const { user } = useSelector((state: any) => state.auth);
 
   return (
     <div
+      id="header"
       className={classNames(
         "relative",
-        // pathname === "/" && "cl-primary",
-        // pathname === "/style/black-and-white" && "cl-secondary"
-        // style && "cl-secondary"
         useMatch("/") !== null ? "cl-primary" : "cl-secondary"
-        // useMatch("/gender/*") !== null && "cl-secondary",
-        // useMatch("/style/*") !== null && "cl-secondary",
-        // useMatch("/age/*") !== null && "cl-secondary"
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between py-5">
@@ -45,7 +39,7 @@ const Header = () => {
           <SearchBar />
           {!user ? (
             <Tippy content="Sign in" offset={[0, 20]}>
-              <Link to="signin">
+              <Link to="/signin">
                 <IconUser />
               </Link>
             </Tippy>
@@ -88,7 +82,7 @@ const TPContextMenu = () => {
             className="font-footer w-[200px] rounded-md bg-white py-2 text-[#23262F] transition-all"
             tabIndex={-1}
           >
-            <Link to="">
+            <Link to="/profile">
               <div className="py-[10px] pl-4 pr-2 hover:bg-[rgba(22,_24,_35,_0.04)]">
                 <div className="flex cursor-pointer items-center">
                   <i className="mr-5">
@@ -114,9 +108,9 @@ const TPContextMenu = () => {
         onShow={() => setIsShown(true)}
         onHide={() => setIsShown(false)}
       >
-        <Link to="signin">
+        <i className="cursor-pointer">
           <IconUser />
-        </Link>
+        </i>
       </Tippy>
     </div>
   );

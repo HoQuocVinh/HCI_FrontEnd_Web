@@ -7,7 +7,7 @@ const MENU_CHILD_ITEM = [
     items: [
       {
         title: "Black and white",
-        to: "style/black-and-white",
+        to: "/style/black-and-white",
       },
     ],
   },
@@ -16,24 +16,24 @@ const MENU_CHILD_ITEM = [
     items: [
       {
         title: "Demo",
-        to: "collection/demo",
+        to: "/collection/demo",
       },
     ],
   },
   {
     heading: "Gender",
     items: [
-      { title: "Male", to: "gender/male" },
-      { title: "Female", to: "gender/femeale" },
+      { title: "Male", to: "/gender/male" },
+      { title: "Female", to: "/gender/femeale" },
     ],
   },
   {
     heading: "Age",
     items: [
-      { title: "Teenager (13 - 19 years old)", to: "age/teenager" },
-      { title: "Young adult (20 - 29 years old", to: "age/young-adult" },
-      { title: "Adult (30 - 59 years old)", to: "age/adult" },
-      { title: "Senior (60 years old and above)", to: "age/senior" },
+      { title: "Teenager (13 - 19 years old)", to: "/age/teenager" },
+      { title: "Young adult (20 - 29 years old", to: "/age/young-adult" },
+      { title: "Adult (30 - 59 years old)", to: "/age/adult" },
+      { title: "Senior (60 years old and above)", to: "/age/senior" },
     ],
   },
 ];

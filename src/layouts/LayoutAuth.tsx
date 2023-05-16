@@ -1,17 +1,16 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { getToken } from "utils/auth";
 
 const LayoutAuth = () => {
-  const { user } = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
+  const { access_token } = getToken();
   useEffect(() => {
-    if (user && user.email) {
-      navigate("/");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-  if (user && user.email) return null;
+    access_token && navigate(-1);
+  }, [access_token]);
+
+  if (access_token) return null;
   return (
     <div>
       <div className="fixed inset-0 flex">

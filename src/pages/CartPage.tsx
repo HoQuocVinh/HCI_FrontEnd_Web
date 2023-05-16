@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { TABLE_HEAD } from "utils/arrayList";
 import classNames from "utils/classNames";
+import { toggleBodyOverflow } from "utils/handler";
 interface LPPrice {
   price: number;
   size?: string;
@@ -21,13 +22,7 @@ const CartPage = () => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const handleToggleModal = () => {
     setIsShow(!isShow);
-    if (!isShow) {
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.paddingRight = "8px";
-    } else {
-      document.body.style.removeProperty("overflow");
-      document.documentElement.style.removeProperty("padding-right");
-    }
+    toggleBodyOverflow(isShow);
   };
 
   const { control, setValue } = useForm({
@@ -37,6 +32,8 @@ const CartPage = () => {
   });
   useEffect(() => {
     setTheme("secondary");
+    document.body.style.overflow = "auto";
+    document.documentElement.style.paddingRight = "8px";
   }, [setTheme]);
   let price = 300000;
   return (

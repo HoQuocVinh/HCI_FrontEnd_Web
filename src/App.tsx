@@ -15,9 +15,8 @@ function App() {
   const { user } = useSelector((state: any) => state.auth);
   const { access_token } = getToken();
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (access_token) {
       const decode = jwt_decode(access_token);

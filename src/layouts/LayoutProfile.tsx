@@ -2,30 +2,31 @@ import { useTheme } from "components/context/ThemeProvider";
 import Header from "modules/partials/Header";
 import SidebarProfile from "modules/partials/SidebarProfile";
 import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 function LayoutProfile() {
   const { theme } = useTheme();
-  // useEffect(() => {
-  //   document.documentElement.style.setProperty("background", `var(--${theme})`);
-  // }, [theme]);
+  const { user } = useSelector((state: any) => state.auth);
   const [pathName, setPathName] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
+    if (!user) navigate("/");
     document.documentElement.style.setProperty(
       "background",
       "var(--secondary)"
     );
     const pathNameWindow = location.pathname.replace("/profile/", "");
     setPathName(pathNameWindow);
-  }, [location]);
-
+  }, [location, user]);
+  if (!user) return null;
   return (
     <div className="flex flex-col">
       <Header />
       <div className="flex flex-col items-center justify-center">
         <div className="bg-white px-4">
-          {/* Breadcrumb */}
+          {/* Breadcrumb */}<div></div>
           <div className="font-Roboto m-2 w-[60%] text-sm font-thin">
             PALMO / PROFILE / {pathName.replace("/", " ").toUpperCase()}
           </div>

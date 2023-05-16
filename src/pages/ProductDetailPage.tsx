@@ -1,3 +1,8 @@
+import { Fragment, SetStateAction, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import BDirection from "components/Button/BDirection";
 import { useTheme } from "components/context/ThemeProvider";
 import Dropdown from "components/dropdown/Dropdown";
@@ -5,13 +10,8 @@ import { IconArrowDown } from "components/icon/Icon";
 import MAddToCard from "components/modal/MAddToCard";
 import WrapperPage from "components/wrapper/WrapperPage";
 import useClickOutSide from "hooks/useClickOutSide";
-import { Fragment, SetStateAction, useEffect, useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import classNames from "utils/classNames";
-import handleProductSelection from "utils/handler";
+import handleProductSelection, { toggleBodyOverflow } from "utils/handler";
 import { LIST_COLOR, LIST_IMG, LIST_SIZE } from "utils/listTest";
 
 interface TProductDetailSummary {
@@ -32,15 +32,8 @@ const ProductDetailPage = () => {
       toast.warning("Please loggin", { autoClose: 500 });
       return;
     }
-
     setIsShow(!isShow);
-    if (!isShow) {
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.paddingRight = "8px";
-    } else {
-      document.body.style.removeProperty("overflow");
-      document.documentElement.style.removeProperty("padding-right");
-    }
+    toggleBodyOverflow(isShow);
   };
 
   const { show, setShow, nodeRef } = useClickOutSide();

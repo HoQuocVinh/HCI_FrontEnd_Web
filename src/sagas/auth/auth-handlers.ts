@@ -1,7 +1,7 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
-import { saveToken } from "utils/auth";
+import { logOut, saveToken } from "utils/auth";
 import {
   requestAuthLogin,
   requestAuthLogout,
@@ -24,6 +24,7 @@ function* handleAuthRegister(action: AnyAction): Generator<any, void, any> {
     console.log(error);
   }
 }
+
 function* handleAuthLogin({ payload }: any): Generator<any, void, any> {
   try {
     const response = yield call(requestAuthLogin, payload);
@@ -42,23 +43,20 @@ function* handleAuthLogin({ payload }: any): Generator<any, void, any> {
       toast.success("Login success!", {
         autoClose: 500,
       });
-      document.location = "/";
     }
   } catch (error: any) {
-    // const response = error.response.data;
-    // if (!response.success) {
-    //   toast.error(response.message);
-    //   return;
-    // }
+    const { data } = error.response;
+    data && toast.error(data.message, { autoClose: 500 });
   }
 }
 
 function* handleAuthLogOut(payload: string): Generator<any, void, any> {
   const response = yield call(requestAuthLogout);
-  console.log("TCL: response", response);
-  // toast.success("Logout success!", { autoClose: 500 });
-  // logOut();
-  // document.location = "/";
+  const { data } = response;
+  if (data.result) {
+    toast.success("Logout success!", { autoClose: 500 });
+    logOut();
+  }
 }
 
 export { handleAuthRegister, handleAuthLogin, handleAuthLogOut };

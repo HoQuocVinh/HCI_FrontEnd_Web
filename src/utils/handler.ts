@@ -26,3 +26,18 @@ export default function handleProductSelection(
     searchParams.toString();
   window.history.replaceState(null, "", newUrl);
 }
+
+function toggleBodyOverflow(isShow: boolean) {
+  const headerID = document?.getElementById("header");
+  if (!isShow) {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.paddingRight = "8px";
+    headerID && (headerID.style.paddingRight = "8px");
+  } else {
+    document.body.style.removeProperty("overflow");
+    document.documentElement.style.removeProperty("padding-right");
+    headerID && headerID.style.removeProperty("padding-right");
+  }
+}
+
+export { toggleBodyOverflow };

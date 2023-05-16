@@ -12,10 +12,20 @@ const requestAuthLogin = (data: object) => {
 };
 
 const requestAuthLogout = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { access_token } = getToken();
   if (!access_token) return;
   const user = jwt_decode(access_token);
-  return axios.post("auth/log-out", { id: user.id });
+  return axios.post(
+    "auth/log-out",
+    { id: user.id },
+    {
+      headers: {
+        "Content-Type": "Application/json",
+        Authorization: ` Bearer ${access_token}`,
+      },
+    }
+  );
 };
 
 export { requestAuthRegister, requestAuthLogin, requestAuthLogout };
