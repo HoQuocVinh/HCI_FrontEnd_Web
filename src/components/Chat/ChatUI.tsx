@@ -1,14 +1,42 @@
 import { ChatUIProps, MessageProps } from 'utils/chatProps';
 import Message from './Message';
 import { useEffect, useRef, useState } from 'react';
+import { socket } from '../../App';
+import { v4 as uuidv4 } from 'uuid';
 
 const ChatUI = ({ isOpen, handleClose }: ChatUIProps) => {
   const chatWindowRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<any>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const [images, setImages] = useState<File[]>([]);
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
+    let history = localStorage.getItem('messageHistory');
+    if (history) setMessages(JSON.parse(history));
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTo({
+        top: chatWindowRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+    socket.on('message', (payload) => {
+      let { text, attachments } = payload;
+      if (attachments) {
+        let newAttachments = attachments.map((e: any) => {
+          return { message: e.message };
+        });
+        setMessages((prevMessages: any) => [...prevMessages, { type: 'button', isSender: false, message: newAttachments }]);
+      }
+
+      if (text) {
+        setMessages((prevMessages: any) => [...prevMessages, { message: text, isSender: false, type: 'text' }]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('messageHistory', JSON.stringify(messages));
     if (chatWindowRef.current) {
       chatWindowRef.current.scrollTo({
         top: chatWindowRef.current.scrollHeight,
@@ -17,8 +45,15 @@ const ChatUI = ({ isOpen, handleClose }: ChatUIProps) => {
     }
   }, [messages]);
 
+  const refreshConversation = () => {
+    localStorage.removeItem('messageHistory');
+    localStorage.setItem('userId', uuidv4());
+    setMessages([]);
+  };
+
   const handleSendMessage = () => {
     if (newMessage && newMessage !== '') {
+      socket.emit('message', { message: newMessage, isSender: true, type: 'text', userId });
       setMessages((prevMessages: any) => [...prevMessages, { message: newMessage, isSender: true, type: 'text' }]);
     }
     if (images.length > 0) {
@@ -28,6 +63,11 @@ const ChatUI = ({ isOpen, handleClose }: ChatUIProps) => {
     }
     setNewMessage('');
     setImages([]);
+  };
+
+  const handleOnClickChoice = (message: string) => {
+    socket.emit('message', { message, userId });
+    setMessages((prevMessages: any) => [...prevMessages, { message: message, isSender: true, type: 'text' }]);
   };
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -59,35 +99,38 @@ const ChatUI = ({ isOpen, handleClose }: ChatUIProps) => {
     <div className={`flex flex-col ${isOpen ? `` : `hidden`}`}>
       {/* title */}
       <div className={`message-title flex h-[50px] flex-row items-center rounded-t-xl p-2 text-white `}>
-        {/* <div className='mx-2 flex h-[26px] w-[26px] items-center justify-center rounded-full bg-white'>
-          <i className='fa-solid fa-robot text-[#2b0d6a]'></i>
-        </div> */}
         <div className='mx-2 flex-grow font-semibold'>
           <img srcSet='/palmo.png 2x' alt='' className='h-[20px]' />
         </div>
 
-        <div
-          onClick={handleClose}
-          className='flex h-[26px] w-[26px] cursor-pointer items-center justify-center rounded-full transition-all hover:bg-white hover:text-[#2b0d6a]'>
-          <i className='fa-solid fa-xmark'></i>
+        <div className='flex flex-row items-center justify-center gap-2'>
+          <div
+            onClick={() => refreshConversation()}
+            className='flex h-[26px] w-[26px] cursor-pointer items-center justify-center rounded-full transition-all hover:bg-white hover:text-[#2b0d6a]'>
+            <i className='fa-solid fa-rotate'></i>
+          </div>
+          <div
+            onClick={handleClose}
+            className='flex h-[26px] w-[26px] cursor-pointer items-center justify-center rounded-full transition-all hover:bg-white hover:text-[#2b0d6a]'>
+            <i className='fa-solid fa-xmark'></i>
+          </div>
         </div>
       </div>
       {/* messages display area */}
       <div className={`z-10000 flex h-[450px] w-[400px] flex-col rounded-b-xl bg-white transition-all  `}>
         {/* messages */}
         <div className='flex grow flex-col gap-5 overflow-y-auto p-4' ref={chatWindowRef}>
-          {messages.map((item: MessageProps) => {
-            return <Message message={item.message} type={item.type} isSender={item.isSender}></Message>;
+          {messages.map((item: MessageProps, i: number) => {
+            return (
+              <Message
+                key={i}
+                message={item.message}
+                type={item.type}
+                isSender={item.isSender}
+                handleChoices={handleOnClickChoice}
+              />
+            );
           })}
-          {/* <Message message={'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'} isSender={true} />
-          <Message
-            message={
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\
-             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\
-        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-            }
-            isSender={false}
-          /> */}
         </div>
         {/* message preparation area */}
         <div className='mx-2 flex flex-row items-center'>
@@ -107,7 +150,7 @@ const ChatUI = ({ isOpen, handleClose }: ChatUIProps) => {
           </label>
           {/* */}
           <div className='m-2 flex grow flex-col gap-1  rounded-[20px] bg-[#f3f3f5] px-3 py-2 transition-all'>
-            <div className={`images-area flex flex-row gap-3 overflow-x-auto ${images?.length > 0 ? `pb-2` : ``}`}>
+            <div className={`images-area flex flex-row gap-3 overflow-x-auto ${images?.length > 0 ? `pb-2` : `hidden`}`}>
               {images?.length > 0 &&
                 images.map((image: any, i: number) => {
                   return (

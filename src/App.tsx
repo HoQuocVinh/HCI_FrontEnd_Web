@@ -7,6 +7,22 @@ import { authUpdateUser } from "sagas/auth/auth-slice";
 import { getToken } from "utils/auth";
 const { default: jwt_decode } = require("jwt-decode");
 
+import { v4 as uuidv4 } from 'uuid';
+
+import { io } from 'socket.io-client';
+
+let userID = localStorage.getItem('userId');
+
+if (!userID) {
+  localStorage.setItem('userId', uuidv4());
+}
+
+export const socket = io('http://localhost:3000', {
+  query: {
+    id: userID,
+  },
+});
+
 const LayoutDefault = lazy(() => import("layouts/LayoutDefault"));
 const LayoutProfile = lazy(() => import("layouts/LayoutProfile"));
 const LayoutAuth = lazy(() => import("layouts/LayoutAuth"));
