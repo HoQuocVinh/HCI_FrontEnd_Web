@@ -10,23 +10,15 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import { Navigation, Pagination } from 'swiper';
-
-const imagelink = 'https://anviettien.vn/uploads/source/cat-ve-sinh-meo/10l-ap.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const items = [
   { title: 'Size', data: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'] },
   { title: 'Price', data: ['$10 - $20', '$20 - $50', '$50 - $100'] },
-  { title: 'Color', data: ['Blue', 'Green', 'Yellow', 'Red'] },
+  { title: 'Color', data: ['Blue', 'Green', 'Yellow', 'Red', 'Orange', 'Purple', 'Pink', 'Brown', 'Gray'] },
 ];
 
-const fakeData = [
-  { title: 'test testtesttesttesttesttesttesttesttesttesttest test test', price: '$99', image: imagelink },
-  { title: 'test', price: '$99', image: imagelink },
-  { title: 'test', price: '$99', image: imagelink },
-  { title: 'test', price: '$99', image: imagelink },
-];
-
-const renderMessage = (message: any, type: string, isSender: Boolean, handleChoices: any) => {
+const renderMessage = (message: any, type: string, isSender: Boolean, handleChoices: any, handleClickViewDetails: any) => {
   if (type === 'text')
     return (
       <>
@@ -68,25 +60,27 @@ const renderMessage = (message: any, type: string, isSender: Boolean, handleChoi
   }
   if (type === 'product') {
     return (
-      <div className='h-[310px] max-w-[300px]'>
+      <div className='h-[350px] max-w-[300px]'>
         <Swiper
           slidesPerView={1}
           pagination={{ clickable: true }}
           navigation={true}
           modules={[Pagination, Navigation]}
           className='h-full w-full'>
-          {fakeData.map((e: any) => {
+          {message.map((e: any) => {
             return (
-              <>
-                <SwiperSlide className='flex items-center justify-center'>
-                  <div className='flex flex-col items-center justify-center gap-1'>
-                    <img src={e.image} alt='' className='h-[200px] w-[150px] object-contain' />
-                    <span className='w-[200px] truncate text-left'>{e.title}</span>
-                    <span className='font-bold'>{e.price}</span>
-                    <span className='cursor-pointer select-none text-sm'>View details</span>
-                  </div>
-                </SwiperSlide>
-              </>
+              <SwiperSlide key={e.subProductId} className='flex items-center justify-center rounded-lg border'>
+                <div className='flex flex-col items-center justify-center gap-1'>
+                  <img src={e.mediaLink} alt='' className='h-[200px] w-[150px] object-contain' />
+                  <span className='w-[200px] truncate text-left'>{e.title}</span>
+                  <span className='font-bold'>${e.price}</span>
+                  <span
+                    onClick={() => handleClickViewDetails(e.productId, e.subProductId)}
+                    className='cursor-pointer select-none text-sm'>
+                    View details
+                  </span>
+                </div>
+              </SwiperSlide>
             );
           })}
         </Swiper>
@@ -99,6 +93,7 @@ const renderMessage = (message: any, type: string, isSender: Boolean, handleChoi
 const Message = ({ isSender, message, type, handleChoices }: MessageProps) => {
   const [submitMessage, setSubmitMessage] = useState<any>({});
   const [disable, setDisable] = useState<any>(false);
+  const navigate = useNavigate();
 
   const handleSubmitMessage = () => {
     let temp = '';
@@ -111,9 +106,13 @@ const Message = ({ isSender, message, type, handleChoices }: MessageProps) => {
     }
   };
 
+  const handleClickViewDetails = (productId: any, subProductId: any) => {
+    navigate(`/product/${productId}/subproduct/${subProductId}`);
+  };
+
   return (
     <div className='flex flex-col gap-2'>
-      {renderMessage(message, type, isSender, handleChoices)}
+      {renderMessage(message, type, isSender, handleChoices, handleClickViewDetails)}
       {message === `Tell us more of what you're looking for!` && (
         <div className='flex max-w-[300px] flex-col gap-2 rounded-lg border p-2'>
           {items.map((val: any, i: number) => {
@@ -132,7 +131,7 @@ const Message = ({ isSender, message, type, handleChoices }: MessageProps) => {
           </button>
         </div>
       )}
-      {renderMessage('test', 'product', false, handleChoices)}
+      {/* {renderMessage('test', 'product', false, handleChoices)} */}
       {/* <div
         className={`w-fit max-w-[300px] whitespace-normal break-words rounded-xl  px-3 py-2 ${
           isSender ? `self-end bg-[#491ca8] text-white` : `bg-gray-100`

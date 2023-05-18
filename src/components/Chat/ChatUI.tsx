@@ -22,11 +22,24 @@ const ChatUI = ({ isOpen, handleClose }: ChatUIProps) => {
     }
     socket.on('message', (payload) => {
       let { text, attachments } = payload;
-      if (attachments) {
+      if (!text && attachments[0]?.test) {
         let newAttachments = attachments.map((e: any) => {
           return { message: e.message };
         });
         setMessages((prevMessages: any) => [...prevMessages, { type: 'button', isSender: false, message: newAttachments }]);
+      }
+
+      if (!text && !attachments[0]?.test) {
+        let newAttachments = attachments.map((e: any) => {
+          return {
+            title: e.name,
+            price: e.salePrice || e.price,
+            productId: e.productId,
+            subProductId: e.subProductId,
+            mediaLink: e.mediaLink,
+          };
+        });
+        setMessages((prevMessages: any) => [...prevMessages, { type: 'product', isSender: false, message: newAttachments }]);
       }
 
       if (text) {
