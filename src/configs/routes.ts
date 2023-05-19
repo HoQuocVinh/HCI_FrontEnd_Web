@@ -3,7 +3,7 @@ const routes = {
   style: "style/:styleType",
   gender: "gender/:genderType",
   product: "gender/:genderType/:productName/:productId?",
-  productDetail: "/product/:productId?",
+  productDetail: "/product/:productId/subproduct/:subProductId",
   cart: "/cart",
   checkout: "/checkout?",
   checkoutComplete: "/checkout/complete",

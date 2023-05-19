@@ -1,29 +1,25 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { LPCPDefault } from "utils/listProps";
 
 const CPDefault = (props: LPCPDefault) => {
   return (
     <Link
-      to={`/product/${props.productID}?colorCode=${props.colorTip[0].substring(
-        1
-      )}&sizeCode=${props.size.split("-")[0]}`}
-      className="flex flex-col"
+      // to={`/product/${props.productID}?colorCode=${props.colorName
+      //   .toLowerCase()
+      //   .replace(/\s+/g, "-")}&sizeCode=${props.size.split("-")[0]}`}
+      // className="flex flex-col"
+      to  = {`/product/${props.idProduct}/subproduct/${props.idSubProduct}`}
     >
       <img
         style={{ width: "220px", height: "220px", objectFit: "cover" }}
         src={props.src}
         alt={props.alt}
       />
-      {/* <div className="color mt-3 mb-4 h-4 w-4 bg-white"></div> */}
       <ul className="mt-3 mb-4 flex items-center gap-1">
-        {props.colorTip.map((color: any, index: number) => (
-          <li
-            key={index}
-            className="h-4 w-4"
-            style={{ backgroundColor: `${color}` }}
-          ></li>
-        ))}
+        <li
+          className="h-4 w-4"
+          style={{ backgroundColor: props.colorTip }}
+        ></li>
       </ul>
       <div className="mb-4 flex items-center justify-between">
         <span className="text-sm font-bold text-[#8E94A3]">

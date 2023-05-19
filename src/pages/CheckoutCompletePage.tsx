@@ -1,15 +1,53 @@
+import axios from "api/axios";
 import Common from "components/common/Common";
 import { useTheme } from "components/context/ThemeProvider";
-import Table from "components/table/Table";
 import Wrapper from "components/wrapper/Wrapper";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const CheckoutCompletePage = () => {
   const { setTheme } = useTheme();
+  const { accessToken, user } = useSelector((state: any) => state.auth);
+
+  const [orderDetail, setOrderDetail] = useState<any>([]);
+  const [subTotal, setSubTotal] = useState<number>(0);
+
   useEffect(() => {
     setTheme("secondary");
   }, [setTheme]);
+
+  useEffect(() => {
+    const request = {
+      orders: [],
+      filter: [],
+      size: 20,
+      totalElement: 0,
+      pageNumber: 1,
+    };
+    function fetchData() {
+      axios
+        .post("order", request, {
+          headers: {
+            "Content-Type": "Application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          const { result } = response.data;
+          setOrderDetail(result);
+          result.data.forEach((item: any) => {
+            item.orderDetail.forEach((total: any) => {
+              setSubTotal((count) => count + total.price + total.quantity);
+            });
+          });
+        })
+        .catch((error) => console.log(error));
+    }
+    fetchData();
+  }, []);
+
   return (
     <Wrapper.WDefault>
       <div className="mx-auto max-w-[904px] px-5 text-white">
@@ -28,19 +66,8 @@ const CheckoutCompletePage = () => {
         <div className="mb-4 flex flex-col">
           <span className="text-sm font-bold leading-8">ORDER NUMBER</span>
           <span className="text-3xl font-bold">
-            2520080002305121455-6470727
+            {orderDetail.data && orderDetail?.data[0]?.id}
           </span>
-        </div>
-        <div className="mb-2 flex flex-row items-center">
-          <dl className="inline-block">
-            <dt className="inline after:pr-1 after:content-[':']">
-              Expected delivery time
-            </dt>
-            <dd className="inline">13/05/2023 - 17/05/2023</dd>
-          </dl>
-          <p className="ml-2">
-            Note: The delivery time above is only an estimate
-          </p>
         </div>
         <Wrapper.Square>
           <span className="font-bold uppercase">Total Orders</span>
@@ -57,19 +84,13 @@ const CheckoutCompletePage = () => {
               <tr className="flex items-center justify-between pb-3">
                 <td>Total</td>
                 <td>
-                  <Common.Price price={200000} />
-                </td>
-              </tr>
-              <tr className="flex items-center justify-between border-b border-[#dddddd] pb-4">
-                <td>Delivery charge</td>
-                <td>
-                  <Common.Price price={200000} />
+                  <Common.Price price={subTotal} />
                 </td>
               </tr>
               <tr className="flex items-center justify-between pt-4 text-xl font-bold">
                 <td>Subtotal</td>
                 <td>
-                  <Common.Price price={200000} color="text-green-500" />
+                  <Common.Price price={subTotal} color="text-green-500" />
                 </td>
               </tr>
             </tbody>
@@ -79,34 +100,9 @@ const CheckoutCompletePage = () => {
           <span className="mb-5 block font-bold uppercase">
             Delivery address
           </span>
-          <strong>Hồ Quốc Vinh</strong>
-          <p className="py-2 pt-1">
-            Ấp 3, xã Phong Mỹ, huyện Cao Lãnh, tỉnh Đồng Tháp
-          </p>
-          <span>0782883871</span>
-        </Wrapper.Square>
-        <Wrapper.Square className="mt-5">
-          <span className="mb-5 block font-bold uppercase">Shipping date</span>
-          <Common.Defention>
-            <Common.Term>Delivery charge</Common.Term>
-            <Common.Description>
-              <Common.Price
-                price={50000}
-                color="text-green-500"
-                size="text-lg"
-              />
-            </Common.Description>
-          </Common.Defention>
-          <Common.Defention>
-            <Common.Term>Expected delivery time</Common.Term>
-            <Common.Description>14/05/2023 - 18/05/2023</Common.Description>
-          </Common.Defention>
-          <Common.Defention>
-            <Common.Term>Note</Common.Term>
-            <Common.Description>
-              The delivery time above is only an estimate
-            </Common.Description>
-          </Common.Defention>
+          <strong>{user.fullName}</strong>
+          <p className="py-2 pt-1">{user.address}</p>
+          <span>{user.phoneNumber}</span>
         </Wrapper.Square>
       </div>
     </Wrapper.WDefault>

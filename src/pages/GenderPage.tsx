@@ -1,5 +1,7 @@
+import axios from "api/axios";
 import { useTheme } from "components/context/ThemeProvider";
 import Skeleton from "components/skeleton/Skeleton";
+import useAxiosPrivate from "hooks/useAxiosPrivate";
 import useLoading from "hooks/useLoading";
 import { Fragment, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -32,7 +34,7 @@ export const Category = () => {
   const navigate = useNavigate();
   const loading = useLoading();
   const { genderType } = useParams();
-  const [prodcut, setProdcut] = useState<Array<object>>([]);
+  const [category, setCategory] = useState<Array<object>>([]);
 
   const handleDirection = (prodcutType: string) => {
     const newProductType = prodcutType.toLowerCase().replace(/\s+/g, "-");
@@ -40,9 +42,30 @@ export const Category = () => {
   };
 
   useEffect(() => {
-    genderType === "male"
-      ? setProdcut(LIST_PRODUCT_MALE)
-      : setProdcut(LIST_PRODUCT_FEMALE);
+    const dataRequest: any = {
+      orders: [],
+      filter: [
+        {
+          props: "gender",
+          filterOperator: "Is Equal To",
+          value: `${genderType?.charAt(0).toUpperCase()}${genderType?.slice(
+            1
+          )}`,
+        },
+      ],
+      size: 20,
+      totalElement: 0,
+      pageNumber: 1,
+    };
+
+    axios
+      .post("product/category", dataRequest)
+      .then((response) => {
+        console.log(response);
+        const { data } = response.data.result;
+        setCategory(data);
+      })
+      .catch((error) => console.log(error));
   }, [genderType]);
 
   return (
@@ -54,19 +77,17 @@ export const Category = () => {
         <Skeleton.GenderPage />
       ) : (
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-5">
-          {prodcut.map((item: any, index: number) => (
+          {category.map((item: any, index: number) => (
             <figure className="cursor-pointer" key={index}>
               <img
-                onClick={() => handleDirection(item.caption)}
-                src={item.src}
+                onClick={() => handleDirection(item.name)}
+                src={item.mediaLink}
                 alt=""
                 loading="lazy"
                 className="rounded-md object-cover"
                 style={{ width: "210px", height: "290px" }}
               />
-              <figcaption className="pt-2 text-center">
-                {item.caption}
-              </figcaption>
+              <figcaption className="pt-2 text-center">{item.name}</figcaption>
             </figure>
           ))}
         </div>

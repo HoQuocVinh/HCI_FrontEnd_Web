@@ -1,3 +1,4 @@
+import axios from "api/axios";
 import CPDefault from "components/card/CPDefault";
 import { useTheme } from "components/context/ThemeProvider";
 import { IconArrowDown } from "components/icon/Icon";
@@ -5,50 +6,43 @@ import WrapperPage from "components/wrapper/WrapperPage";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import classNames from "utils/classNames";
-import {
-  ALL_PYJAMA,
-  ALL_SHIRT,
-  ALL_TROUSER,
-  DRESS_SHIRT,
-  EASY_PANTS,
-  EASY_SHORT,
-  FILTER,
-  JEAN,
-  OUTERWEAR,
-  POLO_SHIRT,
-  SHORT,
-  TROUSER,
-  TSHIRT,
-} from "utils/listTest";
+import { removeDashesAndCapitalize } from "utils/handler";
+import { FILTER } from "utils/listTest";
 
 const ProductPage = () => {
   const { setTheme } = useTheme();
-  const { genderType, productName } = useParams();
-  console.log("TCL: ProductPage -> genderType", genderType);
+  const { productName } = useParams();
   const [product, setProduct] = useState<Array<object>>([]);
-
   useEffect(() => {
     setTheme("secondary");
   }, [setTheme]);
-  const products = {
-    shirt: ALL_SHIRT,
-    "t-shirt": TSHIRT,
-    "polo-shirt": POLO_SHIRT,
-    "dress-shirt": DRESS_SHIRT,
-    outerwear: OUTERWEAR,
-    trousers: ALL_TROUSER,
-    jean: JEAN,
-    trouser: TROUSER,
-    short: SHORT,
-    pyjamas: ALL_PYJAMA,
-    "easy-paints": EASY_PANTS,
-    "easy-shorts": EASY_SHORT,
-  };
 
   useEffect(() => {
-    if (productName) setProduct(products[productName as keyof typeof products]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const dataRequest = {
+      orders: [],
+      filter: [
+        {
+          props: "category.name",
+          filterOperator: "Is Equal To",
+          value: productName && removeDashesAndCapitalize(productName),
+        },
+      ],
+      size: 20,
+      totalElement: 0,
+      pageNumber: 1,
+    };
+
+    axios
+      .post("product", dataRequest)
+      .then((response) => {
+        const { data } = response.data.result;
+        console.log("TCL: ProductPage -> data", data);
+        setProduct(data);
+      })
+      .catch((error) => console.log(error));
   }, [productName]);
+
+  console.log(product);
   return (
     <WrapperPage>
       <ul className="breadcrumb hidden">
@@ -77,15 +71,17 @@ const ProductPage = () => {
             <div className="grid auto-cols-auto grid-cols-4 gap-x-4 gap-y-9">
               {product.map((item: any, index: number) => (
                 <CPDefault
-                  productID={item.id}
+                  idProduct={item.id}
+                  idSubProduct={item.items[0].id}
                   key={index}
-                  src={item.src}
-                  alt={item.alt}
-                  colorTip={item.colorTip}
-                  gender={item.gender}
-                  size={item.size}
-                  productName={item.productName}
-                  price={item.price}
+                  src={item.items[0].media[0].filePath}
+                  alt={item.items[0].media[0].fileName}
+                  colorTip={item.items[0].color.colorValue}
+                  colorName={item.items[0].color.colorName}
+                  gender={item.category.gender}
+                  size={item.items[0].size.sizeName}
+                  productName={item.name}
+                  price={item.items[0].price}
                 />
               ))}
             </div>
@@ -98,10 +94,10 @@ const ProductPage = () => {
 
 const SidebarFilter = () => {
   const { genderType } = useParams();
+  const { pathname } = useLocation();
   const [expandedCategorys, setExpandedCategorys] =
     useState<Array<object>>(FILTER);
 
-  const { pathname } = useLocation();
   const handleClickFilter = (clickCategory: any) => {
     const newCategory = expandedCategorys.map((item: any) => {
       if (item.category === clickCategory) {
