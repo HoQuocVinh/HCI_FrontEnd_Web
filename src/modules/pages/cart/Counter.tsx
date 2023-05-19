@@ -1,20 +1,63 @@
+import axios from "api/axios";
 import { IconMinus, IconPlus } from "components/icon/Icon";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import classNames from "utils/classNames";
 
-const Counter = ({ defaultCount }: { defaultCount: number }) => {
+const Counter = ({
+  defaultCount,
+  id,
+}: {
+  defaultCount: number;
+  id: string;
+}) => {
+  const { accessToken } = useSelector((state: any) => state.auth);
   const [count, setCount] = useState<string>(defaultCount.toString());
+
+  function fetachData(request: object) {
+    axios
+      .post("cart/add-product", request, {
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: ` Bearer ${accessToken}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        toast.success("Update successfully", { autoClose: 500 });
+        return new Promise<void>((resolve) => {
+          // Thực hiện tác vụ và sau khi hoàn thành, gọi resolve()
+          setTimeout(() => {
+            resolve();
+            window.location.reload();
+          }, 1000); // Ví dụ đợi 3 giây
+        });
+      })
+      .catch((error) => console.log(error));
+  }
 
   const handleDecrement = () => {
     const newCount = parseInt(count) - 1;
     if (newCount >= 1) {
       setCount(newCount.toString());
+      const request = {
+        subProductId: id,
+        quantity: -1,
+      };
+      fetachData(request);
     }
   };
 
   const handleIncrement = () => {
     const newCount = parseInt(count) + 1;
     setCount(newCount.toString());
+
+    const request = {
+      subProductId: id,
+      quantity: 1,
+    };
+    fetachData(request);
   };
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {

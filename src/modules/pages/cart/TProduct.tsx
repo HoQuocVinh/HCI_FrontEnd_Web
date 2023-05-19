@@ -15,7 +15,7 @@ import { TABLE_HEAD } from "utils/arrayList";
 import { toggleBodyOverflow } from "utils/handler";
 import Counter from "./Counter";
 
-const TProduct = ({ onClick }: any) => {
+const TProduct = () => {
   const { product, handleRemoveProduct, handleRemoveProductNoToast, subTotal } =
     useContext(CartContext);
   const { isShow } = useSelector((state: any) => state.modal);
@@ -62,6 +62,7 @@ const TProduct = ({ onClick }: any) => {
     }));
     setListOrder(extractItems);
   }, [product]);
+  console.log("TCL: TProduct -> product", product);
 
   return (
     <Fragment>
@@ -113,7 +114,13 @@ const TProduct = ({ onClick }: any) => {
                     ></Common.Price>
                   </Table.Cell>
                   <Table.Cell>
-                    <Counter defaultCount={productChild?.quantity} />
+                    <Counter
+                      defaultCount={productChild?.quantity}
+                      id={
+                        productChild.product.media &&
+                        productChild.product.media[0].subProductId
+                      }
+                    />
                   </Table.Cell>
                   <Table.Cell className="text-xl text-red-500">
                     <Common.Price

@@ -37,16 +37,18 @@ const CheckoutCompletePage = () => {
           console.log(response);
           const { result } = response.data;
           setOrderDetail(result);
-          result.data.forEach((item: any) => {
-            item.orderDetail.forEach((total: any) => {
-              setSubTotal((count) => count + total.price + total.quantity);
-            });
-          });
         })
         .catch((error) => console.log(error));
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    orderDetail.data &&
+      orderDetail.data[0].orderDetail.map((item: any) =>
+        setSubTotal((count) => (count += item.price * item.quantity))
+      );
+  }, [orderDetail.data]);
 
   return (
     <Wrapper.WDefault>
