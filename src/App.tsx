@@ -12,7 +12,7 @@ const LayoutProfile = lazy(() => import("layouts/LayoutProfile"));
 const LayoutAuth = lazy(() => import("layouts/LayoutAuth"));
 
 function App() {
-  const { user } = useSelector((state: any) => state.auth);
+  const { user, accessToken } = useSelector((state: any) => state.auth);
   const { access_token } = getToken();
 
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function App() {
     }
   }, [access_token]);
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <Suspense fallback={<></>}>

@@ -6,7 +6,6 @@ import { LPMAddToCard } from "utils/listProps";
 
 const MAddToCard = (props: LPMAddToCard) => {
   const navigate = useNavigate();
-  let price = 200000;
   return ReactDOM.createPortal(
     <div
       className={classNames(
@@ -32,13 +31,14 @@ const MAddToCard = (props: LPMAddToCard) => {
             <span className="border-r-2 border-gray-500 pr-2 font-semibold uppercase">
               Sum
             </span>
-            <span className="pl-2">2 products</span>
+            <span className="pl-2">{props.quantity} products</span>
           </div>
           <span className="block text-xl font-semibold">
-            {price.toLocaleString("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            })}
+            {props.price &&
+              props.price.toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })}
           </span>
         </div>
         <div className="flex items-center gap-5">

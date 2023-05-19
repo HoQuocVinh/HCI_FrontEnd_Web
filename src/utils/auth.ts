@@ -80,5 +80,6 @@ export const logOut = () => {
       path: "/",
       domain: process.env.COOKIE_DOMAIN,
     });
+    window.location.reload();
   }
 };

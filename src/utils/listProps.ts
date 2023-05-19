@@ -46,9 +46,11 @@ export interface LPCPDefault {
   gender?: string;
   size: string;
   productName: string;
-  colorTip: Array<string>;
+  colorTip: string;
+  colorName: string;
   price: number;
-  productID: string;
+  idProduct: string;
+  idSubProduct: string;
 }
 
 export interface LPBDirection {
@@ -69,6 +71,8 @@ export interface LPDropdown {
 export interface LPMAddToCard {
   open: boolean;
   onClick: () => void;
+  quantity: number;
+  price: number;
 }
 
 export interface LPWModal {
@@ -78,4 +82,5 @@ export interface LPWModal {
   children?: ReactNode;
   btnName1: string;
   btnName2: string;
+  handleRemoveProduct?: () => void;
 }

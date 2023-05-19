@@ -6,7 +6,7 @@ const LIST_NAVIGATION = [
 ];
 const TABLE_HEAD = [
   "Image",
-  "Product ID",
+  // "Product ID",
   "Product Name",
   "Color",
   "Size",

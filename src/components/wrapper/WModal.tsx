@@ -31,7 +31,10 @@ const WModal = (props: LPWModal) => {
           >
             {props.btnName1}
           </button>
-          <button className="w-[300px] bg-red-500 py-2 text-lg font-bold text-white hover:bg-red-600">
+          <button
+            className="w-[300px] bg-red-500 py-2 text-lg font-bold text-white hover:bg-red-600"
+            onClick={props.handleRemoveProduct}
+          >
             {props.btnName2}
           </button>
         </div>
