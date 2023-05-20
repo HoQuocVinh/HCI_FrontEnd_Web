@@ -61,7 +61,7 @@ function removeDashesAndCapitalize(str: string): string {
   return result;
 }
 
-function createNumberArray(endNumber:number): number[] {
+function createNumberArray(endNumber: number): number[] {
   const numberArray: number[] = [];
   for (let i = 1; i <= endNumber; i++) {
     numberArray.push(i);
@@ -69,4 +69,8 @@ function createNumberArray(endNumber:number): number[] {
   return numberArray;
 }
 
-export { toggleBodyOverflow, removeDashesAndCapitalize };
+function navigateWithoutReload(path: string) {
+  window.history.pushState(null, "", path);
+}
+
+export { toggleBodyOverflow, removeDashesAndCapitalize, navigateWithoutReload };

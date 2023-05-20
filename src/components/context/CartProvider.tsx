@@ -3,6 +3,7 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { toggleModal } from "sagas/modal/modal-slice";
+import { getToken } from "utils/auth";
 import { toggleBodyOverflow } from "utils/handler";
 
 export const CartContext = createContext<any>([]);
@@ -11,6 +12,7 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch();
 
   const { accessToken } = useSelector((state: any) => state.auth);
+
   const { isShow } = useSelector((state: any) => state.modal);
 
   const [product, setProduct] = useState<Array<any>>([]);

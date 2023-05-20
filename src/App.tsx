@@ -1,37 +1,37 @@
-import { Suspense, lazy, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { publicRoutes } from 'routes';
-import { authRoutes, privateRoutes, profileRouters } from 'routes/routes';
-import { authUpdateUser } from 'sagas/auth/auth-slice';
-import { getToken } from 'utils/auth';
-import { v4 as uuidv4 } from 'uuid';
-import { io } from 'socket.io-client';
+import { Suspense, lazy, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { publicRoutes } from "routes";
+import { authRoutes, privateRoutes, profileRouters } from "routes/routes";
+import { authUpdateUser } from "sagas/auth/auth-slice";
+import { getToken } from "utils/auth";
+import { v4 as uuidv4 } from "uuid";
+import { io } from "socket.io-client";
 
-const { default: jwt_decode } = require('jwt-decode');
+const { default: jwt_decode } = require("jwt-decode");
 
-let userID = localStorage.getItem('userId');
+let userID = localStorage.getItem("userId");
 
 if (!userID) {
-  localStorage.setItem('userId', uuidv4());
+  localStorage.setItem("userId", uuidv4());
 }
 
-export const socket = io('http://localhost:3000', {
+export const socket = io("http://localhost:3000", {
   query: {
     id: userID,
   },
 });
 
-const LayoutDefault = lazy(() => import('layouts/LayoutDefault'));
-const LayoutProfile = lazy(() => import('layouts/LayoutProfile'));
-const LayoutAuth = lazy(() => import('layouts/LayoutAuth'));
+const LayoutDefault = lazy(() => import("layouts/LayoutDefault"));
+const LayoutProfile = lazy(() => import("layouts/LayoutProfile"));
+const LayoutAuth = lazy(() => import("layouts/LayoutAuth"));
+const Activepage = lazy(() => import("pages/ActivePage"));
 
 function App() {
-  const { user, accessToken } = useSelector((state: any) => state.auth);
   const { access_token } = getToken();
+  const { user } = useSelector((state: any) => state.auth);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   useEffect(() => {
     if (access_token) {
       const decode = jwt_decode(access_token);
@@ -43,8 +43,6 @@ function App() {
       );
     }
   }, [access_token]);
-
-  // console.log(user);
 
   return (
     <Suspense fallback={<></>}>
@@ -67,12 +65,13 @@ function App() {
             return <Route key={index} path={route.path} element={<Page />} />;
           })}
         </Route>
-        <Route path='/profile' element={<LayoutProfile />}>
+        <Route path="/profile" element={<LayoutProfile />}>
           {profileRouters.map((route, index: number) => {
             const Page = route.component;
             return <Route key={index} path={route.path} element={<Page />} />;
           })}
         </Route>
+        <Route path="/auth/confirm-email" element={<Activepage />} />
       </Routes>
     </Suspense>
   );

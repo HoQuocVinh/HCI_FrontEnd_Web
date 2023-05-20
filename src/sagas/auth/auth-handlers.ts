@@ -9,6 +9,8 @@ import {
   requestRefreshToken,
 } from "./auth-requests";
 import { authRefreshToken, authUpdateUser } from "./auth-slice";
+import { useNavigate } from "react-router";
+import { navigateWithoutReload } from "utils/handler";
 
 const { default: jwt_decode } = require("jwt-decode");
 
@@ -19,8 +21,10 @@ function* handleAuthRegister(action: AnyAction): Generator<any, void, any> {
     console.log("TCL: response", response);
     const { data } = response;
     if (data.result) {
-      toast.success("Create successfully", { autoClose: 500 });
-      document.location = "signin";
+      toast.success("Please active account in email", { autoClose: 500 });
+      setTimeout(() => {
+        document.location = "signin";
+      }, 1500);
     } else toast.warning(data.message, { autoClose: 500 });
   } catch (error) {
     console.log(error);

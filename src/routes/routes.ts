@@ -40,16 +40,20 @@ const profileRouters = [
   { path: config.routes.editProfile, component: EditProfilePage },
   { path: config.routes.changePassword, component: ChangePasswordPage },
 ];
+
+//* Auth routes
 const authRoutes = [
   { path: config.routes.signin, component: SignInPage },
   { path: config.routes.signup, component: SignUpPage },
 ];
 
-//* Private routesconst
+//* Private routes
 const privateRoutes = [
   { path: config.routes.cart, component: CartPage },
   { path: config.routes.checkout, component: CheckoutPage },
   { path: config.routes.checkoutComplete, component: CheckoutCompletePage },
 ];
+
+//* Active routes
 
 export { publicRoutes, authRoutes, privateRoutes, profileRouters };

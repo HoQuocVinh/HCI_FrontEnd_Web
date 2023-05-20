@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { getToken } from "utils/auth";
 
 const LayoutAuth = () => {
   const navigate = useNavigate();
   const { access_token } = getToken();
+  console.log("TCL: LayoutAuth -> access_token", access_token);
   useEffect(() => {
     access_token && navigate(-1);
   }, [access_token]);
