@@ -12,7 +12,7 @@ import { FILTER } from "utils/listTest";
 const ProductPage = () => {
   const { setTheme } = useTheme();
   const { productName } = useParams();
-  const [product, setProduct] = useState<Array<object>>([]);
+  const [product, setProduct] = useState<any>([]);
   useEffect(() => {
     setTheme("secondary");
   }, [setTheme]);
@@ -35,9 +35,10 @@ const ProductPage = () => {
     axios
       .post("product", dataRequest)
       .then((response) => {
-        const { data } = response.data.result;
-        console.log("TCL: ProductPage -> data", data);
-        setProduct(data);
+        console.log("TCL: ProductPage -> response", response);
+        const { result } = response.data;
+        console.log("TCL: ProductPage -> data", result);
+        setProduct(result);
       })
       .catch((error) => console.log(error));
   }, [productName]);
@@ -52,38 +53,33 @@ const ProductPage = () => {
       </ul>
       <div className="text-white">
         <div className="flex justify-between align-baseline">
-          <div className="result flex flex-col gap-5">
+          <div className="result mb-2 flex flex-col mt-2">
             <p className="text-lg font-bold">Result</p>
-            <span>30</span>
-          </div>
-          <div className="flex flex-col filter">
-            <p className="flex-1">Sort by</p>
-            <select name="" id="" className="text-black">
-              <option value="1">Product1</option>
-              <option value="2">Product2</option>
-              <option value="3">Product3</option>
-            </select>
+            <span className="text-xl">
+              {product.page && product.page.totalElement}
+            </span>
           </div>
         </div>
         <div className="mt-10 flex">
           <SidebarFilter />
           <div className="flex-1">
             <div className="grid auto-cols-auto grid-cols-4 gap-x-4 gap-y-9">
-              {product.map((item: any, index: number) => (
-                <CPDefault
-                  idProduct={item.id}
-                  idSubProduct={item.items[0].id}
-                  key={index}
-                  src={item.items[0].media[0].filePath}
-                  alt={item.items[0].media[0].fileName}
-                  colorTip={item.items[0].color.colorValue}
-                  colorName={item.items[0].color.colorName}
-                  gender={item.category.gender}
-                  size={item.items[0].size.sizeName}
-                  productName={item.name}
-                  price={item.items[0].price}
-                />
-              ))}
+              {product.data &&
+                product?.data.map((item: any, index: number) => (
+                  <CPDefault
+                    idProduct={item.id}
+                    idSubProduct={item.items[0].id}
+                    key={index}
+                    src={item.items[0].media[0].filePath}
+                    alt={item.items[0].media[0].fileName}
+                    colorTip={item.items[0].color.colorValue}
+                    colorName={item.items[0].color.colorName}
+                    gender={item.category.gender}
+                    size={item.items[0].size.sizeName}
+                    productName={item.name}
+                    price={item.items[0].price}
+                  />
+                ))}
             </div>
           </div>
         </div>

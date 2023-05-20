@@ -41,32 +41,11 @@ function toggleBodyOverflow(isShow: boolean) {
 }
 
 function removeDashesAndCapitalize(str: string): string {
-  // Tách các từ trong chuỗi
-  const words = str.split("-");
-
-  // Viết hoa chữ cái đầu tiên mỗi từ
-  const capitalizedWords = words.map((word) => {
-    // Nếu từ là "T-Shirt", giữ nguyên
-    if (word.toUpperCase() === "T-SHIRT") {
-      return "T-Shirt";
-    }
-
-    // Ngược lại, viết hoa chữ cái đầu tiên
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  });
-
-  // Kết hợp các từ lại với dấu "-"
-  const result = capitalizedWords.join("-");
-
-  return result;
-}
-
-function createNumberArray(endNumber: number): number[] {
-  const numberArray: number[] = [];
-  for (let i = 1; i <= endNumber; i++) {
-    numberArray.push(i);
+  let result = str.replace(/-/g, " ").trim();
+  if (result.toLowerCase() === "t shirt") {
+    return "t-shirt";
   }
-  return numberArray;
+  return result;
 }
 
 function navigateWithoutReload(path: string) {
