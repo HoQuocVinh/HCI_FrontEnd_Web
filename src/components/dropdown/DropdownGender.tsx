@@ -4,8 +4,9 @@ import { useWatch } from "react-hook-form";
 import classNames from "utils/classNames";
 import { LPDropdown } from "utils/listProps";
 
-const Dropdown = (props: LPDropdown) => {
-  const [label, setLabel] = useState<number>(1);
+const DropdownGender = (props: LPDropdown) => {
+  const [label, setLabel] = useState<string>("");
+  console.log("TCL: DropdownGender -> label", label.length);
 
   const dropdownValue = useWatch({
     control: props.control,
@@ -29,7 +30,7 @@ const Dropdown = (props: LPDropdown) => {
         )}
         onClick={() => props.setShow(!props.show)}
       >
-        {label}
+        {label.length <= 0 ? props.labelDefault : label}
         <span
           className={classNames(
             "transition-all duration-500",
@@ -60,4 +61,4 @@ const Dropdown = (props: LPDropdown) => {
   );
 };
 
-export default Dropdown;
+export default DropdownGender;

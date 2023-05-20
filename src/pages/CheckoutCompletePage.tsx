@@ -34,7 +34,6 @@ const CheckoutCompletePage = () => {
           },
         })
         .then((response) => {
-          console.log(response);
           const { result } = response.data;
           setOrderDetail(result);
         })

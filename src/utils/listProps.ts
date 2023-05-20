@@ -60,12 +60,14 @@ export interface LPBDirection {
 }
 
 export interface LPDropdown {
+  labelDefault?: string;
   control: any;
   name: string;
   setValue?: any;
   list: any;
   setShow: any;
   show: boolean;
+  className?: string;
 }
 
 export interface LPMAddToCard {

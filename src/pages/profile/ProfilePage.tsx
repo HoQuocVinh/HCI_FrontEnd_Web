@@ -1,23 +1,36 @@
+import { useSelector } from "react-redux";
+
 function ProfilePage() {
+  const { user } = useSelector((state: any) => state.auth);
+  console.log("TCL: ProfilePage -> user", user);
   return (
     <>
       <h1 className="text-xl font-bold">HỒ SƠ</h1>
-      <div className="flex flex-row items-start p-4">
-        <span className="text-base font-semibold">
-          ĐỊA CHỈ EMAIL <p className="font-normal">thanhtrong@gmail.com</p>
-        </span>
-        <div className="ml-10">
-          <span className="flex flex-col items-start font-semibold">
-            SINH NHẬT <p className="font-normal">06/07/2001</p>
-          </span>
-          <span className="flex flex-col items-start font-semibold">
-            GIỚI TÍNH <p className="font-normal">Nam</p>
-          </span>
+      <div className="flex items-start gap-20">
+        <div className="flex flex-col gap-y-5">
+          <div className="flex flex-col">
+            <strong className="uppercase">Email address</strong>
+            <span>{user.email}</span>
+          </div>
+          <div className="flex flex-col">
+            <strong className="uppercase">Full Name</strong>
+            <span>{user.fullName}</span>
+          </div>
+          <div className="flex flex-col">
+            <strong className="uppercase">Address</strong>
+            <span>{user.address ? user.address : "NULL"}</span>
+          </div>
         </div>
-      </div>
-      <hr className="border-1.5 mx-4 border-gray-300" />
-      <div className="ml-4 items-start">
-        <span className="font-semibold">Chả có con mẹ gì cả </span>
+        <div className="flex flex-col gap-y-5">
+          <div className="flex flex-col">
+            <strong className="uppercase">Phone number</strong>
+            <span>{user.phoneNumber ? user.phoneNumber : "NULL"}</span>
+          </div>
+          <div className="flex flex-col">
+            <strong className="uppercase">Gender</strong>
+            <span>{user.gender}</span>
+          </div>
+        </div>
       </div>
     </>
   );

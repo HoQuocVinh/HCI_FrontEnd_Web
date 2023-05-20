@@ -28,25 +28,19 @@ const requestAuthLogout = () => {
   );
 };
 
-export { requestAuthRegister, requestAuthLogin, requestAuthLogout };
+const requestRefreshToken = () => {
+  const { access_token } = getToken();
+  return axios.get("auth/refresh-token", {
+    headers: {
+      "Content-Type": "Application/json",
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+};
 
-// export const requestAuthFetchMe = (token: string) => {
-//   if (!token) return;
-//   const decode = jwt_decode(token);
-//   return axios.get(`user/${decode.sub}`, {
-//     headers: {
-//       "Content-Type": "Application/json",
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };
-
-// export const requestAuthRefreshToken = (token: string) => {
-//   if (!token) return;
-//   return axios.post(`token/${token}`, {
-//     headers: {
-//       "Content-Type": "Application/json",
-//       // Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };
+export {
+  requestAuthRegister,
+  requestAuthLogin,
+  requestAuthLogout,
+  requestRefreshToken,
+};

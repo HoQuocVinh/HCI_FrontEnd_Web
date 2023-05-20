@@ -10,10 +10,12 @@ import {
   handleAuthLogin,
   handleAuthRegister,
   handleAuthLogOut,
+  handleAuthRefreshToken,
 } from "./auth-handlers";
 
 export default function* authSaga() {
   yield takeLatest(authRegister.type, handleAuthRegister);
   yield takeLatest(authLogin.type, handleAuthLogin);
   yield takeLatest(authLogOut.type, handleAuthLogOut);
+  yield takeLatest(authRefreshToken.type, handleAuthRefreshToken);
 }

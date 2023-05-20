@@ -6,8 +6,9 @@ import {
   requestAuthLogin,
   requestAuthLogout,
   requestAuthRegister,
+  requestRefreshToken,
 } from "./auth-requests";
-import { authUpdateUser } from "./auth-slice";
+import { authRefreshToken, authUpdateUser } from "./auth-slice";
 
 const { default: jwt_decode } = require("jwt-decode");
 
@@ -16,10 +17,11 @@ function* handleAuthRegister(action: AnyAction): Generator<any, void, any> {
   try {
     const response = yield call(requestAuthRegister, payload);
     console.log("TCL: response", response);
-    response.status === 200 &&
-      toast.warning(response.data.message, { autoClose: 1000 });
-    response.status === 201 &&
-      toast.success(response.data.message, { autoClose: 1000 });
+    const { data } = response;
+    if (data.result) {
+      toast.success("Create successfully", { autoClose: 500 });
+      document.location = "signin";
+    } else toast.warning(data.message, { autoClose: 500 });
   } catch (error) {
     console.log(error);
   }
@@ -59,4 +61,24 @@ function* handleAuthLogOut(payload: string): Generator<any, void, any> {
   }
 }
 
-export { handleAuthRegister, handleAuthLogin, handleAuthLogOut };
+function* handleAuthRefreshToken(): Generator<any, void, any> {
+  const response = yield call(requestRefreshToken);
+  const { result } = response.data;
+  if (result.access && result.refresh) {
+    const decode = jwt_decode(result.access);
+    console.log("TCL: decode", decode);
+    yield put(
+      authUpdateUser({
+        user: decode,
+        accessToken: result.access,
+      })
+    );
+  }
+}
+
+export {
+  handleAuthRegister,
+  handleAuthLogin,
+  handleAuthLogOut,
+  handleAuthRefreshToken,
+};

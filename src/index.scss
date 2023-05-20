@@ -51,6 +51,12 @@
   body {
     @apply font-body;
   }
+
+  input,
+  button,
+  select {
+    outline: none;
+  }
 }
 
 @layer header {

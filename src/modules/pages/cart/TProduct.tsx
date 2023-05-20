@@ -46,11 +46,17 @@ const TProduct = () => {
       )
       .then((response) => {
         console.log(response);
-        navigate("/checkout/complete");
-        toast.success("Order successfully", { autoClose: 1000 });
-        listOrder.map((item: any) =>
-          handleRemoveProductNoToast(item.subProductId)
-        );
+        const { data } = response;
+        if (data.result) {
+          navigate("/checkout/complete");
+          toast.success("Order successfully", { autoClose: 1000 });
+          listOrder.map((item: any) =>
+            handleRemoveProductNoToast(item.subProductId)
+          );
+        } else {
+          toast.warning(data.message, { autoClose: 1000 });
+          navigate("/profile/edit");
+        }
       })
       .catch((error) => console.log(error));
   };
@@ -62,6 +68,7 @@ const TProduct = () => {
     }));
     setListOrder(extractItems);
   }, [product]);
+
   console.log("TCL: TProduct -> product", product);
 
   return (

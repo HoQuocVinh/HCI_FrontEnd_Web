@@ -26,7 +26,8 @@ function LayoutProfile() {
       <Header />
       <div className="flex flex-col items-center justify-center">
         <div className="bg-white px-4">
-          {/* Breadcrumb */}<div></div>
+          {/* Breadcrumb */}
+          <div></div>
           <div className="font-Roboto m-2 w-[60%] text-sm font-thin">
             PALMO / PROFILE / {pathName.replace("/", " ").toUpperCase()}
           </div>
@@ -36,7 +37,7 @@ function LayoutProfile() {
           </div>
           <div className="m-2 flex flex-row">
             <SidebarProfile pathName={pathName} />
-            <div className="m-2 h-screen w-[850px] border border-solid bg-white p-4">
+            <div className="m-2 w-[850px] border border-solid bg-white p-4">
               <Outlet />
             </div>
           </div>

@@ -82,7 +82,7 @@ const TPContextMenu = () => {
             className="font-footer w-[200px] rounded-md bg-white py-2 text-[#23262F] transition-all"
             tabIndex={-1}
           >
-            <Link to="/profile">
+            <Link to="/profile/detail">
               <div className="py-[10px] pl-4 pr-2 hover:bg-[rgba(22,_24,_35,_0.04)]">
                 <div className="flex cursor-pointer items-center">
                   <i className="mr-5">

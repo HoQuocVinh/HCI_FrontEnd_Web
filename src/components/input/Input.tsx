@@ -1,13 +1,18 @@
+import { file } from "@babel/types";
 import { useController } from "react-hook-form";
+import classNames from "utils/classNames";
 
 interface IInfo {
   type: string;
   name: string;
   control: any;
   label?: string;
+  disable?: boolean;
+  auto?: boolean;
 }
 
 const useInputCheckOut = (props: IInfo) => {
+  const { type, label, disable, auto } = props;
   const { field } = useController({
     name: props.name,
     control: props.control,
@@ -16,129 +21,83 @@ const useInputCheckOut = (props: IInfo) => {
 
   return {
     inputProps: {
-      type: props.type,
-      lable: props.label,
+      type: type,
+      label: label,
+      disable: disable,
+      auto: auto,
       ...field,
     },
   };
 };
 
-export const IInfo = (props: IInfo) => {
+const IInfo = (props: IInfo) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { inputProps } = useInputCheckOut(props);
   return (
     <div className="form__field">
-      <input className="form__input" placeholder=" " {...inputProps} />
+      <input
+        className={classNames(
+          "form__input",
+          inputProps.disable &&
+            "pointer-events-none select-none !border-green-200 bg-gray-200"
+        )}
+        placeholder=" "
+        {...inputProps}
+      />
       <label htmlFor="" className="form__label">
-        {inputProps.lable}
+        {inputProps.label}
       </label>
     </div>
   );
 };
 
-// Input.IAddress = (props: IAddress) => {
-//   const { name, control, label, setValue, option } = props;
-//   // eslint-disable-next-line react-hooks/rules-of-hooks
-//   const addressValue = useWatch({
-//     name,
-//     control,
-//     defaultValue: "",
-//   });
+interface InterfaceIIUser {
+  name: string;
+  control: any;
+  label: string;
+  type: string;
+  disable?: boolean;
+  id?: string;
+}
 
-//   // eslint-disable-next-line react-hooks/rules-of-hooks
-//   const [searchTerm, setSearchTerm] = useState("");
-//   // eslint-disable-next-line react-hooks/rules-of-hooks
-//   const [selectedOption, setSelectedOption] = useState<any>(null);
-//   // eslint-disable-next-line react-hooks/rules-of-hooks
-//   const [isOpen, setIsOpen] = useState(false);
+const IIUser = (props: InterfaceIIUser) => {
+  const { name, control, label, type, disable, id } = props;
+  const { field } = useController({
+    name,
+    control,
+    defaultValue: "",
+  });
+  const handleInputChange = (event: any) => {
+    if (type === "tel") {
+      const inputValue = event.target.value;
+      const numericValue = inputValue.replace(/\D/g, ""); // Loại bỏ ký tự không phải số
 
-//   const removeAccents = (str: string) => {
-//     return str
-//       .normalize("NFD")
-//       .replace(/[\u0300-\u036f]/g, "")
-//       .toLowerCase();
-//   };
+      event.target.value = numericValue.slice(0, 10); // Giới hạn độ dài thành 10 kí tự
 
-//   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     setSearchTerm(event.target.value);
-//   };
+      field.onChange(event); // Gọi hàm onChange của RHF để cập nhật giá trị
+    } else {
+      field.onChange(event); // Gọi hàm onChange của RHF để cập nhật giá trị
+    }
+  };
 
-//   const handleOptionClick = (option: any) => {
-//     setSelectedOption(option);
-//     setSearchTerm(option.label);
-//     setValue(props.name, option.label);
-//     setIsOpen(false);
-//   };
+  return (
+    <div>
+      <label htmlFor={name} className="cursor-pointer font-bold">
+        {label}
+      </label>
+      <input
+        className={classNames(
+          "mt-1 w-full rounded-[4px] border border-[#737373] px-3 py-2 focus:border-blue-500 focus:caret-blue-500",
+          disable &&
+            "user-select pointer-events-none border-transparent bg-gray-200 text-gray-500"
+        )}
+        type={type}
+        onInput={handleInputChange}
+        id={id}
+        {...field}
+      />
+    </div>
+  );
+};
 
-//   const handleInputBlur = () => {
-//     setTimeout(() => {
-//       setIsOpen(false);
-//     }, 100);
-//   };
-
-//   const filteredOptions = option.filter((option) =>
-//     removeAccents(option?.label).includes(removeAccents(searchTerm))
-//   );
-
-//   return (
-//     <div className="relative">
-//       <div className="form__field">
-//         <input
-//           className="form__input"
-//           placeholder=" "
-//           value={searchTerm}
-//           onChange={handleInputChange}
-//           onFocus={() => setIsOpen(true)}
-//           onBlur={handleInputBlur}
-//         />
-//         <label htmlFor="" className="form__label">
-//           {label}
-//         </label>
-//         <i
-//           className={classNames(
-//             "pointer-events-none absolute right-5 top-2/4 -translate-y-2/4 select-none text-gray-400 transition-all duration-500",
-//             isOpen && "rotate-180"
-//           )}
-//         >
-//           <IconArrowDownSolid />
-//         </i>
-//       </div>
-//       {isOpen && (
-//         // <div className="options absolute left-0 right-0 top-full z-20 max-h-[200px] translate-y-2 overflow-auto bg-white shadow-xl">
-//         //   {filteredOptions.map((option, index: number) => (
-//         //     <div
-//         //       key={index}
-//         //       className="option cursor-pointer px-3 py-2 transition hover:bg-blue-200"
-//         //       onClick={() => handleOptionClick(option)}
-//         //     >
-//         //       {option.label}
-//         //     </div>
-//         //   ))}
-//         // </div>
-//         <DropdownFocusInput />
-//       )}
-//     </div>
-//   );
-// };
-
-// interface IterfaceDropdown {
-//   data: [];
-//   handleOptionClick: any;
-// }
-
-// const DropdownFocusInput = (props: IterfaceDropdown) => {
-//   const { data, handleOptionClick } = props;
-//   return (
-//     <div className="options absolute left-0 right-0 top-full z-20 max-h-[200px] translate-y-2 overflow-auto bg-white shadow-xl">
-//       {data.map((option, index: number) => (
-//         <div
-//           key={index}
-//           className="option cursor-pointer px-3 py-2 transition hover:bg-blue-200"
-//           onClick={() => handleOptionClick(option)}
-//         >
-//           {option}
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
+export { IInfo, IIUser };

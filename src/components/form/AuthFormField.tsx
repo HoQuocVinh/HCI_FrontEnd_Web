@@ -1,15 +1,16 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import AuthButton from "components/Button/AuthButton";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-
-import AuthInput from "components/input/AuthInput";
-import { useToastError } from "hooks/useToastError";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { yupResolver } from "@hookform/resolvers/yup";
+import schame from "utils/validationSchame";
+
+import AuthButton from "components/Button/AuthButton";
+import AuthInput from "components/input/AuthInput";
+
+import { useToastError } from "hooks/useToastError";
 import { authLogin, authRegister } from "sagas/auth/auth-slice";
 import { LPAuthFormField } from "utils/listProps";
-import schame from "utils/validationSchame";
 
 const AuthFormField = (props: LPAuthFormField) => {
   const {
@@ -23,6 +24,7 @@ const AuthFormField = (props: LPAuthFormField) => {
   });
   useToastError(errors);
   const dispatch = useDispatch();
+
   const handelRegister = (values: object) => {
     props.signin && dispatch(authRegister(values));
     props.signup && dispatch(authLogin(values));

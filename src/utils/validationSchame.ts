@@ -13,4 +13,16 @@ const schame = Yup.object().shape({
     .min(8, "Password must be 8 characters"),
 });
 
+export const schamePassword = Yup.object().shape({
+  oldPassword: Yup.string()
+    .required("Please enter your password")
+    .min(8, "Password must be 8 characters"),
+  newPassword: Yup.string()
+    .required("Please enter your new password")
+    .min(8, "Password must be 8 characters"),
+  confirmPassword: Yup.string()
+    .required("Please enter your comfirm password")
+    .min(8, "Password must be 8 characters"),
+});
+
 export default schame;
