@@ -7,4 +7,5 @@ export interface MessageProps {
   message: string;
   isSender: boolean;
   type: string;
+  handleChoices: any;
 }
