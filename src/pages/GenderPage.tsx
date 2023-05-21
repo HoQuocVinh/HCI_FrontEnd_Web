@@ -34,6 +34,7 @@ export const Category = () => {
   const navigate = useNavigate();
   const loading = useLoading();
   const { genderType } = useParams();
+  console.log("TCL: Category -> genderType", genderType);
   const [category, setCategory] = useState<Array<object>>([]);
 
   const handleDirection = (prodcutType: string) => {
@@ -80,14 +81,25 @@ export const Category = () => {
           {category.map((item: any, index: number) => (
             <figure className="cursor-pointer" key={index}>
               <img
-                onClick={() => handleDirection(item.name)}
+                onClick={() =>
+                  handleDirection(
+                    item.name
+                    // genderType === "female"
+                    //   ? item.name.replace(/'/g, "")
+                    //   : item.name
+                  )
+                }
                 src={item.mediaLink}
                 alt=""
                 loading="lazy"
                 className="rounded-md object-cover"
                 style={{ width: "210px", height: "290px" }}
               />
-              <figcaption className="pt-2 text-center">{item.name}</figcaption>
+              <figcaption className="pt-2 text-center">
+                {genderType === "female"
+                  ? item.name.replace(/'/g, "")
+                  : item.name}
+              </figcaption>
             </figure>
           ))}
         </div>

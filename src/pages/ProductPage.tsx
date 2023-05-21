@@ -1,23 +1,30 @@
 import axios from "api/axios";
 import CPDefault from "components/card/CPDefault";
+import FilterProvider, {
+  FilterContext,
+} from "components/context/FilterProvider";
 import { useTheme } from "components/context/ThemeProvider";
-import { IconArrowDown } from "components/icon/Icon";
 import WrapperPage from "components/wrapper/WrapperPage";
-import { useEffect, useState } from "react";
-import { NavLink, useLocation, useParams } from "react-router-dom";
-import classNames from "utils/classNames";
+import { useContext, useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import { removeDashesAndCapitalize } from "utils/handler";
-import { FILTER } from "utils/listTest";
 
 const ProductPage = () => {
   const { setTheme } = useTheme();
-  const { productName } = useParams();
+  const { productName, genderType } = useParams();
   const [product, setProduct] = useState<any>([]);
+  const [listFilter, setListFilter] = useState<any>([]);
   useEffect(() => {
     setTheme("secondary");
   }, [setTheme]);
 
   useEffect(() => {
+    const tag = productName && removeDashesAndCapitalize(productName);
+    const flag =
+      genderType === "female"
+        ? `'${tag}`
+        : productName && removeDashesAndCapitalize(productName);
+
     const dataRequest = {
       orders: [],
       filter: [
@@ -35,91 +42,92 @@ const ProductPage = () => {
     axios
       .post("product", dataRequest)
       .then((response) => {
-        console.log("TCL: ProductPage -> response", response);
         const { result } = response.data;
-        console.log("TCL: ProductPage -> data", result);
         setProduct(result);
+      })
+      .catch((error) => console.log(error));
+
+    const dataCategoryRequest = {
+      orders: [],
+      filter: [
+        {
+          props: "gender",
+          filterOperator: "Is Equal To",
+          value: genderType,
+        },
+      ],
+      size: 20,
+      totalElement: 0,
+      pageNumber: 1,
+    };
+    axios
+      .post("/product/category", dataCategoryRequest)
+      .then((response) => {
+        console.log(response);
+        const { result } = response.data;
+        const listCategory = result.data.forEach((item: any) => ({}));
       })
       .catch((error) => console.log(error));
   }, [productName]);
 
-  console.log(product);
   return (
-    <WrapperPage>
-      <ul className="breadcrumb hidden">
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-      <div className="text-white">
-        <div className="flex justify-between align-baseline">
-          <div className="result mb-2 mt-2 flex flex-col">
-            <p className="text-lg font-bold">Result</p>
-            <span className="text-xl">
-              {product.page && product.page.totalElement}
-            </span>
+    <FilterProvider>
+      <WrapperPage>
+        <ul className="breadcrumb hidden">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <div className="text-white">
+          <div className="flex justify-between align-baseline">
+            <div className="result mb-2 mt-2 flex flex-col">
+              <p className="text-lg font-bold">Result</p>
+              <span className="text-xl">
+                {product.page && product.page.totalElement}
+              </span>
+            </div>
           </div>
-        </div>
-        <div className="mt-10 flex">
-          <SidebarFilter />
-          <div className="flex-1">
-            <div className="grid auto-cols-auto grid-cols-4 gap-x-4 gap-y-9 text-white">
-              {product.data &&
-                product?.data.map((item: any, index: number) => (
-                  <CPDefault
-                    idProduct={item.id}
-                    idSubProduct={item.items[0].id}
-                    key={index}
-                    src={item.items[0].media[0].filePath}
-                    alt={item.items[0].media[0].fileName}
-                    colorTip={item.items[0].color.colorValue}
-                    colorName={item.items[0].color.colorName}
-                    gender={item.category.gender}
-                    size={item.items[0].size.sizeName}
-                    productName={item.name}
-                    price={item.items[0].price}
-                  />
-                ))}
+          <div className="mt-10 flex">
+            <SidebarFilter />
+            <div className="flex-1">
+              <div className="grid auto-cols-auto grid-cols-4 gap-x-4 gap-y-9 text-white">
+                {product.data &&
+                  product?.data.map((item: any, index: number) => (
+                    <CPDefault
+                      idProduct={item.id}
+                      idSubProduct={item.items[0].id}
+                      key={index}
+                      src={item.items[0].media[0].filePath}
+                      alt={item.items[0].media[0].fileName}
+                      colorTip={item.items[0].color.colorValue}
+                      colorName={item.items[0].color.colorName}
+                      gender={item.category.gender}
+                      size={item.items[0].size.sizeName}
+                      productName={item.name}
+                      price={item.items[0].price}
+                    />
+                  ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </WrapperPage>
+      </WrapperPage>
+    </FilterProvider>
   );
 };
 
 const SidebarFilter = () => {
   const { genderType } = useParams();
-  const { pathname } = useLocation();
-  const [expandedCategorys, setExpandedCategorys] =
-    useState<Array<object>>(FILTER);
+  console.log("TCL: SidebarFilter -> genderType", genderType);
+  const [filter, setFilter] = useState<any>([]);
 
-  const handleClickFilter = (clickCategory: any) => {
-    const newCategory = expandedCategorys.map((item: any) => {
-      if (item.category === clickCategory) {
-        // Thay đổi trạng thái của item được click
-        return { ...item, isExpanded: !item.isExpanded };
-      } else {
-        // Đóng tất cả các item khác
-        return { ...item, isExpanded: false };
-      }
-    });
-    setExpandedCategorys(newCategory);
-  };
-  const updateExpandedCategorys = (pathname: string) => {
-    setExpandedCategorys((prevCategorys: any) => {
-      return prevCategorys.map((category: any) => {
-        if (
-          category.productType.some((product: any) => product.path === pathname)
-        )
-          return { ...category, isExpanded: true };
-        else return { ...category, isExpanded: false };
-      });
-    });
-  };
+  const { filterMale, filterFemale } = useContext(FilterContext);
+
   useEffect(() => {
-    updateExpandedCategorys(pathname);
-  }, [pathname]);
+    genderType === "male" ? setFilter(filterMale) : setFilter(filterFemale);
+  }, [filterFemale, filterMale, genderType]);
+
+  console.log(filter);
 
   return (
     <div>
@@ -129,61 +137,31 @@ const SidebarFilter = () => {
             {genderType?.toUpperCase()}
           </span>
           <div className="mt-7">
-            <ul className="w-full">
-              {expandedCategorys.map((item: any, index: number) => (
-                <li key={index}>
-                  <p
-                    className="flex w-full cursor-pointer items-center justify-between px-1 py-2 filter"
-                    onClick={() => handleClickFilter(item.category)}
+            <ul>
+              {filter &&
+                filter.map((item: any, index: number) => (
+                  <li
+                    className="transition-al cursor-pointer rounded-sm text-sm hover:bg-[#303030]"
+                    key={index}
                   >
-                    <span
-                      className={classNames(
-                        "text-xl",
-                        item.isExpanded
-                          ? "font-bold text-white"
-                          : "text-[#8E94A3]"
-                      )}
+                    <NavLink
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        display: "block",
+                        padding: "8px 20px",
+                      }}
+                      to={item.to}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-green font-bold"
+                          : "font-normal text-[#8E94A3]"
+                      }
                     >
-                      {item.category}
-                    </span>
-                    <i
-                      className={classNames(
-                        "transition-all duration-500",
-                        item.isExpanded ? "rotate-180" : "rotate-0"
-                      )}
-                    >
-                      <IconArrowDown />
-                    </i>
-                  </p>
-                  {item.isExpanded && (
-                    <ul key={index}>
-                      {item.productType.map((product: any, index: number) => (
-                        <li
-                          className="transition-al cursor-pointer rounded-sm text-sm hover:bg-[#303030]"
-                          key={index}
-                        >
-                          <NavLink
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              display: "block",
-                              padding: "8px 20px",
-                            }}
-                            to={product.path}
-                            className={({ isActive }) =>
-                              isActive
-                                ? "text-green font-bold"
-                                : "font-normal text-[#8E94A3]"
-                            }
-                          >
-                            {product.productName}
-                          </NavLink>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
+                      {item.name}
+                    </NavLink>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

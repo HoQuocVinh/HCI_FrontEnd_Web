@@ -16,6 +16,8 @@ const TABLE_HEAD = [
   "Remove",
 ];
 
+
+
 const LIST_PRODUCT_MALE = [
   {
     src: "https://i.pinimg.com/originals/29/f1/33/29f1332d776bcfe5c68b1dd11991efd2.jpg",

@@ -23,7 +23,7 @@ const Navigation = () => {
       heading: "Gender",
       items: [
         { title: "Male", to: "/gender/male" },
-        { title: "Female", to: "/gender/femeale" },
+        { title: "Female", to: "/gender/female" },
       ],
     },
     {
