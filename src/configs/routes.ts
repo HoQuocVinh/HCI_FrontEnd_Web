@@ -1,6 +1,7 @@
 const routes = {
   home: "/",
-  style: "style/:styleType",
+  style: "style/:styleName/:styleId?",
+  collection: "/collection/:collectionName/:collectionId?",
   gender: "gender/:genderType",
   product: "gender/:genderType/:productName/:productId?",
   productDetail: "/product/:productId/subproduct/:subProductId",

@@ -2,22 +2,23 @@ import axios from "api/axios";
 import CPDefault from "components/card/CPDefault";
 import { useTheme } from "components/context/ThemeProvider";
 import { IconHome } from "components/icon/Icon";
-import { Fragment, useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import WrapperPage from "components/wrapper/WrapperPage";
+import React, { Fragment, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const StylePage = () => {
+const CollectionPage = () => {
   const { setTheme } = useTheme();
-  const { styleId, styleName } = useParams();
-  const [style, setStyle] = useState<any>([]);
-  const [productStyle, setProductStyle] = useState<any>([]);
+  const { collectionId, collectionName } = useParams();
+
+  const [collection, setCollection] = useState<any>([]);
+  const [productCollection, setProductCollection] = useState<any>([]);
 
   useEffect(() => {
     setTheme("secondary");
   }, [setTheme]);
-  const location = useLocation();
 
   useEffect(() => {
-    function fetchProductInStyle(props: string, value: string) {
+    function fetchProductInCollection(props: string, value: string) {
       const request = {
         orders: [],
         filter: [
@@ -34,12 +35,14 @@ const StylePage = () => {
       axios
         .post("product", request)
         .then((response) => {
+          console.log("TCL: fetchProductInStyle -> response", response);
           const { result } = response.data;
-          setProductStyle(result);
+          setProductCollection(result);
         })
         .catch((error) => console.log(error));
     }
-    function fetchStyleById(id: string) {
+
+    function fetchCollectionById(id: string) {
       const request = {
         orders: [],
         filter: [
@@ -54,26 +57,28 @@ const StylePage = () => {
         pageNumber: 1,
       };
       axios
-        .post("product/style", request)
+        .post("product/collection", request)
         .then((response) => {
           const { result } = response.data;
-          setStyle(result);
+          console.log("TCL: fetchStyleById -> result", result);
+          setCollection(result);
         })
         .catch((error) => console.log(error));
     }
-    styleId && fetchStyleById(styleId);
+
+    collectionId && fetchCollectionById(collectionId);
     const handleProductStyle = setTimeout(() => {
-      styleId && fetchProductInStyle("style.id", styleId);
+      collectionId && fetchProductInCollection("collection.id", collectionId);
     }, 1000);
     return () => clearTimeout(handleProductStyle);
-  }, [styleId]);
+  }, []);
 
-  console.log(productStyle);
+  console.log(productCollection);
 
   return (
     <Fragment>
       <img
-        src={style.data && style.data[0].mediaLink}
+        src={collection.data && collection.data[0].mediaLink}
         alt=""
         className="h-screen w-full object-cover"
       />
@@ -84,12 +89,12 @@ const StylePage = () => {
             <IconHome />
           </i>
           <p className="ml-1 text-lg leading-none text-white">
-            {`style/${styleName}`}
+            {`style/${collectionName}`}
           </p>
         </div>
-        <div className="mt-5 mb-20 grid grid-flow-row grid-cols-5 gap-10 text-white">
-          {productStyle.data &&
-            productStyle.data.map((item: any, index: number) => (
+        <div className="mt-5 grid grid-flow-row grid-cols-5 gap-10 pb-20 text-white">
+          {productCollection.data &&
+            productCollection.data.map((item: any, index: number) => (
               <CPDefault
                 idProduct={item.id}
                 idSubProduct={item.items && item.items[0].id}
@@ -110,4 +115,4 @@ const StylePage = () => {
   );
 };
 
-export default StylePage;
+export default CollectionPage;

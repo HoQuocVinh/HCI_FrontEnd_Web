@@ -130,6 +130,24 @@ export const SectionProductInfo = () => {
 };
 
 export const Breadcrumb = () => {
+  const { productId, subProductId } = useParams();
+  console.log("TCL: Breadcrumb -> subProductId", subProductId);
+  console.log("TCL: Breadcrumb -> productId", productId);
+  const [product, setProduct] = useState<any>([]);
+  useEffect(() => {
+    function fetchData() {
+      axios
+        .get(`product/${productId}`)
+        .then((response) => {
+          console.log(response);
+          const { result } = response.data;
+          setProduct(result);
+        })
+        .catch((error) => console.log(error));
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="mt-5 mb-14 text-white">
       <ul className="">
@@ -139,16 +157,26 @@ export const Breadcrumb = () => {
           </Link>
         </li>
         <li className="inline">
-          <Link to="/gender/male">
-            <span>Male/</span>
+          <Link
+            to={
+              product.category &&
+              `/gender/${product.category.gender.toLowerCase()}`
+            }
+          >
+            <span>{product.category && product.category.gender}/</span>
           </Link>
         </li>
         <li className="inline">
-          <Link to="/gender/male/t-shirt">
-            <span>T-Shirt/</span>
+          <Link
+            to={
+              product.category &&
+              `/gender/${product.category.gender.toLowerCase()}/${product.category.name.toLowerCase()}`
+            }
+          >
+            <span>{product.category && product.category.name}/</span>
           </Link>
         </li>
-        <li className="inline">Áo Sơ Mi Oxford Ngắn Tay</li>
+        <li className="inline">{product.name}</li>
       </ul>
     </div>
   );

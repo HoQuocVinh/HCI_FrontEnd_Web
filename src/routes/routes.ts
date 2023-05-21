@@ -20,6 +20,7 @@ const EditProfilePage = lazy(() => import("pages/profile/EditProfilePage"));
 const ChangePasswordPage = lazy(
   () => import("pages/profile/ChangePasswordPage")
 );
+const CollectionPage = lazy(() => import("pages/CollectionPage"));
 
 //* Public routes
 const publicRoutes = [
@@ -28,6 +29,7 @@ const publicRoutes = [
   { path: config.routes.gender, component: GenderPage },
   { path: config.routes.product, component: ProductPage },
   { path: config.routes.productDetail, component: ProductDetailPage },
+  { path: config.routes.collection, component: CollectionPage },
 ];
 
 //* Profile routes

@@ -1,43 +1,93 @@
+import axios from "api/axios";
 import { IconArrowDown } from "components/icon/Icon";
-import React from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-const MENU_CHILD_ITEM = [
-  {
-    heading: "Style",
-    items: [
-      {
-        title: "Black and white",
-        to: "/style/black-and-white",
-      },
-    ],
-  },
-  {
-    heading: "Collection",
-    items: [
-      {
-        title: "Demo",
-        to: "/collection/demo",
-      },
-    ],
-  },
-  {
-    heading: "Gender",
-    items: [
-      { title: "Male", to: "/gender/male" },
-      { title: "Female", to: "/gender/femeale" },
-    ],
-  },
-  {
-    heading: "Age",
-    items: [
-      { title: "Teenager (13 - 19 years old)", to: "/age/teenager" },
-      { title: "Young adult (20 - 29 years old", to: "/age/young-adult" },
-      { title: "Adult (30 - 59 years old)", to: "/age/adult" },
-      { title: "Senior (60 years old and above)", to: "/age/senior" },
-    ],
-  },
-];
+
 const Navigation = () => {
+  const [collection, setCollection] = useState<any>([]);
+  const [style, setStyle] = useState<any>([]);
+  const [listCollection, setlistCollection] = useState<any>([]);
+  const [listStyle, setlistStyle] = useState<any>([]);
+
+  const MENU_CHILD_ITEM = [
+    {
+      heading: "Style",
+      items: listStyle,
+    },
+    {
+      heading: "Collection",
+      items: listCollection,
+    },
+    {
+      heading: "Gender",
+      items: [
+        { title: "Male", to: "/gender/male" },
+        { title: "Female", to: "/gender/femeale" },
+      ],
+    },
+    {
+      heading: "Age",
+      items: [
+        { title: "Teenager (13 - 19 years old)", to: "/age/teenager" },
+        { title: "Young adult (20 - 29 years old", to: "/age/young-adult" },
+        { title: "Adult (30 - 59 years old)", to: "/age/adult" },
+        { title: "Senior (60 years old and above)", to: "/age/senior" },
+      ],
+    },
+  ];
+
+  function fetchDataCollection() {
+    const response = {
+      orders: [],
+      filter: [],
+      size: 20,
+      totalElement: 0,
+      pageNumber: 1,
+    };
+    axios
+      .post("product/collection", response)
+      .then((response) => {
+        const { result } = response.data;
+        const newListCollection = result.data.map((element: any) => ({
+          title: element.name,
+          to: `collection/${element.name.toLowerCase().replace(/ /g, "-")}/${
+            element.id
+          }`,
+        }));
+        setlistCollection(newListCollection);
+      })
+      .catch((error) => console.log(error));
+  }
+
+  function fetchDataStyle() {
+    const response = {
+      orders: [],
+      filter: [],
+      size: 20,
+      totalElement: 0,
+      pageNumber: 1,
+    };
+    axios
+      .post("product/style", response)
+      .then((response) => {
+        const { result } = response.data;
+        const newListStyle = result.data.map((element: any) => ({
+          title: element.name,
+          to: `style/${element.name.toLowerCase().replace(/ /g, "-")}/${
+            element.id
+          }`,
+        }));
+        setlistStyle(newListStyle);
+      })
+      .catch((error) => console.log(error));
+  }
+
+  useEffect(() => {
+    fetchDataCollection();
+    fetchDataStyle();
+  }, []);
+
   return (
     <nav>
       <ul id="menu">

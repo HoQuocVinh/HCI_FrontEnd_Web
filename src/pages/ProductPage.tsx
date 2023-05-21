@@ -53,7 +53,7 @@ const ProductPage = () => {
       </ul>
       <div className="text-white">
         <div className="flex justify-between align-baseline">
-          <div className="result mb-2 flex flex-col mt-2">
+          <div className="result mb-2 mt-2 flex flex-col">
             <p className="text-lg font-bold">Result</p>
             <span className="text-xl">
               {product.page && product.page.totalElement}
@@ -63,7 +63,7 @@ const ProductPage = () => {
         <div className="mt-10 flex">
           <SidebarFilter />
           <div className="flex-1">
-            <div className="grid auto-cols-auto grid-cols-4 gap-x-4 gap-y-9">
+            <div className="grid auto-cols-auto grid-cols-4 gap-x-4 gap-y-9 text-white">
               {product.data &&
                 product?.data.map((item: any, index: number) => (
                   <CPDefault
