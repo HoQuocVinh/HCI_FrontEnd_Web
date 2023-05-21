@@ -19,12 +19,6 @@ const ProductPage = () => {
   }, [setTheme]);
 
   useEffect(() => {
-    const tag = productName && removeDashesAndCapitalize(productName);
-    const flag =
-      genderType === "female"
-        ? `'${tag}`
-        : productName && removeDashesAndCapitalize(productName);
-
     const dataRequest = {
       orders: [],
       filter: [
@@ -43,29 +37,8 @@ const ProductPage = () => {
       .post("product", dataRequest)
       .then((response) => {
         const { result } = response.data;
+        console.log("TCL: ProductPage -> result", result);
         setProduct(result);
-      })
-      .catch((error) => console.log(error));
-
-    const dataCategoryRequest = {
-      orders: [],
-      filter: [
-        {
-          props: "gender",
-          filterOperator: "Is Equal To",
-          value: genderType,
-        },
-      ],
-      size: 20,
-      totalElement: 0,
-      pageNumber: 1,
-    };
-    axios
-      .post("/product/category", dataCategoryRequest)
-      .then((response) => {
-        console.log(response);
-        const { result } = response.data;
-        const listCategory = result.data.forEach((item: any) => ({}));
       })
       .catch((error) => console.log(error));
   }, [productName]);
@@ -90,24 +63,30 @@ const ProductPage = () => {
           <div className="mt-10 flex">
             <SidebarFilter />
             <div className="flex-1">
-              <div className="grid auto-cols-auto grid-cols-4 gap-x-4 gap-y-9 text-white">
-                {product.data &&
-                  product?.data.map((item: any, index: number) => (
-                    <CPDefault
-                      idProduct={item.id}
-                      idSubProduct={item.items[0].id}
-                      key={index}
-                      src={item.items[0].media[0].filePath}
-                      alt={item.items[0].media[0].fileName}
-                      colorTip={item.items[0].color.colorValue}
-                      colorName={item.items[0].color.colorName}
-                      gender={item.category.gender}
-                      size={item.items[0].size.sizeName}
-                      productName={item.name}
-                      price={item.items[0].price}
-                    />
-                  ))}
-              </div>
+              {product.page && product.page.totalElement ? (
+                <div className="grid auto-cols-auto grid-cols-4 gap-x-4 gap-y-9 text-white">
+                  {product.data &&
+                    product?.data.map((item: any, index: number) => (
+                      <CPDefault
+                        idProduct={item.id}
+                        idSubProduct={item.items[0].id}
+                        key={index}
+                        src={item.items[0].media[0].filePath}
+                        alt={item.items[0].media[0].fileName}
+                        colorTip={item.items[0].color.colorValue}
+                        colorName={item.items[0].color.colorName}
+                        gender={item.category.gender}
+                        size={item.items[0].size.sizeName}
+                        productName={item.name}
+                        price={item.items[0].price}
+                      />
+                    ))}
+                </div>
+              ) : (
+                <div className="text-xl font-bold">
+                  There are currently no products in the selected section
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -118,7 +97,6 @@ const ProductPage = () => {
 
 const SidebarFilter = () => {
   const { genderType } = useParams();
-  console.log("TCL: SidebarFilter -> genderType", genderType);
   const [filter, setFilter] = useState<any>([]);
 
   const { filterMale, filterFemale } = useContext(FilterContext);
@@ -126,8 +104,6 @@ const SidebarFilter = () => {
   useEffect(() => {
     genderType === "male" ? setFilter(filterMale) : setFilter(filterFemale);
   }, [filterFemale, filterMale, genderType]);
-
-  console.log(filter);
 
   return (
     <div>

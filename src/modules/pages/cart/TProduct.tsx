@@ -19,7 +19,7 @@ const TProduct = () => {
   const { product, handleRemoveProduct, handleRemoveProductNoToast, subTotal } =
     useContext(CartContext);
   const { isShow } = useSelector((state: any) => state.modal);
-  const { accessToken } = useSelector((state: any) => state.auth);
+  const { user, accessToken } = useSelector((state: any) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,7 +47,12 @@ const TProduct = () => {
       .then((response) => {
         console.log(response);
         const { data } = response;
-        if (data.result) {
+        if (!user.address) {
+          toast.warning("Please update your shipping address", {
+            autoClose: 500,
+          });
+          return navigate("/profile/edit");
+        } else if (data.result) {
           navigate("/checkout/complete");
           toast.success("Order successfully", { autoClose: 1000 });
           listOrder.map((item: any) =>
@@ -55,7 +60,6 @@ const TProduct = () => {
           );
         } else {
           toast.warning(data.message, { autoClose: 1000 });
-          navigate("/profile/edit");
         }
       })
       .catch((error) => console.log(error));

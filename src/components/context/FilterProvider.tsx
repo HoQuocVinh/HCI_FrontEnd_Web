@@ -6,7 +6,6 @@ export const FilterContext = createContext<any>(null);
 
 const FilterProvider = ({ children }: { children: ReactNode }) => {
   const { genderType } = useParams();
-  console.log("TCL: FilterProvider -> genderType", genderType);
   const [filterMale, setFilterMale] = useState<any>([]);
   const [filterFemale, setFilterFemale] = useState<any>([]);
   const requestMale = {
@@ -37,26 +36,21 @@ const FilterProvider = ({ children }: { children: ReactNode }) => {
   };
 
   function fetchCategoryMale() {
-    axios
-      .post("product/category", requestMale)
-      .then((response) => {
-        console.log(response);
-        const { result } = response.data;
-        const flag = result.data.map((item: any) => ({
-          name: item.name,
-          to: `/gender/${genderType}/${item.name
-            .toLowerCase()
-            .replace(/ /g, "-")}`,
-        }));
-        setFilterMale(flag);
-      })
-      .catch((error) => console.log(error));
+    axios.post("product/category", requestMale).then((response) => {
+      const { result } = response.data;
+      const flag = result.data.map((item: any) => ({
+        name: item.name,
+        to: `/gender/${genderType}/${item.name
+          .toLowerCase()
+          .replace(/ /g, "-")}`,
+      }));
+      setFilterMale(flag);
+    });
   }
   function fetchCategoryFemale() {
     axios
       .post("product/category", requestFemale)
       .then((response) => {
-        console.log(response);
         const { result } = response.data;
         const flag = result.data.map((item: any) => ({
           name: item.name,
@@ -64,7 +58,6 @@ const FilterProvider = ({ children }: { children: ReactNode }) => {
             .toLowerCase()
             .replace(/ /g, "-")}`,
         }));
-        console.log("TCL: fetchCategoryFemale -> flag", flag);
         setFilterFemale(flag);
       })
       .catch((error) => console.log(error));
