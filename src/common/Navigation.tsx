@@ -26,15 +26,6 @@ const Navigation = () => {
         { title: "Female", to: "/gender/female" },
       ],
     },
-    {
-      heading: "Age",
-      items: [
-        { title: "Teenager (13 - 19 years old)", to: "/age/teenager" },
-        { title: "Young adult (20 - 29 years old", to: "/age/young-adult" },
-        { title: "Adult (30 - 59 years old)", to: "/age/adult" },
-        { title: "Senior (60 years old and above)", to: "/age/senior" },
-      ],
-    },
   ];
 
   function fetchDataCollection() {
