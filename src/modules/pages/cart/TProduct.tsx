@@ -98,7 +98,7 @@ const TProduct = () => {
           You currently have no items in your shopping cart.
         </div>
       ) : (
-        <form className="bg-white">
+        <form>
           <Table>
             <Table.Head>
               <Table.Row>
@@ -146,7 +146,7 @@ const TProduct = () => {
                   </Table.Cell>
                   <Table.Cell className="text-xl text-red-500">
                     <Common.Price
-                      color="text-red-500"
+                      color="text-green-500"
                       price={
                         productChild?.product.price * productChild?.quantity
                       }
@@ -176,9 +176,9 @@ const TProduct = () => {
                   className="pr-10 text-right"
                   colSpan={TABLE_HEAD.length}
                 >
-                  Subtotal:{" "}
+                  Total:{" "}
                   <Common.Price
-                    color="text-red-500"
+                    color="text-green-500"
                     // price={150000 * 3}
                     price={subTotal}
                     size="text-xl"

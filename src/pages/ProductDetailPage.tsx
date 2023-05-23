@@ -180,7 +180,9 @@ export const ProductDetailSummary = (props: TProductDetailSummary) => {
             currency: "VND",
           })}
         </span>
-        <p className="mt-10 mb-6 text-[#B1B5C4]">{product.description}</p>
+        <p className="mt-10 mb-6 whitespace-pre-wrap text-[#B1B5C4]">
+          {product.description}
+        </p>
         <hr className="mb-5 border-[#B1B5C4]" />
         <div>
           <p className="font-bold">Color: {subProduct[0]?.color.colorName}</p>

@@ -80,7 +80,7 @@ const Counter = ({
         type="text"
         value={count}
         onChange={handleChangeValue}
-        className="w-10 border-x border-x-[#e5e5e5] text-center outline-none"
+        className="w-10 border-x border-x-[#e5e5e5] bg-transparent text-center outline-none"
       />
       <button type="button" className="p-1" onClick={handleIncrement}>
         <IconPlus />
