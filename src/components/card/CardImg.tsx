@@ -32,7 +32,7 @@ const CardImg = ({ src, alt, ...props }: ListPropImgSlide) => {
             <div className="mt-1 flex items-center gap-3">
               <span>Color</span>
               <div
-                className="h-5 w-5 rounded-full"
+                className="h-5 w-5 rounded-full border-2 border-white"
                 style={{ backgroundColor: props.bgColor }}
               ></div>
             </div>
