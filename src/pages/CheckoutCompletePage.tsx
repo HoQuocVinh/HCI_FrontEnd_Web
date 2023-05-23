@@ -72,15 +72,7 @@ const CheckoutCompletePage = () => {
         </div>
         <Wrapper.Square>
           <span className="font-bold uppercase">Total Orders</span>
-          <div className="py-7">
-            <button className="w-[220px] rounded-md bg-blue-500 py-2 px-1 transition-all hover:bg-blue-600">
-              In total order
-            </button>
-            <button className="ml-5 w-[220px] rounded-md bg-blue-500 py-2 px-1 transition-all hover:bg-blue-600">
-              Order history
-            </button>
-          </div>
-          <table className="w-full">
+          <table className="w-full mt-2">
             <tbody>
               <tr className="flex items-center justify-between pb-3">
                 <td>Total</td>

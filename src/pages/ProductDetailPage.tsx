@@ -131,6 +131,8 @@ export const ProductDetailSummary = (props: TProductDetailSummary) => {
     const priceElem = document.getElementById("price") as any;
     const priceStr = priceElem?.innerText?.replace(/\D/g, "");
     const newPrice = parseInt(priceStr) * newAmount;
+    console.log("TCL: onSubmit -> newPrice", newPrice);
+    console.log("TCL: onSubmit -> newAmount", newAmount);
     if (user && accessToken) {
       const result = {
         subProductId,
@@ -138,7 +140,7 @@ export const ProductDetailSummary = (props: TProductDetailSummary) => {
         quantity: newAmount,
       };
       setQuantity(newAmount);
-      setPrice(newAmount * newPrice);
+      setPrice(newPrice);
       axios
         .post("cart/add-product", result, {
           headers: {
