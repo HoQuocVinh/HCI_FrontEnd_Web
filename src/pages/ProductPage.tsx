@@ -64,7 +64,7 @@ const ProductPage = () => {
             <SidebarFilter />
             <div className="flex-1">
               {product.page && product.page.totalElement > 0 && (
-                <p className="mb-4 text-lg font-bold">
+                <p className="mb-4 text-lg font-bold text-[rgba(0,_0,_0,_0.8)]">
                   There are currently {product.page.totalElement} products
                 </p>
               )}

@@ -42,7 +42,7 @@ const Navigation = () => {
         const { result } = response.data;
         const newListCollection = result.data.map((element: any) => ({
           title: element.name,
-          to: `collection/${element.name.toLowerCase().replace(/ /g, "-")}/${
+          to: `/collection/${element.name.toLowerCase().replace(/ /g, "-")}/${
             element.id
           }`,
         }));
@@ -65,7 +65,7 @@ const Navigation = () => {
         const { result } = response.data;
         const newListStyle = result.data.map((element: any) => ({
           title: element.name,
-          to: `style/${element.name.toLowerCase().replace(/ /g, "-")}/${
+          to: `/style/${element.name.toLowerCase().replace(/ /g, "-")}/${
             element.id
           }`,
         }));
