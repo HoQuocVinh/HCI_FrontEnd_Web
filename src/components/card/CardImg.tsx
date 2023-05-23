@@ -1,9 +1,17 @@
 import Common from "components/common/Common";
 import { IconArrowR } from "components/icon/Icon";
+import { useState } from "react";
 import classNames from "utils/classNames";
 import { ListPropImgSlide } from "utils/listProps";
+import { boolean } from "yup";
 
 const CardImg = ({ src, alt, ...props }: ListPropImgSlide) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const handleImgLoad = () => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  };
   return (
     <div
       className={classNames(
@@ -12,7 +20,12 @@ const CardImg = ({ src, alt, ...props }: ListPropImgSlide) => {
       )}
     >
       <img
-        src={src}
+        onLoad={handleImgLoad}
+        src={
+          isLoading
+            ? "https://hackernoon.com/images/0*4Gzjgh9Y7Gu8KEtZ.gif"
+            : src
+        }
         alt={alt}
         className={classNames("h-full w-full object-cover", props.borderRadius)}
         onClick={props.onClick}

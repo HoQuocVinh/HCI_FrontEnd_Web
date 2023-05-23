@@ -1,15 +1,18 @@
 import axios from "api/axios";
 import CPDefault from "components/card/CPDefault";
+import CardImg from "components/card/CardImg";
 import { useTheme } from "components/context/ThemeProvider";
 import { IconHome } from "components/icon/Icon";
 import { Fragment, useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const StylePage = () => {
   const { setTheme } = useTheme();
   const { styleId, styleName } = useParams();
   const [style, setStyle] = useState<any>([]);
   const [productStyle, setProductStyle] = useState<any>([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTheme("secondary");
@@ -87,18 +90,35 @@ const StylePage = () => {
         <div className="mt-5 grid grid-flow-row grid-cols-5 gap-10 text-white">
           {productStyle.data &&
             productStyle.data.map((item: any, index: number) => (
-              <CPDefault
-                idProduct={item.id}
-                idSubProduct={item.items && item.items[0].id}
+              // <CPDefault
+              //   idProduct={item.id}
+              //   idSubProduct={item.items && item.items[0].id}
+              //   key={index}
+              //   src={item.items && item.items[0].media[0].filePath}
+              //   alt={""}
+              //   colorTip={item.items && item.items[0].color.colorValue}
+              //   colorName={item.items && item.items[0].color.colorName}
+              //   gender={item.category.gender}
+              //   size={item.items && item.items[0].size.sizeName}
+              //   productName={item.name}
+              //   price={item.items && item.items[0].price}
+              // />
+              <CardImg
                 key={index}
-                src={item.items && item.items[0].media[0].filePath}
-                alt={""}
-                colorTip={item.items && item.items[0].color.colorValue}
-                colorName={item.items && item.items[0].color.colorName}
-                gender={item.category.gender}
+                width="w-[230px]"
+                height="h-[300px]"
+                src={item.items[0].media && item.items[0].media[0].filePath}
+                alt=""
+                border
+                borderRadius="rounded-xl"
+                onClick={() =>
+                  item.items &&
+                  navigate(`/product/${item.id}/subproduct/${item.items[0].id}`)
+                }
                 size={item.items && item.items[0].size.sizeName}
-                productName={item.name}
                 price={item.items && item.items[0].price}
+                name={item.name}
+                bgColor={item.items && item.items[0].color.colorValue}
               />
             ))}
         </div>
