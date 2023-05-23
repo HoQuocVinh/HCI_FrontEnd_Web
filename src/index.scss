@@ -351,6 +351,15 @@
   }
 }
 
+.title__card-home {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
 // @layer choose-size {
 //   .wrapper__size:hover>div {
 //     background-color: white !important;

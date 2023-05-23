@@ -3,7 +3,6 @@ import { ReactNode } from "react";
 export interface INavigationItem {
   title: string;
 }
-
 export interface ListPropImg {
   width?: string;
   height?: string;
@@ -14,6 +13,22 @@ export interface ListPropImg {
   borderRadius?: string;
   border?: boolean;
   onClick?: () => void;
+}
+export interface ListPropImgSlide {
+  width?: string;
+  height?: string;
+  src?: string;
+  srcSet?: string;
+  full?: boolean;
+  alt?: string;
+  borderRadius?: string;
+  border?: boolean;
+  onClick?: () => void;
+  onClickButton?: () => void;
+  size?: string;
+  name?: string;
+  price: number;
+  bgColor?: string;
 }
 
 export interface LPButton {

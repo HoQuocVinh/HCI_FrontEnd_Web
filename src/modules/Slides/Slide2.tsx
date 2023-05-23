@@ -28,8 +28,6 @@ const Slide2 = () => {
     fetchData();
   }, []);
 
-  console.log(product.slice(0, 6));
-
   return (
     <div className="grid grid-cols-4 gap-y-10">
       {product.slice(0, 8).map((item: any, index: number) => (
@@ -45,6 +43,10 @@ const Slide2 = () => {
             item.items &&
             navigate(`product/${item.id}/subproduct/${item.items.id}`)
           }
+          size={item.items && item.items[0].size.sizeName}
+          price={item.items && item.items[0].price}
+          name={item.name}
+          bgColor={item.items && item.items[0].color.colorValue}
         />
       ))}
     </div>
