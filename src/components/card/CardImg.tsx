@@ -1,10 +1,12 @@
-import React from "react";
 import classNames from "utils/classNames";
 import { ListPropImg } from "utils/listProps";
 
 const CardImg = ({ src, alt, ...props }: ListPropImg) => {
   return (
-    <div className={classNames(props.border && "card-img", { ...props })}>
+    <div
+      className={classNames(props.border && "card-img", { ...props })}
+      onClick={props.onClick}
+    >
       <img
         src={src}
         alt={alt}

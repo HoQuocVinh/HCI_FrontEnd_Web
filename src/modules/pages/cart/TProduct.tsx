@@ -20,6 +20,7 @@ const TProduct = () => {
     useContext(CartContext);
   const { isShow } = useSelector((state: any) => state.modal);
   const { user, accessToken } = useSelector((state: any) => state.auth);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,8 +74,11 @@ const TProduct = () => {
     setListOrder(extractItems);
   }, [product]);
 
-  console.log("TCL: TProduct -> product", product);
-
+  const handleImgLoad = () => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  };
   return (
     <Fragment>
       <WModal
@@ -108,8 +112,15 @@ const TProduct = () => {
                 <Table.Row key={index}>
                   <Table.Cell>
                     <img
-                      src={productChild?.product?.media[0]?.media?.filePath}
+                      onLoad={handleImgLoad}
+                      src={
+                        isLoading
+                          ? "https://hackernoon.com/images/0*4Gzjgh9Y7Gu8KEtZ.gif"
+                          : productChild?.product?.media[0]?.media?.filePath
+                      }
+                      style={{ width: "84px", height: "84px" }}
                       alt=""
+                      className="object-cover"
                     />
                   </Table.Cell>
                   <Table.Cell>{productChild?.product?.name}</Table.Cell>

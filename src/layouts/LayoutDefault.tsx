@@ -19,9 +19,10 @@ const LayoutDefault = () => {
         </div>
       )}
       <Outlet />
-      {location.pathname === "/" || location.pathname === "/checkout" ? null : (
+      {/* {location.pathname === "/" || location.pathname === "/checkout" ? null : (
         <Footer />
-      )}
+      )} */}
+      <Footer />
     </div>
   );
 };

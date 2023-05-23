@@ -109,12 +109,12 @@ const Navigation = () => {
             </div>
           </div>
         </li>
-        <li className="menu__item">
+        {/* <li className="menu__item">
           <Link to="">News</Link>
         </li>
         <li className="menu__item">
           <Link to="">Contact</Link>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

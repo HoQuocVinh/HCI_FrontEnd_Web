@@ -5,7 +5,6 @@ import { Link, useMatch, useNavigate } from "react-router-dom";
 import Navigation from "common/Navigation";
 import {
   IconCart,
-  IconHeart,
   IconProfile,
   IconSignOut,
   IconUser,
@@ -36,7 +35,7 @@ const Header = () => {
           <Navigation />
         </div>
         <div className="flex items-center gap-8">
-          <SearchBar />
+          {/* <SearchBar /> */}
           {!user ? (
             <Tippy content="Sign in" offset={[0, 20]}>
               <Link to="/signin">
@@ -46,9 +45,6 @@ const Header = () => {
           ) : (
             <TPContextMenu />
           )}
-          <i>
-            <IconHeart />
-          </i>
           <Tippy content="Shopping">
             <i className="cursor-pointer" onClick={() => navigate("/cart")}>
               <IconCart />

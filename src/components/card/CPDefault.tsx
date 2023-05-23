@@ -1,18 +1,24 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { LPCPDefault } from "utils/listProps";
 
 const CPDefault = (props: LPCPDefault) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const handleImgLoad = () => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  };
   return (
-    <Link
-      // to={`/product/${props.productID}?colorCode=${props.colorName
-      //   .toLowerCase()
-      //   .replace(/\s+/g, "-")}&sizeCode=${props.size.split("-")[0]}`}
-      // className="flex flex-col"
-      to  = {`/product/${props.idProduct}/subproduct/${props.idSubProduct}`}
-    >
+    <Link to={`/product/${props.idProduct}/subproduct/${props.idSubProduct}`}>
       <img
+        onLoad={handleImgLoad}
         style={{ width: "220px", height: "220px", objectFit: "cover" }}
-        src={props.src}
+        src={
+          isLoading
+            ? "https://hackernoon.com/images/0*4Gzjgh9Y7Gu8KEtZ.gif"
+            : props.src
+        }
         alt={props.alt}
       />
       <ul className="mt-3 mb-4 flex items-center gap-1">

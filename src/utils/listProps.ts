@@ -13,6 +13,7 @@ export interface ListPropImg {
   alt?: string;
   borderRadius?: string;
   border?: boolean;
+  onClick?: () => void;
 }
 
 export interface LPButton {

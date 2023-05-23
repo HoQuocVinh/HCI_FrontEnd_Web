@@ -41,7 +41,6 @@ const ProductDetailPage = () => {
           <div className="flex items-start justify-between gap-20 text-white">
             <div className="flex flex-col">
               <Carousel />
-              {/* <SectionProductInfo /> */}
             </div>
             <ProductDetailSummary
               product={product}
@@ -54,79 +53,6 @@ const ProductDetailPage = () => {
     </ProductProvider>
   );
 };
-
-// export const SectionProductInfo = () => {
-//   const [showDivs, setShowDivs] = useState<any>({});
-//   const handleClick = (index: number) => {
-//     setShowDivs({ ...showDivs, [index]: !showDivs[index] });
-//   };
-//   return (
-//     <div className="mt-10 max-w-[673px] text-white">
-//       <p className="font-semibold uppercase">Describe</p>
-//       <hr className="mt-5 border-gray-100" />
-//       <div>
-//         <button
-//           className="flex w-full justify-between py-5"
-//           onClick={() => handleClick(1)}
-//         >
-//           Meterial
-//           <span>
-//             <IconArrowDown />
-//           </span>
-//         </button>
-//         {showDivs[1] && (
-//           <div className="px-5 pb-5">
-//             <p className="py-5">
-//               Bộ sưu tập Uniqlo U là thành quả của đội ngũ thiết kế quốc tế tận
-//               tâm và lành nghề có trụ sở tại Trung tâm Nghiên cứu và Phát triển
-//               Paris của chúng tôi do Giám đốc Nghệ thuật Christophe Lemaire đứng
-//               đầu.
-//             </p>
-//             <dl>
-//               <dt>- Vải Jersey được làm từ 100% cotton nén.</dt>
-//               <dt>- Áo thun cổ tròn, dáng rộng, trễ vai.</dt>
-//               <dt>HƯỚNG DẪN GIẶT</dt>
-//               <dt>- Thiết kế sọc rộng đậm với nhiều tông màu đa dạng.</dt>
-//             </dl>
-//           </div>
-//         )}
-//       </div>
-//       <hr className="border-gray-100" />
-//       <div>
-//         <button
-//           className="flex w-full justify-between py-5"
-//           onClick={() => handleClick(2)}
-//         >
-//           Overview
-//           <span>
-//             <IconArrowDown />
-//           </span>
-//         </button>
-//         {showDivs[2] && (
-//           <div className="px-5 pb-5">
-//             <div className="py-5">
-//               <span>Code 457714</span>
-//             </div>
-//             <p>
-//               Xin lưu ý mã số nhận diện của sản phẩm có thể có sự khác biệt, kể
-//               cả khi đó là cùng một mặt hàng.
-//             </p>
-//             <dl>
-//               <dt>VẢI</dt>
-//               <dt>100% Bông</dt>
-//               <dt>HƯỚNG DẪN GIẶT</dt>
-//               <dt>Giặt máy nước lạnh, Giặt khô</dt>
-//             </dl>
-//             <p>
-//               - Những hình ảnh sản phẩm có thể bao gồm Những màu không có sẵn.
-//             </p>
-//           </div>
-//         )}
-//       </div>
-//       <hr className="border-gray-100" />
-//     </div>
-//   );
-// };
 
 export const Breadcrumb = () => {
   const { productId, subProductId } = useParams();

@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
 import BDirection from "components/Button/BDirection";
 import { ProductContext } from "components/context/ProductProvider";
 import { IconArrowDown } from "components/icon/Icon";
+import { useContext, useEffect, useState } from "react";
 import classNames from "utils/classNames";
 
 export const Carousel = () => {

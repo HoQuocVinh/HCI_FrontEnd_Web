@@ -34,12 +34,18 @@ export const Category = () => {
   const navigate = useNavigate();
   const loading = useLoading();
   const { genderType } = useParams();
-  console.log("TCL: Category -> genderType", genderType);
   const [category, setCategory] = useState<Array<object>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleDirection = (prodcutType: string) => {
     const newProductType = prodcutType.toLowerCase().replace(/\s+/g, "-");
     navigate(`/gender/${genderType}/${newProductType}`);
+  };
+
+  const handleImgLoad = () => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
   };
 
   useEffect(() => {
@@ -81,15 +87,13 @@ export const Category = () => {
           {category.map((item: any, index: number) => (
             <figure className="cursor-pointer" key={index}>
               <img
-                onClick={() =>
-                  handleDirection(
-                    item.name
-                    // genderType === "female"
-                    //   ? item.name.replace(/'/g, "")
-                    //   : item.name
-                  )
+                onLoad={handleImgLoad}
+                onClick={() => handleDirection(item.name)}
+                src={
+                  isLoading
+                    ? "https://hackernoon.com/images/0*4Gzjgh9Y7Gu8KEtZ.gif"
+                    : item.mediaLink
                 }
-                src={item.mediaLink}
                 alt=""
                 loading="lazy"
                 className="rounded-md object-cover"

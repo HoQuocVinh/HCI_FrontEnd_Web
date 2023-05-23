@@ -62,10 +62,7 @@ const StylePage = () => {
         .catch((error) => console.log(error));
     }
     styleId && fetchStyleById(styleId);
-    const handleProductStyle = setTimeout(() => {
-      styleId && fetchProductInStyle("style.id", styleId);
-    }, 1000);
-    return () => clearTimeout(handleProductStyle);
+    styleId && fetchProductInStyle("style.id", styleId);
   }, [styleId]);
 
   console.log(productStyle);
@@ -87,7 +84,7 @@ const StylePage = () => {
             {`style/${styleName}`}
           </p>
         </div>
-        <div className="mt-5 mb-20 grid grid-flow-row grid-cols-5 gap-10 text-white">
+        <div className="mt-5 grid grid-flow-row grid-cols-5 gap-10 text-white">
           {productStyle.data &&
             productStyle.data.map((item: any, index: number) => (
               <CPDefault

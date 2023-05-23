@@ -38,15 +38,9 @@ const HomePage = () => {
           <SwiperSlide>
             <Slide2 />
           </SwiperSlide>
-          <SwiperSlide>
-            <Slide3 />
-          </SwiperSlide>
           {/* <SwiperSlide>
-          <Slide4 />
-        </SwiperSlide> */}
-          <SwiperSlide>
-            <Slide5 />
-          </SwiperSlide>
+            <Slide3 />
+          </SwiperSlide> */}
         </Swiper>
       </div>
       <ChatButton />

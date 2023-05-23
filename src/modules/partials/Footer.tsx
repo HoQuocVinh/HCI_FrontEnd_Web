@@ -1,62 +1,35 @@
-import { IconFB, IconIns, IconStart, IconYou } from "components/icon/Icon";
-import Img from "components/img/Img";
-import React from "react";
+import { IconFB, IconIns, IconYou } from "components/icon/Icon";
 import { useForm } from "react-hook-form";
 
 const Footer = () => {
   const { register, handleSubmit } = useForm();
   const onSubmit = (values: any) => console.log(values);
   return (
-    <div className="mx-36 mt-10">
-      <div className="flex items-center justify-between">
-        {Array(5)
-          .fill(0)
-          .map((item: any, index: number) => (
-            <figure className="flex flex-col items-center gap-y-4" key={index}>
-              <Img
-                src="https://images.unsplash.com/photo-1527736947477-2790e28f3443?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=462&q=80"
-                alt=""
-                width="w-[150px]"
-                height="h-[150px]"
-                borderRadius="rounded-full"
-              />
-              <div className="flex items-center justify-center gap-5">
-                {Array(3)
-                  .fill(0)
-                  .map((item: any, index: number) => (
-                    <i key={index}>
-                      <IconStart />
-                    </i>
-                  ))}
-              </div>
-              <figcaption className="text-xl font-bold text-white">
-                Alice Huber
-              </figcaption>
-            </figure>
-          ))}
-      </div>
-      <div className="mt-28 flex flex-row justify-between">
+    <div className="mt-10 bg-black bg-opacity-20 px-36">
+      <div className="mt-28 flex flex-row justify-between pt-7">
         <div>
-          <p className="text-xl font-bold text-white">Stay in the loop</p>
-          <p className="w-full max-w-[659px] pt-4 text-[#B1B1B1]">
-            Join our mailing list to update yourself with a fresh wave of
-            fashion, sales and even our limited products.
+          <p className="text-xl font-bold text-white">Company Information</p>
+          <p className="w-full max-w-[659px] text-[#B1B1B1]">
+            Palmo: Where Glamour and Sophistication Converge in Style
           </p>
-          <form
-            autoComplete="off"
-            onSubmit={handleSubmit(onSubmit)}
-            className="relative mt-9 w-full max-w-[600px] rounded-lg bg-white px-6 py-5"
-          >
-            <input
-              type="text"
-              placeholder="your_email@gmail.com"
-              className="w-full bg-transparent pr-32 outline-none placeholder:text-[#A5A5A5]"
-              {...register("email")}
-            />
-            <button className="absolute right-6 top-2/4 -translate-y-2/4 rounded-lg bg-[#1F094D] px-5 py-2 font-medium text-white">
-              Sign Up
-            </button>
-          </form>
+          <div className="mt-2 flex flex-col gap-y-2">
+            <dl className="text-white">
+              <dt className="font-bold">Address</dt>
+              <dd className="pl-3 text-white text-opacity-70">
+                01 Võ Văn Ngân, P. Linh Chiểu, Q. Thủ Đức, TP. Hồ Chí Minh
+              </dd>
+            </dl>
+            <dl className="text-white">
+              <dt className="font-bold">Phone Number</dt>
+              <dd className="pl-3 text-white text-opacity-70">0987654321</dd>
+            </dl>
+            <dl className="text-white">
+              <dt className="font-bold">Business Hours</dt>
+              <dd className="pl-3 text-white text-opacity-70">
+                Monday - Friday, 8:00 AM - 5:00 PM
+              </dd>
+            </dl>
+          </div>
         </div>
         <div className="w-full max-w-[350px] text-white">
           <p className="text-xl font-bold">Join Community</p>
@@ -91,7 +64,7 @@ const Footer = () => {
         </div>
       </div>
       <hr className="mt-8 border border-white border-opacity-10" />
-      <div className="flex items-center justify-between pt-8 pb-6 font-footer font-medium text-[#767676]">
+      <div className="font-footer flex items-center justify-between pt-8 pb-6 font-medium text-[#767676]">
         <p>C2022-2023 Palmo. Inc</p>
         <div className="flex items-center gap-16">
           <p>Privacy Policy</p>

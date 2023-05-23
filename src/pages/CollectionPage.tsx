@@ -67,10 +67,7 @@ const CollectionPage = () => {
     }
 
     collectionId && fetchCollectionById(collectionId);
-    const handleProductStyle = setTimeout(() => {
-      collectionId && fetchProductInCollection("collection.id", collectionId);
-    }, 1000);
-    return () => clearTimeout(handleProductStyle);
+    collectionId && fetchProductInCollection("collection.id", collectionId);
   }, []);
 
   console.log(productCollection);
@@ -92,7 +89,7 @@ const CollectionPage = () => {
             {`style/${collectionName}`}
           </p>
         </div>
-        <div className="mt-5 grid grid-flow-row grid-cols-5 gap-10 pb-20 text-white">
+        <div className="mt-5 grid grid-flow-row grid-cols-5 gap-10 text-white">
           {productCollection.data &&
             productCollection.data.map((item: any, index: number) => (
               <CPDefault
