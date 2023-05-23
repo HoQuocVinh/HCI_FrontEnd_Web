@@ -26,13 +26,13 @@ const Counter = ({
       .then((response) => {
         console.log(response);
         toast.success("Update successfully", { autoClose: 500 });
-        // return new Promise<void>((resolve) => {
-        //   // Thực hiện tác vụ và sau khi hoàn thành, gọi resolve()
-        //   setTimeout(() => {
-        //     resolve();
-        //     window.location.reload();
-        //   }, 1000); // Ví dụ đợi 3 giây
-        // });
+        return new Promise<void>((resolve) => {
+          // Thực hiện tác vụ và sau khi hoàn thành, gọi resolve()
+          setTimeout(() => {
+            resolve();
+            window.location.reload();
+          }, 1000); // Ví dụ đợi 3 giây
+        });
       })
       .catch((error) => console.log(error));
   }
