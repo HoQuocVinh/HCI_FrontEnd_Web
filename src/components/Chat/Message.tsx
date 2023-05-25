@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 const items = [
   { title: 'Size', data: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'] },
-  { title: 'Price', data: ['$10 - $20', '$20 - $50', '$50 - $100'] },
+  { title: 'Price', data: ['100000đ - 200000đ', '200000đ - 500000đ', '500000đ - 1000000đ'] },
   { title: 'Color', data: ['Blue', 'Green', 'Yellow', 'Red', 'Orange', 'Purple', 'Pink', 'Brown', 'Gray'] },
 ];
 
