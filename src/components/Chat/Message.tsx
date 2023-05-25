@@ -73,7 +73,7 @@ const renderMessage = (message: any, type: string, isSender: Boolean, handleChoi
                 <div className='flex flex-col items-center justify-center gap-1'>
                   <img src={e.mediaLink} alt='' className='h-[200px] w-[150px] object-contain' />
                   <span className='w-[200px] truncate text-left'>{e.title}</span>
-                  <span className='font-bold'>${e.price}</span>
+                  <span className='font-bold'>{e.price}đ</span>
                   <span
                     onClick={() => handleClickViewDetails(e.productId, e.subProductId)}
                     className='cursor-pointer select-none text-sm'>
